@@ -33,6 +33,7 @@ public class Main extends Application {
         primaryStage.show();
 
         LoginBox.display("Login");
+
     }
 
 
