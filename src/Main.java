@@ -17,7 +17,7 @@ public class Main extends Application {
         window = primaryStage;
         window.setTitle("Big Mood");
 
-        VBox leftMenu = new VBox();
+        VBox leftMenu = new VBox(15);
         Button moodButton = new Button("mood");
         Button userButton = new Button("users");
         leftMenu.getChildren().addAll(moodButton,userButton);
@@ -36,5 +36,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        System.out.println("test");
     }
 }
