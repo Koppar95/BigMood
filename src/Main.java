@@ -31,6 +31,8 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(mainLayout, 600, 550));
         primaryStage.show();
+
+        LoginBox.display("Login");
     }
 
 
