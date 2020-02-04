@@ -7,6 +7,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
+//HEJ JAG TESTAR LITE
 public class LoginBox {
 
     public static void display(String title){
