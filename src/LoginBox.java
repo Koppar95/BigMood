@@ -24,11 +24,11 @@ public class LoginBox {
 
         TextField userInput = new TextField();
         TextField passwordInput = new TextField();
-        userInput.setPrefWidth(10);
+        userInput.setMaxSize(200,5);
 
         Label passwordLabel = new Label();
         passwordLabel.setText("Password");
-        passwordInput.setPrefWidth(10);
+        passwordInput.setMaxSize(200,5);
 
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->window.close());
