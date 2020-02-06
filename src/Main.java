@@ -33,6 +33,7 @@ public class Main extends Application {
         primaryStage.show();
 
         LoginBox.display("Login");
+        Users user1 = new Users("Svensson.Karl@iCloud.com", "1234", "Karl");
 
     }
 
