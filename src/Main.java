@@ -102,6 +102,7 @@ public class Main extends Application {
         //originBtn.setText("Menu");
         Image image = new Image(getClass().getResourceAsStream("smallMenu.png"));
         originBtn.setGraphic(new ImageView(image));
+        originBtn.setAlignment(Pos.CENTER_LEFT);
         originBtn.setPrefWidth(100);
         originBtn.getStyleClass().add("custom-open-menu-button");
         HBox fileRoot = new HBox();
