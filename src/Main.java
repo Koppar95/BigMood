@@ -111,6 +111,13 @@ public class Main extends Application {
         menu.setStyle("-fx-background-color: #668B4E;");
         menu.setFillWidth(true);
 
+        VBox placeholder = new VBox();
+        placeholder.setSpacing(2);
+        placeholder.setStyle("-fx-background-color: transparent;");
+        placeholder.setFillWidth(true);
+        placeholder.setMinWidth(100);
+        mainLayout.setLeft(placeholder);
+
         // creating menu bar
         Button infoBtn = new Button("Info");
         infoBtn.setPrefWidth(100);
@@ -151,8 +158,6 @@ public class Main extends Application {
             }
         });
 
-
-            System.out.println("IGOT IN!!");
             infoBtn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent e) {
