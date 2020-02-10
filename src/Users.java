@@ -9,14 +9,17 @@ import org.bson.conversions.Bson;
 public class Users {
 
     String email;
-    String password;
+    int password;
     String name;
 
     public Users(String email, String password, String name){
         this.email = email;
-        this.password = password;
+        this.password = password.hashCode();
         this.name = name;
+    }
 
+    public boolean addToDB(Users toAdd){
+        boolean success;
         String uri = "mongodb+srv://admin:abcd@bigmood-1h8lf.mongodb.net/test?retryWrites=true&w=majority";
         MongoClientURI clientURI = new MongoClientURI(uri);
         MongoClient mongoClient = new MongoClient(clientURI);
@@ -35,8 +38,9 @@ public class Users {
         }
         else{
             AlertBox.display("Invalid Email", "User already exist");
+            return false;
         }
-
+        return true;
     }
 
     private boolean checkEmail(String email, MongoCollection usersCollection){
