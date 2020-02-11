@@ -70,6 +70,10 @@ public class Main extends Application {
             sadView.setEffect(glow);
         });
 
+        //Headline
+        Label moodHeadline = new Label("What's your Mood?");
+        moodHeadline.setAlignment(Pos.CENTER);
+
         //User comments
         TextField userComment = new TextField();
         Label userLabel = new Label("Comment:");
@@ -88,7 +92,7 @@ public class Main extends Application {
 
         BorderPane mainLayout = new BorderPane();
 
-        centerLayout.getChildren().addAll(emojis,comments);
+        centerLayout.getChildren().addAll(moodHeadline,emojis,comments);
         centerLayout.setAlignment(Pos.CENTER);
         mainLayout.setCenter(centerLayout);
 
