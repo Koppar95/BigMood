@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -36,40 +37,6 @@ public class Main extends Application {
 
         window.initStyle(StageStyle.TRANSPARENT);
 
-        //Smileys :)
-        Image happy = new Image("/happy.png");
-        Image sad = new Image("sad.png");
-        ImageView happyView = new ImageView(happy);
-        ImageView sadView = new ImageView(sad);
-
-        //Effect for smiley hoover
-        DropShadow shadow = new DropShadow();
-        Glow glow = new Glow();
-
-        //Mouse interaction with smileys
-        happyView.setOnMouseEntered(e -> {
-            happyView.setEffect(shadow);
-        });
-
-        happyView.setOnMouseExited(e -> {
-            happyView.setEffect(null);
-        });
-
-        happyView.setOnMouseClicked(e -> {
-            happyView.setEffect(glow);
-        });
-
-        sadView.setOnMouseEntered(e -> {
-            sadView.setEffect(shadow);
-        });
-
-        sadView.setOnMouseExited(e -> {
-            sadView.setEffect(null);
-        });
-
-        sadView.setOnMouseClicked(e -> {
-            sadView.setEffect(glow);
-        });
 
         String family = "Helvetica";
         double size = 40;
@@ -101,16 +68,24 @@ public class Main extends Application {
         comments.getChildren().addAll(userLabel,userComment);
         comments.setAlignment(Pos.CENTER);
 
+        Emoji happyEmoji = Emoji.makeHappyEmoji();
+        Emoji sadEmoji = Emoji.makeSadEmoji();
+
+        happyEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> sadEmoji.disableGlow());
+        sadEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> happyEmoji.disableGlow());
+
         HBox emojis = new HBox();
-        emojis.getChildren().addAll(happyView,sadView);
+        emojis.getChildren().addAll(happyEmoji,sadEmoji);
         emojis.setAlignment(Pos.CENTER);
+
+        Button submitMood = new Button("Submit Mood");
 
 
         VBox centerLayout = new VBox();
 
         BorderPane mainLayout = new BorderPane();
 
-        centerLayout.getChildren().addAll(textFlow,emojis,comments);
+        centerLayout.getChildren().addAll(textFlow,emojis,comments, submitMood);
         centerLayout.setAlignment(Pos.CENTER);
         mainLayout.setCenter(centerLayout);
 
