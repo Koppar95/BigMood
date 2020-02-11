@@ -2,8 +2,15 @@
   <library name="UndecoratorBis">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/.jar/UndecoratorBis.jar!/" />
+      <root url="file://$PROJECT_DIR$/MongoDB" />
+      <root url="file:///lib/jvm/java-13-openjdk/lib" />
     </CLASSES>
     <JAVADOC />
+    <NATIVE>
+      <root url="file:///lib/jvm/java-13-openjdk/lib" />
+    </NATIVE>
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/MongoDB" recursive="false" />
+    <jarDirectory url="file:///lib/jvm/java-13-openjdk/lib" recursive="false" />
   </library>
 </component>
