@@ -1,2 +1,9 @@
 # Default ignored files
 /workspace.xml
+/out/production/BigMood/AlertBox.class
+/out/production/BigMood/Controller.class
+/out/production/BigMood/LoginBox.class
+/out/production/BigMood/Main.class
+/out/production/BigMood/sample.fxml
+/out/production/BigMood/Users.class
+/.idea/

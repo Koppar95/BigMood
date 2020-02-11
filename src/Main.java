@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application {
-
+//TESTING
     Stage window;
 
     @Override
@@ -42,8 +42,9 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //LoginBox.display("Login");
-        RegisterBox.display("Register");
+        LoginBox.display("Login");
+        //Users user1 = new Users("Svensson.Karl@iCloud.com", "1234", "Karl");
+        System.out.println("Hej kalle");
     }
 
 
