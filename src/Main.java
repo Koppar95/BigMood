@@ -22,17 +22,9 @@ public class Main extends Application {
 
         window.initStyle(StageStyle.TRANSPARENT);
 
-
-        VBox leftMenu = new VBox(15);
-        Button moodButton = new Button("mood");
-        Button userButton = new Button("users");
-        leftMenu.getChildren().addAll(moodButton,userButton);
-
         VBox centerLayout = new VBox();
 
-
         BorderPane mainLayout = new BorderPane();
-        mainLayout.setLeft(leftMenu);
         mainLayout.setCenter(centerLayout);
 
         Undecorator undecorator = new Undecorator(window,mainLayout);

@@ -7,10 +7,7 @@
     <NATIVE>
       <root url="file:///Library/Java/javafx-sdk-11.0.2/lib" />
     </NATIVE>
-    <SOURCES>
-      <root url="file:///Library/Java/javafx-sdk-11.0.2/lib" />
-    </SOURCES>
+    <SOURCES />
     <jarDirectory url="file:///Library/Java/javafx-sdk-11.0.2/lib" recursive="false" />
-    <jarDirectory url="file:///Library/Java/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
   </library>
 </component>
