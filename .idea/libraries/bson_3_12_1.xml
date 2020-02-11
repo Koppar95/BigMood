@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bson-3.12.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MongoDB/bson-3.12.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
