@@ -45,6 +45,7 @@ public class Main extends Application {
         LoginBox.display("Login");
         //Users user1 = new Users("Svensson.Karl@iCloud.com", "1234", "Karl");
         System.out.println("Hej kalle");
+        System.out.println("Hej Samuel");
     }
 
 
