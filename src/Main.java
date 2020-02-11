@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,8 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.control.TextField;
-
-import java.awt.*;
 
 public class Main extends Application {
 //TESTING
@@ -72,7 +71,7 @@ public class Main extends Application {
 
         //Boxes for smileys and comments
         HBox comments = new HBox();
-        //comments.getChildren().addAll(userLabel,userComment);
+        comments.getChildren().addAll(userLabel,userComment);
         comments.setAlignment(Pos.CENTER);
 
         HBox emojis = new HBox();
