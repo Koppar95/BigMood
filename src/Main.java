@@ -25,7 +25,7 @@ public class Main extends Application {
         window = primaryStage;
         window.setTitle("Big Mood");
 
-        //Effect for smiley hoover
+        //Effect for smileys
         DropShadow shadow = new DropShadow();
         Glow glow = new Glow();
 
