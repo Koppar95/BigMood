@@ -29,7 +29,7 @@ public class RegisterBox {
 
         Stage window = new Stage();
         window.setMinWidth(50);
-        window.setMinHeight(200);
+        window.setMinHeight(250);
         window.initStyle(StageStyle.TRANSPARENT);
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -108,28 +108,25 @@ public class RegisterBox {
         TextField heightInput = new TextField();
         heightInput.setPromptText("Enter your height");
         heightInput.setMaxSize(200,5);
-        GridPane.setConstraints(heightInput,1,7);
+        GridPane.setConstraints(heightInput,1,8);
 
 
         Button registerButton = new Button("Register");
-        GridPane.setConstraints(registerButton, 0,8);
+        GridPane.setConstraints(registerButton, 1,10);
         registerButton.setOnAction(e-> {
             /*
             if (delegate != null) {
                 delegate.registerUser();
             }
              */
+            if(registerUser(userInput, passwordInput, nameInput, ageInput, heightInput)){
+                window.close();
 
-
-                    if(registerUser(userInput, passwordInput, nameInput, ageInput, heightInput)){
-                        window.close();
-                    }
-                    else{
-                        AlertBox.display("Error", "Something went wrong");
-                    }
-
-                }
-        );
+            }
+            else{
+                AlertBox.display("Error", "Something went wrong");
+            }
+        });
 ;
         grid.getChildren().addAll(
                 userLabel,userInput,passwordLabel,
@@ -142,7 +139,7 @@ public class RegisterBox {
 
         Undecorator undecorator = new Undecorator(window,grid);
         undecorator.getStylesheets().add("bmSkinTransparent.css");
-        undecorator.setMinSize(500,300);
+        undecorator.setMinSize(500,350);
 
         //layout.setStyle("-fx-background-color: linear-gradient(#E4EAA2, #9CD672);");
 

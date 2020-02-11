@@ -23,15 +23,8 @@ public class Users {
     }
 
     public boolean addToDB(){
-        /*
-        String uri = "mongodb+srv://admin:abcd@bigmood-1h8lf.mongodb.net/test?retryWrites=true&w=majority";
-        MongoClientURI clientURI = new MongoClientURI(uri);
-        MongoClient mongoClient = new MongoClient(clientURI);
-        MongoDatabase userDatabase = mongoClient.getDatabase("UsersDB");
-        MongoCollection usersCollection = userDatabase.getCollection("Users");
-        */
-        MongoDB conn = new MongoDB("UsersDB", "Users");
 
+        MongoDB conn = new MongoDB("UsersDB", "Users");
 
         System.out.println("Connected to DB");
 
