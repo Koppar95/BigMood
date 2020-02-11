@@ -15,11 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-<<<<<<< HEAD
 import javafx.scene.image.Image;
-=======
 import javafx.stage.StageStyle;
->>>>>>> alpha
 
 public class Main extends Application {
 //TESTING
@@ -30,20 +27,12 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         window = primaryStage;
         window.setTitle("Big Mood");
-        
+
         //Effect for smileys
         DropShadow shadow = new DropShadow();
         Glow glow = new Glow();
 
         window.initStyle(StageStyle.TRANSPARENT);
-
-
-
-        VBox leftMenu = new VBox(15);
-        Button moodButton = new Button("mood");
-        Button userButton = new Button("users");
-        leftMenu.getChildren().addAll(moodButton,userButton);
-
 
         Image happy = new Image("/happy.png");
         Image sad = new Image("sad.png");
@@ -93,9 +82,8 @@ public class Main extends Application {
         centerLayout.setAlignment(Pos.CENTER);
 
         BorderPane mainLayout = new BorderPane();
-        mainLayout.setLeft(leftMenu);
         mainLayout.setCenter(centerLayout);
-        mainLayout.setStyle("-fx-background-color: linear-gradient(#E4EAA2, #9CD672);");
+        //mainLayout.setStyle("-fx-background-color: linear-gradient(#E4EAA2, #9CD672);");
 
         Undecorator undecorator = new Undecorator(window,mainLayout);
         undecorator.getStylesheets().add("bmSkin.css");
