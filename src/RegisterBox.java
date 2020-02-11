@@ -131,7 +131,6 @@ public class RegisterBox {
                 }
         );
 ;
-        Scene layout = new Scene(grid, 400, 50);
         grid.getChildren().addAll(
                 userLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
@@ -142,7 +141,7 @@ public class RegisterBox {
         //layout.setAlignment(Pos.CENTER);
 
         Undecorator undecorator = new Undecorator(window,grid);
-        undecorator.getStylesheets().add("bmSkin.css");
+        undecorator.getStylesheets().add("bmSkinTransparent.css");
         undecorator.setMinSize(500,300);
 
         //layout.setStyle("-fx-background-color: linear-gradient(#E4EAA2, #9CD672);");

@@ -43,8 +43,11 @@ public class LoginBox {
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->window.close());
 
+        Button registerButton = new Button("Register");
+        registerButton.setOnAction(e->RegisterBox.display("Register"));
+
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(userLabel,userInput,passwordLabel,passwordInput,loginButton);
+        layout.getChildren().addAll(userLabel,userInput,passwordLabel,passwordInput,loginButton, registerButton);
         layout.setAlignment(Pos.CENTER);
 
         Undecorator undecorator = new Undecorator(window,layout);
