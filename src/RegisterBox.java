@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,7 @@ public class RegisterBox {
             System.exit(0);
         });
         window.resizableProperty().asObject().setValue(false);
+
         //GridPane for register
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10,10,10,10));
@@ -55,34 +57,44 @@ public class RegisterBox {
         GridPane.setConstraints(passwordLabel, 0,4);
 
         //Password Input
-        TextField passwordInput = new TextField();
+        PasswordField passwordInput = new PasswordField();
         passwordInput.setPromptText("Enter Password");
         GridPane.setConstraints(passwordInput, 1,4);
         passwordInput.setMaxSize(200,5);
 
+        //Password Label 2
+        Label passwordLabel2= new Label("Re-Enter Password:");
+        GridPane.setConstraints(passwordLabel2, 0,5);
+
+        //Password Input 2
+        PasswordField passwordInput2 = new PasswordField();
+        passwordInput.setPromptText("Re-Enter Password");
+        GridPane.setConstraints(passwordInput2, 1,5);
+        passwordInput.setMaxSize(200,5);
+
         //Name Label
         Label nameLabel = new Label("Name:");
-        GridPane.setConstraints(nameLabel, 0,5);
+        GridPane.setConstraints(nameLabel, 0,6);
 
         //Name Input
         TextField nameInput = new TextField();
         nameInput.setPromptText("Enter your Name");
         nameInput.setMaxSize(200,5);
-        GridPane.setConstraints(nameInput, 1,5);
+        GridPane.setConstraints(nameInput, 1,6);
 
         //Age Label
         Label ageLabel = new Label("Date of Birth:");
-        GridPane.setConstraints(ageLabel, 0,6);
+        GridPane.setConstraints(ageLabel, 0,7);
 
         //Age Input
         TextField ageInput = new TextField();
         ageInput.setPromptText("Enter your date of birth");
         ageInput.setMaxSize(200,5);
-        GridPane.setConstraints(ageInput, 1,6);
+        GridPane.setConstraints(ageInput, 1,7);
 
         //Height Label
         Label heightLabel = new Label("Height:");
-        GridPane.setConstraints(heightLabel, 0, 7);
+        GridPane.setConstraints(heightLabel, 0, 8);
 
         //Height Input
         TextField heightInput = new TextField();
@@ -107,7 +119,7 @@ public class RegisterBox {
         Scene layout = new Scene(grid, 400, 50);
         grid.getChildren().addAll(
                 userLabel,userInput,passwordLabel,
-                passwordInput, nameLabel, nameInput,
+                passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
                 ageLabel, ageInput, heightLabel,
                 heightInput,registerButton, instructionsLabel
         );
@@ -129,7 +141,7 @@ public class RegisterBox {
 
     }
 
-    private static boolean registerUser(TextField email, TextField password, TextField name, TextField DoF, TextField height){
+    private static boolean registerUser(TextField email, PasswordField password, TextField name, TextField DoF, TextField height){
         boolean added;
         int age = Integer.parseInt(DoF.getText());
         int h = Integer.parseInt(height.getText());
