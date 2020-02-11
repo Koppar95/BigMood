@@ -8,9 +8,9 @@ import org.bson.conversions.Bson;
 
 public class Users {
 
-    String email;
-    int password;
-    String name;
+    private String email;
+    private int password;
+    private String name;
 
     public Users(String email, String password, String name){
         this.email = email;
@@ -18,7 +18,7 @@ public class Users {
         this.name = name;
     }
 
-    public boolean addToDB(Users toAdd){
+    public boolean addToDB(){
         boolean success;
         String uri = "mongodb+srv://admin:abcd@bigmood-1h8lf.mongodb.net/test?retryWrites=true&w=majority";
         MongoClientURI clientURI = new MongoClientURI(uri);
@@ -27,7 +27,7 @@ public class Users {
         MongoCollection usersCollection = userDatabase.getCollection("Users");
 
         System.out.println("Connected to DB");
-//oush
+
         if(checkEmail(email, usersCollection)) {
 
             Document newUser = new Document("Email", email);
