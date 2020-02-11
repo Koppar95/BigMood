@@ -16,11 +16,11 @@ public class AlertBox {
         Label label = new Label();
         label.setText(message);
         Button approveButton = new Button("OK");
-        Button cancelButton = new Button("Cancel");
+        //Button cancelButton = new Button("Cancel");
         approveButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, approveButton, cancelButton);
+        layout.getChildren().addAll(label, approveButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);

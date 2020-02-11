@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application {
-//TESTING
+
     Stage window;
 
     @Override
@@ -42,7 +42,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        LoginBox.display("Login");
+        //LoginBox.display("Login");
+        RegisterBox.display("Register");
     }
 
 

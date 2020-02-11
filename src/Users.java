@@ -11,11 +11,15 @@ public class Users {
     private String email;
     private int password;
     private String name;
+    private int Dof;
+    private int height;
 
-    public Users(String email, String password, String name){
+    public Users(String email, String password, String name, int Dof, int height){
         this.email = email;
         this.password = password.hashCode();
         this.name = name;
+        this.Dof = Dof;
+        this.height = height;
     }
 
     public boolean addToDB(){
@@ -33,6 +37,8 @@ public class Users {
             Document newUser = new Document("Email", email);
             newUser.append("Password", password);
             newUser.append("Name", name);
+            newUser.append("Date Of Birth", Dof);
+            newUser.append("Height", height);
 
             usersCollection.insertOne(newUser);
         }
