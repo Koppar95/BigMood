@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.control.TextField;
@@ -71,8 +72,11 @@ public class Main extends Application {
         });
 
         //Headline
-        Label moodHeadline = new Label("What's your Mood?");
-        moodHeadline.setAlignment(Pos.CENTER);
+        Text moodHeadline = new Text ("What's your Mood?");
+        moodHeadline.setId("fancytext");
+
+        //Label moodHeadline = new Label("What's your Mood?");
+        //moodHeadline.setAlignment(Pos.CENTER);
 
         //User comments
         TextField userComment = new TextField();
