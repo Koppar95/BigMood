@@ -48,7 +48,7 @@ public class LoginBox {
         layout.setAlignment(Pos.CENTER);
 
         Undecorator undecorator = new Undecorator(window,layout);
-        undecorator.getStylesheets().add("bmSkin.css");
+        undecorator.getStylesheets().add("bmSkinTransparent.css");
 
 
         undecorator.setMinSize(500,300);
