@@ -27,7 +27,7 @@ public class Users {
         MongoCollection usersCollection = userDatabase.getCollection("Users");
 
         System.out.println("Connected to DB");
-
+//oush
         if(checkEmail(email, usersCollection)) {
 
             Document newUser = new Document("Email", email);
