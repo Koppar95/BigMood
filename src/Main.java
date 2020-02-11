@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.control.TextField;
@@ -71,12 +71,26 @@ public class Main extends Application {
             sadView.setEffect(glow);
         });
 
-        //Headline
-        Text moodHeadline = new Text ("What's your Mood?");
-        moodHeadline.setId("fancytext");
+        String family = "Helvetica";
+        double size = 40;
 
-        //Label moodHeadline = new Label("What's your Mood?");
-        //moodHeadline.setAlignment(Pos.CENTER);
+        TextFlow textFlow = new TextFlow();
+        textFlow.setLayoutX(40);
+        textFlow.setLayoutY(40);
+        Text text1 = new Text("How's ");
+        text1.setFont(Font.font(family, size));
+        text1.setFill(Color.RED);
+        text1.setStroke(Color.rgb(0,0,0,0.2));
+        Text text2 = new Text("Your");
+        text2.setFill(Color.ORANGE);
+        text2.setStroke(Color.rgb(0,0,0,0.2));
+        text2.setFont(Font.font(family, FontPosture.ITALIC, size));
+        Text text3 = new Text(" Mood?");
+        text3.setFill(Color.GREEN);
+        text3.setStroke(Color.rgb(0,0,0,0.2));
+        text3.setFont(Font.font(family, FontWeight.BOLD, size));
+        textFlow.getChildren().addAll(text1, text2, text3);
+        textFlow.setTextAlignment(TextAlignment.CENTER);
 
         //User comments
         TextField userComment = new TextField();
@@ -96,7 +110,7 @@ public class Main extends Application {
 
         BorderPane mainLayout = new BorderPane();
 
-        centerLayout.getChildren().addAll(moodHeadline,emojis,comments);
+        centerLayout.getChildren().addAll(textFlow,emojis,comments);
         centerLayout.setAlignment(Pos.CENTER);
         mainLayout.setCenter(centerLayout);
 
