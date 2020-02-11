@@ -17,7 +17,15 @@ import javafx.stage.StageStyle;
 
 public class RegisterBox {
 
+    public interface Delegate {
+        public void registerUser();
+        public void cancel();
+    }
+
+    public Delegate delegate;
+
     public static void display(String title){
+
 
         Stage window = new Stage();
         window.setMinWidth(50);
@@ -68,7 +76,7 @@ public class RegisterBox {
 
         //Password Input 2
         PasswordField passwordInput2 = new PasswordField();
-        passwordInput.setPromptText("Re-Enter Password");
+        passwordInput2.setPromptText("Re-Enter Password");
         GridPane.setConstraints(passwordInput2, 1,5);
         passwordInput.setMaxSize(200,5);
 
@@ -106,6 +114,13 @@ public class RegisterBox {
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 0,8);
         registerButton.setOnAction(e-> {
+            /*
+            if (delegate != null) {
+                delegate.registerUser();
+            }
+             */
+
+
                     if(registerUser(userInput, passwordInput, nameInput, ageInput, heightInput)){
                         window.close();
                     }

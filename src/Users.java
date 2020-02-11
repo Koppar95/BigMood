@@ -23,16 +23,19 @@ public class Users {
     }
 
     public boolean addToDB(){
-        boolean success;
+        /*
         String uri = "mongodb+srv://admin:abcd@bigmood-1h8lf.mongodb.net/test?retryWrites=true&w=majority";
         MongoClientURI clientURI = new MongoClientURI(uri);
         MongoClient mongoClient = new MongoClient(clientURI);
         MongoDatabase userDatabase = mongoClient.getDatabase("UsersDB");
         MongoCollection usersCollection = userDatabase.getCollection("Users");
+        */
+        MongoDB conn = new MongoDB("UsersDB", "Users");
+
 
         System.out.println("Connected to DB");
 
-        if(checkEmail(email, usersCollection)) {
+        if(conn.checkEmail(email)) {
 
             Document newUser = new Document("Email", email);
             newUser.append("Password", password);
@@ -40,7 +43,7 @@ public class Users {
             newUser.append("Date Of Birth", Dof);
             newUser.append("Height", height);
 
-            usersCollection.insertOne(newUser);
+            conn.addDoc(newUser);
         }
         else{
             AlertBox.display("Invalid Email", "User already exist");
