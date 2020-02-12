@@ -15,7 +15,6 @@ import javafx.stage.StageStyle;
 public class LoginBox {
 
     public static void display(String title){
-
         //Stage initialization
         Stage window = new Stage();
         window.setMinWidth(400);
@@ -58,6 +57,7 @@ public class LoginBox {
         buttonLayout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(userLabel,userInput,passwordLabel,passwordInput,buttonLayout);
         layout.setAlignment(Pos.CENTER);
+        //
 
         //Undecorator initialization
         Undecorator undecorator = new Undecorator(window,layout);

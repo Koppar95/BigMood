@@ -31,10 +31,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        //Visa LoginBox
+        LoginBox.display("Login");
+        //
+
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         window = primaryStage;
         window.setTitle("Big Mood");
-
         window.initStyle(StageStyle.TRANSPARENT);
 
 
@@ -174,10 +177,7 @@ public class Main extends Application {
 
         // MENU PART END
 
-        LoginBox.display("Login");
-        //Users user1 = new Users("Svensson.Karl@iCloud.com", "1234", "Karl");
-        System.out.println("Hej kalle");
-        System.out.println("Hej kalle 2");
+
     }
 
     // getters and setters to see if menu is open or not
