@@ -32,7 +32,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Visa LoginBox
-        LoginBox.display("Login");
+        LoginBox.display();
         //
 
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -99,7 +99,18 @@ public class Main extends Application {
             mainLayout.setCenter(mainStart);
         });
 
-        menu.getChildren().addAll(start,mood);
+        //Logout window button
+        Button logout = new Button("Logout");
+        logout.setPrefWidth(100);
+        logout.getStyleClass().add("custom-menu-button");
+        logout.setOnMouseClicked(e-> {
+            window.hide();
+            LoginBox.display();
+            mainLayout.setCenter(mainStart);
+            window.show();
+        });
+
+        menu.getChildren().addAll(start,mood,logout);
         VBox.setVgrow(mood, Priority.ALWAYS);
 
 

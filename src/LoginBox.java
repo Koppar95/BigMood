@@ -14,14 +14,14 @@ import javafx.stage.StageStyle;
 
 public class LoginBox {
 
-    public static void display(String title){
+    public static void display(){
         //Stage initialization
         Stage window = new Stage();
         window.setMinWidth(400);
         window.setMinHeight(200);
         window.initStyle(StageStyle.TRANSPARENT);
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("Login");
         window.setOnCloseRequest(e ->{
             System.exit(0);
         });
