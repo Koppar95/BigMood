@@ -7,12 +7,26 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class MoodWindow extends VBox {
 
     //Standar constuctor
     private MoodWindow(){
     }
 
+        public static String getCurrentTime() {
+
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            //get current date time with Date()
+            Date date = new Date();
+            return dateFormat.format(date);
+
+        }
 
 public static MoodWindow makeMoodWindow(){
 
@@ -39,17 +53,28 @@ public static MoodWindow makeMoodWindow(){
     textFlow.getChildren().addAll(text1, text2, text3);
     textFlow.setTextAlignment(TextAlignment.CENTER);
 
+    Emoji happyEmoji = Emoji.makeHappyEmoji();
+    Emoji sadEmoji = Emoji.makeSadEmoji();
 
     //User comments
     TextField userComment = new TextField();
+    Button submitMood = new Button("Submit Mood");
+    submitMood.setOnAction(e -> {
+        System.out.println("");
+        if(happyEmoji.isGlowing){
+            System.out.print("Mood: happy, ");
+        }else if (sadEmoji.isGlowing){
+                System.out.print("Mood: sad, ");
+        }
+
+        System.out.print("Comment: " + userComment.getText() + ", ");
+        System.out.print("Date & Time: " + getCurrentTime());
+    });
 
     //Boxes for smileys and comments
     HBox comments = new HBox();
     comments.getChildren().addAll(userComment);
     comments.setAlignment(Pos.CENTER);
-
-    Emoji happyEmoji = Emoji.makeHappyEmoji();
-    Emoji sadEmoji = Emoji.makeSadEmoji();
 
     happyEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> sadEmoji.disableGlow());
     sadEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> happyEmoji.disableGlow());
@@ -58,7 +83,7 @@ public static MoodWindow makeMoodWindow(){
     emojis.getChildren().addAll(happyEmoji,sadEmoji);
     emojis.setAlignment(Pos.CENTER);
 
-    Button submitMood = new Button("Submit Mood");
+
 
     mainMood.getChildren().addAll(textFlow, emojis, comments, submitMood);
     mainMood.setAlignment(Pos.CENTER);

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Emoji extends ImageView {
-    private boolean isGlowing;
+    public boolean isGlowing;
 
     private Emoji (Image image) {
         super(image);
