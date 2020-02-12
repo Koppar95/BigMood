@@ -1,5 +1,6 @@
 import insidefx.undecorator.Undecorator;
 import javafx.application.Platform;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RegisterBox {
@@ -31,7 +35,6 @@ public class RegisterBox {
         window.setMinWidth(50);
         window.setMinHeight(250);
         window.initStyle(StageStyle.TRANSPARENT);
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setOnCloseRequest(e ->{
@@ -110,24 +113,43 @@ public class RegisterBox {
         heightInput.setMaxSize(200,5);
         GridPane.setConstraints(heightInput,1,8);
 
-
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1,10);
+
+        /* Disable registerButton if TextFields are empty */
+        BooleanBinding booleanBinding = new BooleanBinding() {
+            {
+                super.bind(userInput.textProperty(),
+                        passwordInput.textProperty(),
+                        passwordInput2.textProperty(),
+                        nameInput.textProperty(),
+                        ageInput.textProperty(),
+                        heightInput.textProperty());
+            }
+            @Override
+            protected boolean computeValue() {
+                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || ageInput.getText().isEmpty() || heightInput.getText().isEmpty()) || !(passwordInput.getText().matches(passwordInput2.getText())));
+            }
+        };
+        registerButton.disableProperty().bind(booleanBinding);
+        /* Register the new user when pressing button */
         registerButton.setOnAction(e-> {
             /*
             if (delegate != null) {
                 delegate.registerUser();
             }
              */
-            if(registerUser(userInput, passwordInput, nameInput, ageInput, heightInput)){
-                window.close();
 
+            if(registerUser(userInput, passwordInput, nameInput, ageInput, heightInput)) {
+                window.close();
             }
-            else{
-                AlertBox.display("Error", "Something went wrong");
+            else {
+                     AlertBox.display("Error", "Something went wrong");
             }
         });
-;
+
+
+
         grid.getChildren().addAll(
                 userLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,

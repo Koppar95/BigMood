@@ -2,7 +2,12 @@ import com.mongodb.client.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.bson.Document;
-
+/*
+ * Class to handle connection to MongoDB
+ * param
+ *
+ *
+ */
 public class MongoDB {
     MongoCollection<Document> usersCollection;
     MongoDatabase userDatabase;
@@ -28,6 +33,8 @@ public class MongoDB {
     public void addDoc(Document toAdd){
         usersCollection.insertOne(toAdd);
     }
+
+
 
 
 
