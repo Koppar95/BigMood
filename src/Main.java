@@ -44,8 +44,6 @@ public class Main extends Application {
 
         BorderPane mainLayout = new BorderPane();
 
-        mainLayout.setCenter(mainMood);
-
         Undecorator undecorator = new Undecorator(window,mainLayout);
         undecorator.getStylesheets().add("bmSkin.css");
         Scene scene = new Scene(undecorator, 600,550);
@@ -59,7 +57,6 @@ public class Main extends Application {
 
         //main window button
         Button originBtn = new Button();
-        //originBtn.setText("Menu");
         Image image = new Image(getClass().getResourceAsStream("smallMenu.png"));
         originBtn.setGraphic(new ImageView(image));
         originBtn.setAlignment(Pos.CENTER_LEFT);
@@ -82,17 +79,24 @@ public class Main extends Application {
         mainLayout.setLeft(placeholder);
 
         // creating menu bar
-        Button infoBtn = new Button("Info");
-        infoBtn.setPrefWidth(100);
-        infoBtn.getStyleClass().add("custom-menu-button");
+        Button mood = new Button("Mood tracker");
+        mood.setPrefWidth(100);
+        mood.getStyleClass().add("custom-menu-button");
+
+        mood.setOnMouseClicked(e -> {
+            mainLayout.setCenter(mainMood);
+        });
+
         Button newBtn = new Button("New");
         newBtn.setPrefWidth(100);
         newBtn.getStyleClass().add("custom-menu-button");
         Button openBtn = new Button("Open");
         openBtn.setPrefWidth(100);
         openBtn.getStyleClass().add("custom-menu-button");
-        menu.getChildren().addAll(infoBtn, newBtn, openBtn);
-        VBox.setVgrow(infoBtn, Priority.ALWAYS);
+
+        menu.getChildren().addAll(mood, newBtn, openBtn);
+
+        VBox.setVgrow(mood, Priority.ALWAYS);
 
 
         originBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -119,7 +123,7 @@ public class Main extends Application {
                 }
             }
         });
-
+        /*
         infoBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -127,7 +131,7 @@ public class Main extends Application {
                     System.out.println("I wooooork");
                 }
             }
-        });
+        }); */
 
         // MENU PART END
 
