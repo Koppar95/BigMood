@@ -57,6 +57,16 @@ public class MongoDB {
         return false;
     }
 
+    public boolean updateIntValue(String key, String who, String valueToUpdate, Integer to) {
+        Document found = usersCollection.find(new Document(key, who)).first();
+        if (found != null){
+            Bson updatedValue = new Document(valueToUpdate, to);
+            Bson updateOperation = new Document("$set", updatedValue);
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
