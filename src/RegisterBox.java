@@ -18,7 +18,10 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/* Class for creating an RegisterBox
+ * Uses a GridPane to ask the user to input information
+ * Checks that all input is in correct format before registration to MongoDB
+ */
 public class RegisterBox {
 
     public interface Delegate {
@@ -41,7 +44,7 @@ public class RegisterBox {
         });
         window.resizableProperty().asObject().setValue(false);
 
-        //GridPane for register
+        //GridPane for registerWindow
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10,10,10,10));
         grid.setVgap(8);
@@ -49,7 +52,7 @@ public class RegisterBox {
 
         //Instructions
         Label instructionsLabel = new Label();
-        instructionsLabel.setText("Enter following to register");
+        instructionsLabel.setText("");
         GridPane.setConstraints(instructionsLabel,1,2);
 
         //Username Label
@@ -194,7 +197,7 @@ public class RegisterBox {
         window.setScene(scene);
         window.showAndWait();
     }
-
+    /* Creates a users object and register this user to the DB*/
     private static boolean registerUser(TextField username, PasswordField password, TextField name, LocalDate Dob, TextField height){
         String em = username.getText().toLowerCase();
         int h = Integer.parseInt(height.getText());

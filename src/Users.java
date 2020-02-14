@@ -20,6 +20,7 @@ public class Users {
         this.height = height;
     }
 
+    /* Creates a new connection do DB and creates a Bson document for that user and adds this to DB*/
     public boolean addToDB(){
 
         MongoDB conn = new MongoDB("UsersDB", "Users");
