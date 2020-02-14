@@ -31,7 +31,7 @@ public class RegisterBox {
     public static void display(String title){
 
         Stage window = new Stage();
-        window.setMinWidth(50);
+        window.setMinWidth(100);
         window.setMinHeight(250);
         window.initStyle(StageStyle.TRANSPARENT);
         window.initModality(Modality.APPLICATION_MODAL);
@@ -186,7 +186,7 @@ public class RegisterBox {
 
         Undecorator undecorator = new Undecorator(window,grid);
         undecorator.getStylesheets().add("bmSkinTransparent.css");
-        undecorator.setMinSize(500,350);
+        undecorator.setMinSize(520,350);
 
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
