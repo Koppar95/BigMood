@@ -11,14 +11,14 @@ public class Users {
     private String email;
     private int password;
     private String name;
-    private int Dof;
+    private int Dob;
     private int height;
 
-    public Users(String email, String password, String name, int Dof, int height){
+    public Users(String email, String password, String name, int Dob, int height){
         this.email = email;
         this.password = password.hashCode();
         this.name = name;
-        this.Dof = Dof;
+        this.Dob = Dob;
         this.height = height;
     }
 
@@ -33,7 +33,7 @@ public class Users {
             Document newUser = new Document("Email", email);
             newUser.append("Password", password);
             newUser.append("Name", name);
-            newUser.append("Date Of Birth", Dof);
+            newUser.append("Date Of Birth", Dob);
             newUser.append("Height", height);
 
             conn.addDoc(newUser);
