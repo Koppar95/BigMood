@@ -110,6 +110,21 @@ public class RegisterBox {
         heightInput.setMaxSize(200,5);
         GridPane.setConstraints(heightInput,1,8);
 
+        Label wrongHeight = new Label();
+        GridPane.setConstraints(wrongHeight, 2,8);
+        heightInput.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(s.matches("\\d+")){
+                    wrongHeight.setText("");
+                }
+                else{
+                    wrongHeight.setText("Enter height in cm");
+                    wrongHeight.setTextFill(Color.rgb(180, 30, 30));
+                }
+            }
+        });
+
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1,10);
 
@@ -141,7 +156,7 @@ public class RegisterBox {
             }
             @Override
             protected boolean computeValue() {
-                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || heightInput.getText().isEmpty()) || datePicker.getValue() == null || !(passwordInput.getText().matches(passwordInput2.getText())));
+                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || !heightInput.getText().matches("\\d+")) || datePicker.getValue() == null || !(passwordInput.getText().matches(passwordInput2.getText())));
             }
         };
         registerButton.disableProperty().bind(booleanBinding);
@@ -165,7 +180,7 @@ public class RegisterBox {
                 userLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
                 ageLabel, datePicker, heightLabel,
-                heightInput,registerButton, instructionsLabel, warningLabel
+                heightInput,registerButton, instructionsLabel, warningLabel, wrongHeight
         );
 
         Undecorator undecorator = new Undecorator(window,grid);
@@ -180,10 +195,9 @@ public class RegisterBox {
     }
 
     private static boolean registerUser(TextField email, PasswordField password, TextField name, LocalDate Dob, TextField height){
-        boolean added;
-        LocalDate age = Dob;
+        String em = email.getText().toLowerCase();
         int h = Integer.parseInt(height.getText());
-        Users u1 = new Users(email.getText(), password.getText(), name.getText(), age, h);
+        Users u1 = new Users(em, password.getText(), name.getText(), Dob, h);
         return u1.addToDB();
     }
 }
