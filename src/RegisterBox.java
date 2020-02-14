@@ -125,6 +125,7 @@ public class RegisterBox {
             }
         });
 
+
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1,10);
 
