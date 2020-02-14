@@ -21,6 +21,7 @@ public class LoginBox {
     };
 
     public static void display(){
+        MongoDB conn = new MongoDB("UsersDB","Users");
         //Stage initialization
         Stage window = new Stage();
         window.setMinWidth(400);
@@ -48,22 +49,34 @@ public class LoginBox {
         passwordInput.setMaxSize(200,5);
         //
 
+        //Error Label
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Color.rgb(180,30,30));
+
+        //
+
         //Buttons
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->{
-            MongoDB conn = new MongoDB("UsersDB","Users");
-            Document user = conn.getDocument("Email",userInput.getText());
+            Document user = conn.getDocument("Email",userInput.getText().toLowerCase());
             if(user !=null) {
-                String userEmail = user.get("Email").toString();
+                String userEmail = user.get("Email").toString().toLowerCase();
+                String userInputEmail = userInput.getText().toLowerCase();
+
+                int passwordInputHashed = passwordInput.getText().hashCode();
                 int userHashedPassword = user.getInteger("Password");
-                if(userEmail.equals(userInput.getText()) && userHashedPassword == passwordInput.getText().hashCode()){
+
+                if(userEmail.equals(userInputEmail) && userHashedPassword == passwordInputHashed){
+
                     //INLOGGNING GODTAGEN
                     window.close();
                     currentUser = user;
-                }else{
-                    //INLOGGNING EJ GODTAGEN
-                    System.out.println("Ej inloggad");
+                }else if(!(userEmail.equals(userInputEmail)) || !(userHashedPassword == passwordInputHashed)){
+                    errorLabel.setText("Fel användarnamn eller lösen");
                 }
+            }else{
+                    //Användarnamn ej registrerad
+                errorLabel.setText("Användare ej registrerad");
             }
         });
 
@@ -76,7 +89,7 @@ public class LoginBox {
         HBox buttonLayout = new HBox(10);
         buttonLayout.getChildren().addAll(loginButton,registerButton);
         buttonLayout.setAlignment(Pos.CENTER);
-        layout.getChildren().addAll(userLabel,userInput,passwordLabel,passwordInput,buttonLayout);
+        layout.getChildren().addAll(userLabel,userInput,passwordLabel,passwordInput,buttonLayout,errorLabel);
         layout.setAlignment(Pos.CENTER);
         //
 
