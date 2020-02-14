@@ -6,14 +6,14 @@ import java.time.LocalDate;
 
 public class Users {
 
-    private String email;
+    private String username;
     private int password;
     private String name;
     private LocalDate Dob;
     private int height;
 
-    public Users(String email, String password, String name, LocalDate Dob, int height){
-        this.email = email;
+    public Users(String username, String password, String name, LocalDate Dob, int height){
+        this.username = username;
         this.password = password.hashCode();
         this.name = name;
         this.Dob = Dob;
@@ -26,13 +26,13 @@ public class Users {
 
         System.out.println("Connected to DB");
 
-        if(conn.find("Email", email)) {
-            AlertBox.display("Invalid Email", "User already exist");
+        if(conn.find("Username", username)) {
+            AlertBox.display("Invalid Username", "User already exist");
             return false;
 
         }
         else{
-            Document newUser = new Document("Email", email);
+            Document newUser = new Document("Username", username);
             newUser.append("Password", password);
             newUser.append("Name", name);
             newUser.append("Date Of Birth", Dob);

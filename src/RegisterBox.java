@@ -53,12 +53,12 @@ public class RegisterBox {
         GridPane.setConstraints(instructionsLabel,1,2);
 
         //Username Label
-        Label userLabel = new Label("Email:");
+        Label userLabel = new Label("Username:");
         GridPane.setConstraints(userLabel, 0,3);
 
         //Username Input
         TextField userInput = new TextField();
-        userInput.setPromptText("Enter Email");
+        userInput.setPromptText("Enter Username");
         userInput.setMaxSize(200,5);
         GridPane.setConstraints(userInput,1,3);
 
@@ -110,6 +110,7 @@ public class RegisterBox {
         heightInput.setMaxSize(200,5);
         GridPane.setConstraints(heightInput,1,8);
 
+        /* Check correct input of height */
         Label wrongHeight = new Label();
         GridPane.setConstraints(wrongHeight, 2,8);
         heightInput.textProperty().addListener(new ChangeListener<String>() {
@@ -125,14 +126,12 @@ public class RegisterBox {
             }
         });
 
-
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1,10);
 
+        /* Check that passwords matches */
         Label warningLabel = new Label();
         GridPane.setConstraints(warningLabel, 2, 5);
-
-        /* Check that passwords matches */
         passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
@@ -161,6 +160,7 @@ public class RegisterBox {
             }
         };
         registerButton.disableProperty().bind(booleanBinding);
+
         /* Register the new user when pressing button */
         registerButton.setOnAction(e-> {
             /*
@@ -195,8 +195,8 @@ public class RegisterBox {
         window.showAndWait();
     }
 
-    private static boolean registerUser(TextField email, PasswordField password, TextField name, LocalDate Dob, TextField height){
-        String em = email.getText().toLowerCase();
+    private static boolean registerUser(TextField username, PasswordField password, TextField name, LocalDate Dob, TextField height){
+        String em = username.getText().toLowerCase();
         int h = Integer.parseInt(height.getText());
         Users u1 = new Users(em, password.getText(), name.getText(), Dob, h);
         return u1.addToDB();
