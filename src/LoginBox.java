@@ -67,7 +67,6 @@ public class LoginBox {
                 int userHashedPassword = user.getInteger("Password");
 
                 if(userEmail.equals(userInputEmail) && userHashedPassword == passwordInputHashed){
-
                     //INLOGGNING GODTAGEN
                     window.close();
                     currentUser = user;
