@@ -58,9 +58,9 @@ public class LoginBox {
         //Buttons
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->{
-            Document user = conn.getDocument("Email",userInput.getText().toLowerCase());
+            Document user = conn.getDocument("Username",userInput.getText().toLowerCase());
             if(user !=null) {
-                String userEmail = user.get("Email").toString().toLowerCase();
+                String userEmail = user.get("Username").toString().toLowerCase();
                 String userInputEmail = userInput.getText().toLowerCase();
 
                 int passwordInputHashed = passwordInput.getText().hashCode();
@@ -75,6 +75,7 @@ public class LoginBox {
                 }
             }else{
                     //Användarnamn ej registrerad
+
                 errorLabel.setText("Användare ej registrerad");
             }
         });
