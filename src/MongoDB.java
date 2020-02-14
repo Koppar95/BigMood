@@ -11,7 +11,7 @@ import org.bson.conversions.Bson;
  *
  */
 public class MongoDB {
-    MongoCollection<Document> usersCollection;
+    static MongoCollection<Document> usersCollection;
     MongoDatabase userDatabase;
 
     public MongoDB(String DB, String collection){
@@ -21,6 +21,7 @@ public class MongoDB {
         userDatabase = mongoClient.getDatabase(DB);
         usersCollection = userDatabase.getCollection(collection);
     }
+
 
     public boolean find(String key, String what){
         Document found = usersCollection.find(new Document(key, what)).first();
@@ -47,7 +48,7 @@ public class MongoDB {
         usersCollection.insertOne(toAdd);
     }
 
-    public boolean updateValue(String key, String who, String valueToUpdate, String to) {
+    public static boolean updateValue(String key, String who, String valueToUpdate, String to) {
         Document found = usersCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
@@ -57,7 +58,7 @@ public class MongoDB {
         return false;
     }
 
-    public boolean updateIntValue(String key, String who, String valueToUpdate, Integer to) {
+    public static boolean updateIntValue(String key, String who, String valueToUpdate, Integer to) {
         Document found = usersCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
