@@ -1,5 +1,8 @@
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,8 +30,26 @@ public class StartWindow extends VBox {
         textFlow.getChildren().addAll(text1);
         textFlow.setTextAlignment(TextAlignment.CENTER);
 
-        start.getChildren().addAll(textFlow);
-        start.setAlignment(Pos.TOP_CENTER);
+        HBox textBox = new HBox();
+        textBox.getChildren().add(textFlow);
+        textBox.setAlignment(Pos.TOP_CENTER);
+
+
+        //BANANA
+        Image banana = new Image("/pbjtime.gif");
+        ImageView pbjtime = new ImageView(banana);
+        HBox bananaBox = new HBox();
+        bananaBox.getChildren().add(pbjtime);
+        bananaBox.setAlignment(Pos.BOTTOM_CENTER);
+
+
+       VBox mainContent = new VBox();
+       mainContent.getChildren().addAll(textBox, bananaBox);
+       //mainContent.setAlignment(Pos.CENTER);
+
+
+        start.getChildren().addAll(textBox, bananaBox);
+        //start.setAlignment(Pos.CENTER);
 
         return start;
     }
