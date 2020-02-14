@@ -74,6 +74,7 @@ public static MoodWindow makeMoodWindow(){
 
     //User comments
     TextField userComment = new TextField();
+    userComment.setPromptText("Add a comment!");
     Button submitMood = new Button("Submit Mood");
 
     //Fixa till egen metod och metodanropp?

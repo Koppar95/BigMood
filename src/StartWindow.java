@@ -20,7 +20,7 @@ public class StartWindow extends VBox {
         TextFlow textFlow = new TextFlow();
         textFlow.setLayoutX(40);
         textFlow.setLayoutY(40);
-        Text text1 = new Text("Welcome " + LoginBox.currentUser.get("Name") + "!");
+        Text text1 = new Text("Welcome " + LoginBox.currentUser.get("Name").toString() + "!");
         text1.setFont(Font.font(family, size));
         text1.setFill(Color.DARKGREEN);
         text1.setStroke(Color.rgb(0,0,0,0.2));
