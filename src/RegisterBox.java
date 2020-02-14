@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +29,6 @@ public class RegisterBox {
     public Delegate delegate;
 
     public static void display(String title){
-
 
         Stage window = new Stage();
         window.setMinWidth(50);
@@ -96,11 +96,9 @@ public class RegisterBox {
         Label ageLabel = new Label("Date of Birth:");
         GridPane.setConstraints(ageLabel, 0,7);
 
-        //Age Input
-        TextField ageInput = new TextField();
-        ageInput.setPromptText("Enter your date of birth");
-        ageInput.setMaxSize(200,5);
-        GridPane.setConstraints(ageInput, 1,7);
+        //Date of birth choiceBox
+        DatePicker datePicker = new DatePicker();
+        GridPane.setConstraints(datePicker, 1,7);
 
         //Height Label
         Label heightLabel = new Label("Height:");
@@ -117,6 +115,7 @@ public class RegisterBox {
 
         Label warningLabel = new Label();
         GridPane.setConstraints(warningLabel, 2, 5);
+
         /* Check that passwords matches */
         passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -131,8 +130,6 @@ public class RegisterBox {
             }
         });
 
-
-
         /* Disable registerButton if TextFields are empty */
         BooleanBinding booleanBinding = new BooleanBinding() {
             {
@@ -140,15 +137,13 @@ public class RegisterBox {
                         passwordInput.textProperty(),
                         passwordInput2.textProperty(),
                         nameInput.textProperty(),
-                        ageInput.textProperty(),
                         heightInput.textProperty());
             }
             @Override
             protected boolean computeValue() {
-                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || ageInput.getText().isEmpty() || heightInput.getText().isEmpty()) || !(passwordInput.getText().matches(passwordInput2.getText())));
+                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || heightInput.getText().isEmpty()) || datePicker.getValue() == null || !(passwordInput.getText().matches(passwordInput2.getText())));
             }
         };
-
         registerButton.disableProperty().bind(booleanBinding);
         /* Register the new user when pressing button */
         registerButton.setOnAction(e-> {
@@ -158,7 +153,7 @@ public class RegisterBox {
             }
              */
 
-            if(registerUser(userInput, passwordInput, nameInput, ageInput, heightInput)) {
+            if(registerUser(userInput, passwordInput, nameInput, datePicker.getValue(), heightInput)) {
                 window.close();
             }
             else {
@@ -169,30 +164,24 @@ public class RegisterBox {
         grid.getChildren().addAll(
                 userLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
-                ageLabel, ageInput, heightLabel,
+                ageLabel, datePicker, heightLabel,
                 heightInput,registerButton, instructionsLabel, warningLabel
         );
-
-        //layout.setAlignment(Pos.CENTER);
 
         Undecorator undecorator = new Undecorator(window,grid);
         undecorator.getStylesheets().add("bmSkinTransparent.css");
         undecorator.setMinSize(500,350);
-
-        //layout.setStyle("-fx-background-color: linear-gradient(#E4EAA2, #9CD672);");
 
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
 
         window.setScene(scene);
         window.showAndWait();
-
-
     }
 
-    private static boolean registerUser(TextField email, PasswordField password, TextField name, TextField DoF, TextField height){
+    private static boolean registerUser(TextField email, PasswordField password, TextField name, LocalDate Dob, TextField height){
         boolean added;
-        int age = Integer.parseInt(DoF.getText());
+        LocalDate age = Dob;
         int h = Integer.parseInt(height.getText());
         Users u1 = new Users(email.getText(), password.getText(), name.getText(), age, h);
         return u1.addToDB();
