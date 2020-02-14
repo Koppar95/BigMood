@@ -40,8 +40,10 @@ public class Main extends Application {
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);
 
+        // CREATING WINDOWS
         VBox mainMood = MoodWindow.makeMoodWindow();
         VBox mainStart = StartWindow.makeStartWindow();
+        VBox mainProfile = ProfileWindow.makeProfileWindow();
 
         BorderPane mainLayout = new BorderPane();
 
@@ -99,6 +101,14 @@ public class Main extends Application {
             mainLayout.setCenter(mainStart);
         });
 
+        //Profile window button
+        Button profile = new Button("Edit Profile");
+        profile.setPrefWidth(100);
+        profile.getStyleClass().add("custom-menu-button");
+        profile.setOnMouseClicked(e-> {
+            mainLayout.setCenter(mainProfile);
+        });
+
         //Logout window button
         Button logout = new Button("Logout");
         logout.setPrefWidth(100);
@@ -110,7 +120,7 @@ public class Main extends Application {
             window.show();
         });
 
-        menu.getChildren().addAll(start,mood,logout);
+        menu.getChildren().addAll(start,mood,profile,logout);
         VBox.setVgrow(mood, Priority.ALWAYS);
 
 
