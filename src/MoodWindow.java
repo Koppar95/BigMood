@@ -19,13 +19,26 @@ public class MoodWindow extends VBox {
     }
 
         public static String getCurrentTime() {
-
-
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             //get current date time with Date()
             Date date = new Date();
             return dateFormat.format(date);
+        }
 
+        private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
+            System.out.println("");
+            if(happy.isGlowing){
+                System.out.print("Mood: happy, ");
+                happy.disableGlow();
+            }else if (sad.isGlowing){
+                System.out.print("Mood: sad, ");
+                sad.disableGlow();
+            }
+
+            System.out.print("Comment: " + userinput.getText() + ", ");
+            System.out.print("Date & Time: " + getCurrentTime());
+
+            userinput.clear();
         }
 
 public static MoodWindow makeMoodWindow(){
@@ -59,17 +72,9 @@ public static MoodWindow makeMoodWindow(){
     //User comments
     TextField userComment = new TextField();
     Button submitMood = new Button("Submit Mood");
-    submitMood.setOnAction(e -> {
-        System.out.println("");
-        if(happyEmoji.isGlowing){
-            System.out.print("Mood: happy, ");
-        }else if (sadEmoji.isGlowing){
-                System.out.print("Mood: sad, ");
-        }
 
-        System.out.print("Comment: " + userComment.getText() + ", ");
-        System.out.print("Date & Time: " + getCurrentTime());
-    });
+    //Fixa till egen metod och metodanropp?
+    submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
 
     //Boxes for smileys and comments
     HBox comments = new HBox();

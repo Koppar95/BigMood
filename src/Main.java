@@ -32,7 +32,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Visa LoginBox
-        LoginBox.display("Login");
+        LoginBox.display();
         //
 
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -41,8 +41,11 @@ public class Main extends Application {
         window.initStyle(StageStyle.TRANSPARENT);
 
         VBox mainMood = MoodWindow.makeMoodWindow();
+        VBox mainStart = StartWindow.makeStartWindow();
 
         BorderPane mainLayout = new BorderPane();
+
+        mainLayout.setCenter(mainStart);
 
         Undecorator undecorator = new Undecorator(window,mainLayout);
         undecorator.getStylesheets().add("bmSkin.css");
@@ -78,24 +81,36 @@ public class Main extends Application {
         placeholder.setMinWidth(100);
         mainLayout.setLeft(placeholder);
 
-        // creating menu bar
+        // Creating window buttons to menu!!!
+
+        //Mood window button
         Button mood = new Button("Mood tracker");
         mood.setPrefWidth(100);
         mood.getStyleClass().add("custom-menu-button");
-
         mood.setOnMouseClicked(e -> {
             mainLayout.setCenter(mainMood);
         });
 
-        Button newBtn = new Button("New");
-        newBtn.setPrefWidth(100);
-        newBtn.getStyleClass().add("custom-menu-button");
-        Button openBtn = new Button("Open");
-        openBtn.setPrefWidth(100);
-        openBtn.getStyleClass().add("custom-menu-button");
+        //Start window button
+        Button start = new Button("Start");
+        start.setPrefWidth(100);
+        start.getStyleClass().add("custom-menu-button");
+        start.setOnMouseClicked(e-> {
+            mainLayout.setCenter(mainStart);
+        });
 
-        menu.getChildren().addAll(mood, newBtn, openBtn);
+        //Logout window button
+        Button logout = new Button("Logout");
+        logout.setPrefWidth(100);
+        logout.getStyleClass().add("custom-menu-button");
+        logout.setOnMouseClicked(e-> {
+            window.hide();
+            LoginBox.display();
+            mainLayout.setCenter(mainStart);
+            window.show();
+        });
 
+        menu.getChildren().addAll(start,mood,logout);
         VBox.setVgrow(mood, Priority.ALWAYS);
 
 
