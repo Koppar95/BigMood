@@ -53,11 +53,10 @@ public class LoginBox {
         loginButton.setOnAction(e->{
             MongoDB conn = new MongoDB("UsersDB","Users");
             Document user = conn.getDocument("Email",userInput.getText());
-
             if(user !=null) {
                 String userEmail = user.get("Email").toString();
-
-                if(user.get("Email").equals(userInput.getText()) && (int)user.get("Password") == passwordInput.getText().hashCode()){
+                int userHashedPassword = user.getInteger("Password");
+                if(userEmail.equals(userInput.getText()) && userHashedPassword == passwordInput.getText().hashCode()){
                     //INLOGGNING GODTAGEN
                     window.close();
                     currentUser = user;
