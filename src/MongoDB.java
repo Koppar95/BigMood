@@ -25,12 +25,23 @@ public class MongoDB {
     public boolean find(String key, String what){
         Document found = usersCollection.find(new Document(key, what)).first();
         if(found != null){
-            return false;
-        }
-        else{
             return true;
         }
+        else{
+            return false;
+        }
     }
+
+    public Document getDocument(String key, String who){
+        Document found = usersCollection.find(new Document(key, who)).first();
+        if(found != null){
+            return found;
+        }
+        else{
+            return null;
+        }
+    }
+
 
     public void addDoc(Document toAdd){
         usersCollection.insertOne(toAdd);

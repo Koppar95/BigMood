@@ -28,6 +28,7 @@ import javafx.util.Duration;
 public class Main extends Application {
     boolean menuState = false;
     Stage window;
+    String currentUser;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -162,8 +163,12 @@ public class Main extends Application {
     }
 
 
+
+
     public static void main(String[] args) {
         launch(args);
         System.out.println("test");
     }
+
+
 }

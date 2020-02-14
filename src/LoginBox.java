@@ -11,8 +11,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.bson.Document;
 
 public class LoginBox {
+    public static Document currentUser;
+
+    public void LoginBox(){
+        this.currentUser=null;
+    };
 
     public static void display(){
         //Stage initialization
@@ -44,7 +50,23 @@ public class LoginBox {
 
         //Buttons
         Button loginButton = new Button("Login");
-        loginButton.setOnAction(e->window.close());
+        loginButton.setOnAction(e->{
+            MongoDB conn = new MongoDB("UsersDB","Users");
+            Document user = conn.getDocument("Email",userInput.getText());
+
+            if(user !=null) {
+                String userEmail = user.get("Email").toString();
+
+                if(user.get("Email").equals(userInput.getText()) && (int)user.get("Password") == passwordInput.getText().hashCode()){
+                    //INLOGGNING GODTAGEN
+                    window.close();
+                    currentUser = user;
+                }else{
+                    //INLOGGNING EJ GODTAGEN
+                    System.out.println("Ej inloggad");
+                }
+            }
+        });
 
         Button registerButton = new Button("Register");
         registerButton.setOnAction(e->RegisterBox.display("Register"));
@@ -71,4 +93,5 @@ public class LoginBox {
         window.showAndWait();
         //
     }
+
 }

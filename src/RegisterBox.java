@@ -117,7 +117,6 @@ public class RegisterBox {
 
         Label warningLabel = new Label();
         GridPane.setConstraints(warningLabel, 2, 5);
-
         /* Check that passwords matches */
         passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
