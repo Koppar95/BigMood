@@ -1,13 +1,12 @@
 import insidefx.undecorator.Undecorator;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -116,6 +115,25 @@ public class RegisterBox {
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1,10);
 
+        Label warningLabel = new Label();
+        GridPane.setConstraints(warningLabel, 2, 5);
+
+        /* Check that passwords matches */
+        passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if(!(passwordInput.getText().matches(passwordInput2.getText()))){
+                    warningLabel.setText("Passwords does not match");
+                    warningLabel.setTextFill(Color.rgb(180, 30, 30));
+                }
+                else{
+                    warningLabel.setText("");
+                }
+            }
+        });
+
+
+
         /* Disable registerButton if TextFields are empty */
         BooleanBinding booleanBinding = new BooleanBinding() {
             {
@@ -131,6 +149,7 @@ public class RegisterBox {
                 return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || ageInput.getText().isEmpty() || heightInput.getText().isEmpty()) || !(passwordInput.getText().matches(passwordInput2.getText())));
             }
         };
+
         registerButton.disableProperty().bind(booleanBinding);
         /* Register the new user when pressing button */
         registerButton.setOnAction(e-> {
@@ -148,13 +167,11 @@ public class RegisterBox {
             }
         });
 
-
-
         grid.getChildren().addAll(
                 userLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
                 ageLabel, ageInput, heightLabel,
-                heightInput,registerButton, instructionsLabel
+                heightInput,registerButton, instructionsLabel, warningLabel
         );
 
         //layout.setAlignment(Pos.CENTER);

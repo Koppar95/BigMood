@@ -28,7 +28,7 @@ public class Users {
 
         System.out.println("Connected to DB");
 
-        if(conn.checkEmail(email)) {
+        if(conn.find("Email", email)) {
 
             Document newUser = new Document("Email", email);
             newUser.append("Password", password);
