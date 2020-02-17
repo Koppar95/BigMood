@@ -53,6 +53,8 @@ public class MongoDB {
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
             Bson updateOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found,updateOperation);
+            System.out.println("Updated the database");
             return true;
         }
         return false;
@@ -63,6 +65,8 @@ public class MongoDB {
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
             Bson updateOperation = new Document("$set", updatedValue);
+            usersCollection.updateOne(found,updateOperation);
+            System.out.println("Updated the database");
             return true;
         }
         return false;
