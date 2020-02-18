@@ -1,10 +1,13 @@
 import insidefx.undecorator.Undecorator;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -13,12 +16,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bson.Document;
 
+import java.awt.*;
+
 public class LoginBox {
     public static Document currentUser;
-
-    public void LoginBox(){
-        this.currentUser=null;
-    };
 
     public static void display(){
         MongoDB conn = new MongoDB("UsersDB","Users");
@@ -49,15 +50,23 @@ public class LoginBox {
         passwordInput.setMaxSize(200,5);
         //
 
+        //Load Gif
+        /*Image loadGif = new Image("/load.gif");
+        ImageView loadGifView = new ImageView(loadGif);
+        loadGifView.setFitHeight(20);
+        loadGifView.setFitWidth(20);
+        loadGifView.setVisible(false);*/
+        //
+
         //Error Label
         Label errorLabel = new Label();
         errorLabel.setTextFill(Color.rgb(180,30,30));
-
         //
 
         //Buttons
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->{
+
             Document user = conn.getDocument("Username",userInput.getText().toLowerCase());
             if(user !=null) {
                 String userEmail = user.get("Username").toString().toLowerCase();
@@ -70,7 +79,7 @@ public class LoginBox {
                     //INLOGGNING GODTAGEN
                     window.close();
                     currentUser = user;
-                }else if(!(userEmail.equals(userInputEmail)) || !(userHashedPassword == passwordInputHashed)){
+                }else{
                     errorLabel.setText("Fel användarnamn eller lösen");
                 }
             }else{
@@ -78,6 +87,9 @@ public class LoginBox {
 
                 errorLabel.setText("Användare ej registrerad");
             }
+
+            /*loadGifView.setVisible(false);*/
+
         });
 
         Button registerButton = new Button("Register");
