@@ -1,26 +1,24 @@
 import insidefx.undecorator.Undecorator;
-import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-/* Class for creating an RegisterBox
+/** Class for creating an RegisterBox
  * Uses a GridPane to ask the user to input information
  * Checks that all input is in correct format before registration to MongoDB
+ * @author Karl Svensson
+ * @version 1.0
+ * @since 2020-02-18
  */
 public class RegisterBox {
 
@@ -31,6 +29,11 @@ public class RegisterBox {
 
     public Delegate delegate;
 
+    /**
+     * Creates the RegisterBox screen with all TextFields and Labels.
+     * Checks valid inputs.
+     * @param title Title of the window.
+     */
     public static void display(String title){
 
         Stage window = new Stage();
@@ -197,11 +200,21 @@ public class RegisterBox {
         window.setScene(scene);
         window.showAndWait();
     }
-    /* Creates a users object and register this user to the DB*/
+
+
+    /**
+     * Creates a user object with values from input data.
+     * @param username Username from input.
+     * @param password Password from input.
+     * @param name name from input.
+     * @param Dob Date of Birth from input.
+     * @param height Height from input.
+     * @return True if user was added to DB, false is Error.
+     */
     private static boolean registerUser(TextField username, PasswordField password, TextField name, LocalDate Dob, TextField height){
         String em = username.getText().toLowerCase();
         int h = Integer.parseInt(height.getText());
-        Users u1 = new Users(em, password.getText(), name.getText(), Dob, h);
+        User u1 = new User(em, password.getText(), name.getText(), Dob, h);
         return u1.addToDB();
     }
 }
