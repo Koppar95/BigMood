@@ -10,38 +10,45 @@ import org.bson.Document;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MoodWindow extends VBox {
 
     //Standard constuctor
     private MoodWindow(){
-
-
     }
 
-        public static String getCurrentTime() {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        public static String getCurrentDate() {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             //get current date time with Date()
             Date date = new Date();
             return dateFormat.format(date);
         }
 
         private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
+        MongoDB conn = new MongoDB("UsersDB", "MoodData");
+        Document moodSubmission = new Document();
+        moodSubmission.put("User", LoginBox.currentUser.get("Username"));
+
             System.out.println("");
             if(happy.isGlowing){
                 System.out.print("Mood: happy, ");
+                moodSubmission.put("Mood", "Happy");
                 happy.disableGlow();
             }else if (sad.isGlowing){
                 System.out.print("Mood: sad, ");
+                moodSubmission.put("Mood", "Sad");
                 sad.disableGlow();
             }
 
             System.out.print("Comment: " + userinput.getText() + ", ");
-            System.out.print("Date & Time: " + getCurrentTime());
+            System.out.print("Date" + getCurrentDate());
+
+            moodSubmission.put("Comment", userinput.getText());
+            moodSubmission.put("Date", getCurrentDate());
 
             userinput.clear();
+            conn.addDoc(moodSubmission);
         }
 
 public static MoodWindow makeMoodWindow(){
