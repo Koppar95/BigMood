@@ -151,7 +151,7 @@ public class RegisterBox {
             }
         });
 
-        /* Disable registerButton if TextFields are empty */
+        /* Disable registerButton if TextFields are empty or if TextField contains wrong information */
         BooleanBinding booleanBinding = new BooleanBinding() {
             {
                 super.bind(userInput.textProperty(),

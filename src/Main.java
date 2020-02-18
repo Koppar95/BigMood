@@ -2,6 +2,7 @@ import insidefx.undecorator.Undecorator;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -25,10 +26,21 @@ import javafx.stage.StageStyle;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
+import java.util.function.Consumer;
+
 public class Main extends Application {
     boolean menuState = false;
     Stage window;
     String currentUser;
+
+    private Button addMenuItem(String label, int with, EventHandler<? super MouseEvent> active) {
+        Button b = new Button(label);
+        b.setPrefWidth(with);
+        b.getStyleClass().add("custom-menu-button");
+        b.setOnMouseClicked(active);
+        return b;
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -84,32 +96,6 @@ public class Main extends Application {
         placeholder.setMinWidth(100);
         mainLayout.setLeft(placeholder);
 
-        // Creating window buttons to menu!!!
-
-        //Mood window button
-        Button mood = new Button("Mood tracker");
-        mood.setPrefWidth(100);
-        mood.getStyleClass().add("custom-menu-button");
-        mood.setOnMouseClicked(e -> {
-            mainLayout.setCenter(mainMood);
-        });
-
-        //Start window button
-        Button start = new Button("Start");
-        start.setPrefWidth(100);
-        start.getStyleClass().add("custom-menu-button");
-        start.setOnMouseClicked(e-> {
-            mainLayout.setCenter(mainStart);
-        });
-
-        //Profile window button
-        Button profile = new Button("Edit Profile");
-        profile.setPrefWidth(100);
-        profile.getStyleClass().add("custom-menu-button");
-        profile.setOnMouseClicked(e-> {
-            mainLayout.setCenter(mainProfile);
-        });
-
         //Logout window button
         Button logout = new Button("Logout");
         logout.setPrefWidth(100);
@@ -121,7 +107,12 @@ public class Main extends Application {
             window.show();
         });
 
-        menu.getChildren().addAll(start,mood,profile,logout);
+        // menu.getChildren().addAll(start,mood,profile,logout, m);
+        Button mood = addMenuItem("Mood Tracker",100, e-> mainLayout.setCenter(mainMood));
+        menu.getChildren().addAll(mood,
+                            addMenuItem("Start", 100, e-> mainLayout.setCenter(mainStart)),
+                            addMenuItem("Edit Profile", 100, e-> mainLayout.setCenter(mainProfile)), logout);
+
         VBox.setVgrow(mood, Priority.ALWAYS);
 
 
