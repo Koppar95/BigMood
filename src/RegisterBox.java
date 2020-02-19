@@ -13,12 +13,13 @@ import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
 
-/** Class for creating an RegisterBox
+/**
+ * Class for creating an RegisterBox
  * Uses a GridPane to ask the user to input information
  * Checks that all input is in correct format before registration to MongoDB
  * @author Karl Svensson
- * @version 1.0
- * @since 2020-02-18
+ * @version 1.1
+ * @since 2020-02-19
  */
 public class RegisterBox {
     /**
@@ -69,7 +70,6 @@ public class RegisterBox {
      * @param title Title of the window.
      */
     public static void display(String title){
-
         Stage window = new Stage();
         window.setMinWidth(100);
         window.setMinHeight(250);
@@ -96,12 +96,14 @@ public class RegisterBox {
         Label heightLabel = addLabel("Height:", 0,8);
         Label wrongHeight = addLabel("", 2,8);
         Label warningLabel = addLabel("", 2,5);
+
         //Input fields
         TextField userInput = addTextField("Enter Username", 1,3);
         TextField nameInput = addTextField("Enter your name",1,6);
         TextField heightInput = addTextField("Enter your height",1,8);
         PasswordField passwordInput = addPassField("Enter Password", 1,4);
         PasswordField passwordInput2 = addPassField("Re-Enter Password", 1,5);
+
         //Date of birth choiceBox
         DatePicker datePicker = new DatePicker();
         GridPane.setConstraints(datePicker, 1,7);
@@ -109,7 +111,7 @@ public class RegisterBox {
         /* Check correct input of height */
         heightInput.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1){
                 if(s.matches("\\d+")){
                     wrongHeight.setText("");
                 }
@@ -125,9 +127,9 @@ public class RegisterBox {
         GridPane.setConstraints(registerButton, 1,10);
 
         /* Check that passwords matches */
-        passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>(){
             @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1){
                 if(!(passwordInput.getText().matches(passwordInput2.getText()))){
                     warningLabel.setText("Passwords does not match");
                     warningLabel.setTextFill(Color.rgb(180, 30, 30));
@@ -139,7 +141,7 @@ public class RegisterBox {
         });
 
         /* Disable registerButton if TextFields are empty or if TextField contains wrong information */
-        BooleanBinding booleanBinding = new BooleanBinding() {
+        BooleanBinding booleanBinding = new BooleanBinding(){
             {
                 super.bind(userInput.textProperty(),
                         passwordInput.textProperty(),
@@ -148,7 +150,7 @@ public class RegisterBox {
                         heightInput.textProperty());
             }
             @Override
-            protected boolean computeValue() {
+            protected boolean computeValue(){
                 return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || !heightInput.getText().matches("\\d+")) || datePicker.getValue() == null || !(passwordInput.getText().matches(passwordInput2.getText())));
             }
         };
@@ -165,25 +167,20 @@ public class RegisterBox {
         });
 
         cancelButton.setOnAction(e-> window.close());
-
         grid.getChildren().addAll(
                 usernameLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
                 dobLabel, datePicker, heightLabel,
                 heightInput,registerButton, warningLabel, wrongHeight, cancelButton
         );
-
         Undecorator undecorator = new Undecorator(window,grid);
         undecorator.getStylesheets().add("bmSkinTransparent.css");
         undecorator.setMinSize(520,350);
-
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
-
         window.setScene(scene);
         window.showAndWait();
     }
-
 
     /**
      * Creates a user object with values from input data.

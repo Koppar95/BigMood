@@ -5,18 +5,18 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 /**
- * This class handles the connection to MongoDB.
+ * Class to connections to MongoDB.
  * Includes methods do add Bson document, find specific key and update values.
  * @author Karl Svensson
- * @version 1.0
+ * @version 1.1
  * @since 2020-02-19
  */
-public class MongoDB {
+public class MongoDB{
     static MongoCollection<Document> usersCollection;
     MongoDatabase userDatabase;
 
     /**
-     * Creates a connection to selected DB and Collection
+     * Creates a new connection to selected DB and Collection
      * @param DB which DB to connect to.
      * @param collection which collection within DB to connect to.
      */
@@ -36,12 +36,7 @@ public class MongoDB {
      */
     public boolean find(String key, String what){
         Document found = usersCollection.find(new Document(key, what)).first();
-        if(found != null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return found != null;
     }
 
     /**
@@ -51,13 +46,7 @@ public class MongoDB {
      * @return Bson document included information for the selected name,
      */
     public Document getDocument(String key, String who){
-        Document found = usersCollection.find(new Document(key, who)).first();
-        if(found != null){
-            return found;
-        }
-        else{
-            return null;
-        }
+        return usersCollection.find(new Document(key, who)).first();
     }
 
     /**
@@ -76,7 +65,7 @@ public class MongoDB {
      * @param to new value after update
      * @return true if update was a success, else false.
      */
-    public static boolean updateValue(String key, String who, String valueToUpdate, String to) {
+    public static boolean updateValue(String key, String who, String valueToUpdate, String to){
         Document found = usersCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
@@ -96,7 +85,7 @@ public class MongoDB {
      * @param to new value after update
      * @return true if update was a success, else false
      */
-    public static boolean updateIntValue(String key, String who, String valueToUpdate, Integer to) {
+    public static boolean updateIntValue(String key, String who, String valueToUpdate, Integer to){
         Document found = usersCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
@@ -107,7 +96,4 @@ public class MongoDB {
         }
         return false;
     }
-
-
-
 }

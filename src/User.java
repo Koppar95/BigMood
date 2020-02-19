@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @since 2020-02-18
  */
 
-public class User {
+public class User{
 
     private String username;
     private int password;
@@ -41,15 +41,11 @@ public class User {
      * @return true if new user was added. False is it could not add new user to DB.
      */
     public boolean addToDB(){
-
         MongoDB conn = new MongoDB("UsersDB", "Users");
-
         System.out.println("Connected to DB");
-
-        if(conn.find("Username", username)) {
+        if(conn.find("Username", username)){
             AlertBox.display("Invalid Username", "User already exist");
             return false;
-
         }
         else{
             Document newUser = new Document("Username", username);
@@ -57,7 +53,6 @@ public class User {
             newUser.append("Name", name);
             newUser.append("Date Of Birth", Dob);
             newUser.append("Height", height);
-
             conn.addDoc(newUser);
             return true;
         }
