@@ -48,7 +48,7 @@ public class RegisterBox {
         GridPane.setConstraints(label,column, row);
         return label;
     }
-//Hej
+
     /**
      * Creates a new PasswordField for user input of password.
      * @param promptText promptText to be displayed in field.
