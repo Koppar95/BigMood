@@ -5,6 +5,8 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import static com.mongodb.client.model.Filters.and;
+
 /**
  * Class to connections to MongoDB.
  * Includes methods do add Bson document, find specific key and update values.
@@ -50,6 +52,19 @@ public class MongoDB{
         long count = usersCollection.countDocuments(moodFilter);
         System.out.println(mood +" submissions: " + count);
         return count;
+    }
+
+    public static boolean submittedToday(String user, String date){
+        Bson userFilter = Filters.eq("User",user);
+        Bson dateFilter = Filters.eq("Date",date);
+
+        Document submittedToday = usersCollection.find(and(userFilter,dateFilter)).first();
+        if (submittedToday!= null){
+            System.out.println("User posted this today: " + submittedToday.toString());
+            return true;
+        } else{
+            return false;
+        }
     }
 
     /**

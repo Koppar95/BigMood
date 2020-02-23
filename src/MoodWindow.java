@@ -22,7 +22,7 @@ public class MoodWindow extends VBox {
             return dateFormat.format(date);
         }
 
-        /*
+
         public static boolean submittedToday(){
 
             MongoDB conn = new MongoDB("UsersDB", "MoodData");
@@ -32,14 +32,19 @@ public class MoodWindow extends VBox {
             boolean sameDate = conn.find("Date", getCurrentDate());
 
         return false;
-        } */
+        }
 
 
     private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
 
         MongoDB conn = new MongoDB("UsersDB", "MoodData");
         Document moodSubmission = new Document();
+        String currentUser = LoginBox.currentUser.get("Username").toString();
+        String currentDate = getCurrentDate();
         moodSubmission.put("User", LoginBox.currentUser.get("Username"));
+
+        boolean submittedtoday = MongoDB.submittedToday(currentUser,currentDate);
+        System.out.println("Boolean submittedtoday is: " + submittedtoday);
 
             if(happy.isGlowing){
                 moodSubmission.put("Mood", "Happy");
@@ -89,6 +94,7 @@ public static MoodWindow makeMoodWindow(){
     userComment.setPromptText("Add a comment!");
     Button submitMood = new Button("Submit Mood");
     submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
+
     /* Fixa till egen metod och metodanropp?
     if (submittedToday()){
         submitMood.getStyleClass().add("already-submitted-button");
