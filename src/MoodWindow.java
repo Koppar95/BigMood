@@ -7,42 +7,47 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import org.bson.Document;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MoodWindow extends VBox {
 
-    //Standard constuctor
+
     private MoodWindow(){
     }
-
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            //get current date time with Date()
             Date date = new Date();
             return dateFormat.format(date);
         }
 
-        private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
+        /*
+        public static boolean submittedToday(){
+
+            MongoDB conn = new MongoDB("UsersDB", "MoodData");
+
+            boolean sameUser = conn.find("User", LoginBox.currentUser.get("Username").toString());
+
+            boolean sameDate = conn.find("Date", getCurrentDate());
+
+        return false;
+        } */
+
+
+    private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
+
         MongoDB conn = new MongoDB("UsersDB", "MoodData");
         Document moodSubmission = new Document();
         moodSubmission.put("User", LoginBox.currentUser.get("Username"));
 
-            System.out.println("");
             if(happy.isGlowing){
-                System.out.print("Mood: happy, ");
                 moodSubmission.put("Mood", "Happy");
                 happy.disableGlow();
             }else if (sad.isGlowing){
-                System.out.print("Mood: sad, ");
                 moodSubmission.put("Mood", "Sad");
                 sad.disableGlow();
             }
-
-            System.out.print("Comment: " + userinput.getText() + ", ");
-            System.out.print("Date" + getCurrentDate());
 
             moodSubmission.put("Comment", userinput.getText());
             moodSubmission.put("Date", getCurrentDate());
@@ -53,7 +58,7 @@ public class MoodWindow extends VBox {
 
 public static MoodWindow makeMoodWindow(){
 
-        MoodWindow mainMood = new MoodWindow();
+    MoodWindow mainMood = new MoodWindow();
     //Big Mood Headline (shorten and fix with CSS)
     String family = "Helvetica";
     double size = 40;
@@ -83,9 +88,13 @@ public static MoodWindow makeMoodWindow(){
     TextField userComment = new TextField();
     userComment.setPromptText("Add a comment!");
     Button submitMood = new Button("Submit Mood");
-
-    //Fixa till egen metod och metodanropp?
     submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
+    /* Fixa till egen metod och metodanropp?
+    if (submittedToday()){
+        submitMood.getStyleClass().add("already-submitted-button");
+        System.out.println("User already submitted mood today!");
+    } else {}
+    */
 
     //Boxes for smileys and comments
     HBox comments = new HBox();
@@ -98,8 +107,6 @@ public static MoodWindow makeMoodWindow(){
     HBox emojis = new HBox();
     emojis.getChildren().addAll(happyEmoji,sadEmoji);
     emojis.setAlignment(Pos.CENTER);
-
-
 
     mainMood.getChildren().addAll(textFlow, emojis, comments, submitMood);
     mainMood.setAlignment(Pos.CENTER);

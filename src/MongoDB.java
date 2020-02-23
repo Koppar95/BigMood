@@ -1,6 +1,7 @@
 import com.mongodb.client.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -37,6 +38,18 @@ public class MongoDB{
     public boolean find(String key, String what){
         Document found = usersCollection.find(new Document(key, what)).first();
         return found != null;
+    }
+
+    public long countTotal(){
+        long count = usersCollection.countDocuments();
+        return count;
+    }
+
+    public long countMood(String mood){
+        Bson moodFilter = Filters.eq("Mood", mood);
+        long count = usersCollection.countDocuments(moodFilter);
+        System.out.println(mood +" submissions: " + count);
+        return count;
     }
 
     /**

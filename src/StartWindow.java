@@ -1,16 +1,13 @@
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import org.bson.io.BsonOutput;
+import javafx.scene.chart.*;
+
 
 public class StartWindow extends VBox {
     private StartWindow(){}
@@ -34,22 +31,9 @@ public class StartWindow extends VBox {
         textBox.getChildren().add(textFlow);
         textBox.setAlignment(Pos.TOP_CENTER);
 
+        PieChart chart = Chart.makeMoodPieChart();
 
-        //BANANA
-        Image banana = new Image("/pbjtime.gif");
-        ImageView pbjtime = new ImageView(banana);
-        HBox bananaBox = new HBox();
-        bananaBox.getChildren().add(pbjtime);
-        bananaBox.setAlignment(Pos.BOTTOM_CENTER);
-
-
-       VBox mainContent = new VBox();
-       mainContent.getChildren().addAll(textBox, bananaBox);
-       //mainContent.setAlignment(Pos.CENTER);
-
-
-        start.getChildren().addAll(textBox, bananaBox);
-        //start.setAlignment(Pos.CENTER);
+        start.getChildren().addAll(textBox, chart);
 
         return start;
     }
