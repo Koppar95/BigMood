@@ -100,7 +100,6 @@ public class Main extends Application {
             window.show();
         });
 
-        // menu.getChildren().addAll(start,mood,profile,logout, m);
         Button mood = addMenuItem("Mood Tracker",100, e-> mainLayout.setCenter(mainMood));
         menu.getChildren().addAll(mood,
                             addMenuItem("Start", 100, e-> mainLayout.setCenter(StartWindow.makeStartWindow())),
@@ -133,19 +132,6 @@ public class Main extends Application {
                 }
             }
         });
-        /*
-        infoBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                if (menuState) {
-                    System.out.println("I wooooork");
-                }
-            }
-        }); */
-
-        // MENU PART END
-
-
     }
 
     // getters and setters to see if menu is open or not
@@ -155,9 +141,6 @@ public class Main extends Application {
     private void setMenuState(boolean newState){
         menuState=newState;
     }
-
-
-
 
     public static void main(String[] args) {
         launch(args);
