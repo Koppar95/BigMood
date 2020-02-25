@@ -15,7 +15,7 @@ import java.awt.*;
 
 
 public class ProfileWindow extends VBox {
-    static MongoDB base = new MongoDB("UsersDB", "Users");
+    //static MongoDB base = new MongoDB("UsersDB", "Users");
     static Document currentUser = LoginBox.currentUser;
     static String currentUserName = currentUser.get("Username").toString();
     static int spacing = 8;
@@ -70,11 +70,13 @@ public class ProfileWindow extends VBox {
         changeHeightBox.getChildren().addAll(heightlbl,height, changeHeightBtn);
 
         changeHeightBtn.setOnMouseClicked(e -> {
+            //MongoDB base = new MongoDB("UsersDB", "Users");
             String newHeight = height.getText();
             Integer updateValue = Integer.parseInt(newHeight);
-            base.updateIntValue("Username", currentUserName, "Height", updateValue);
+            Main.userConn.updateIntValue("Username", currentUserName, "Height", updateValue);
             height.clear();
             height.setPromptText(newHeight + "(cm)");
+            LoginBox.setCurrentUser(currentUserName);
         });
 
         Label wrongHeight = new Label();
@@ -118,10 +120,12 @@ public class ProfileWindow extends VBox {
 
 
         changeNameBtn.setOnMouseClicked(e->{
+            //MongoDB base = new MongoDB("UsersDB", "Users");
             String updateValue = name.getText();
-            base.updateValue("Username",currentUserName,"Name",updateValue);
+            Main.userConn.updateValue("Username",currentUserName,"Name",updateValue);
             name.clear();
             name.setPromptText(updateValue);
+            LoginBox.setCurrentUser(currentUserName);
         });
 
         changeNameBox.getChildren().addAll(nameLbl,name,changeNameBtn);
@@ -179,8 +183,9 @@ public class ProfileWindow extends VBox {
                 int matchPasswordHash = matchPasswordField.getText().hashCode();
 
                 if (userHashedPassword == passwordInputHashed && newPasswordHash==matchPasswordHash) {
+                    //MongoDB base = new MongoDB("UsersDB", "Users");
                     errorWrongPassword.setText("");
-                    base.updateIntValue("Username",currentUserName,"Password",newPasswordHash);
+                    Main.userConn.updateIntValue("Username",currentUserName,"Password",newPasswordHash);
                     System.out.println("Password changed");
 
 

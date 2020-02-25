@@ -1,17 +1,12 @@
+import com.mongodb.Mongo;
 import insidefx.undecorator.Undecorator;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import java.util.function.Consumer;
@@ -31,7 +24,6 @@ import java.util.function.Consumer;
 public class Main extends Application {
     boolean menuState = false;
     Stage window;
-    String currentUser;
 
     private Button addMenuItem(String label, int with, EventHandler<? super MouseEvent> active) {
         Button b = new Button(label);
@@ -41,14 +33,15 @@ public class Main extends Application {
         return b;
     }
 
+    static MongoDB userConn = new MongoDB("UsersDB","Users");
+    static MongoDB moodConn = new MongoDB("UsersDB","MoodData");
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         //Visa LoginBox
         LoginBox.display();
         //
-
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         window = primaryStage;
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);
@@ -103,14 +96,14 @@ public class Main extends Application {
         logout.setOnMouseClicked(e-> {
             window.hide();
             LoginBox.display();
-            mainLayout.setCenter(mainStart);
+            mainLayout.setCenter(StartWindow.makeStartWindow());
             window.show();
         });
 
         // menu.getChildren().addAll(start,mood,profile,logout, m);
         Button mood = addMenuItem("Mood Tracker",100, e-> mainLayout.setCenter(mainMood));
         menu.getChildren().addAll(mood,
-                            addMenuItem("Start", 100, e-> mainLayout.setCenter(mainStart)),
+                            addMenuItem("Start", 100, e-> mainLayout.setCenter(StartWindow.makeStartWindow())),
                             addMenuItem("Edit Profile", 100, e-> mainLayout.setCenter(mainProfile)), logout);
 
         VBox.setVgrow(mood, Priority.ALWAYS);
