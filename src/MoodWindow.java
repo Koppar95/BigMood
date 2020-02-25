@@ -23,18 +23,6 @@ public class MoodWindow extends VBox {
         }
 
 
-        public static boolean submittedToday(){
-
-            //MongoDB conn = new MongoDB("UsersDB", "MoodData");
-
-            boolean sameUser = Main.userConn.find("User", LoginBox.currentUser.get("Username").toString());
-
-            boolean sameDate = Main.userConn.find("Date", getCurrentDate());
-
-        return false;
-        }
-
-
     private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
 
         //MongoDB conn = new MongoDB("UsersDB", "MoodData");

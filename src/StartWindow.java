@@ -35,7 +35,7 @@ public class StartWindow extends VBox {
         PieChart userChart = Chart.makeMoodPieChart("Your mood", LoginBox.currentUser.get("Name").toString());
 
         HBox moodCharts = new HBox();
-        moodCharts.getChildren().addAll(avgChart,userChart);
+        moodCharts.getChildren().add(avgChart);
 
         start.getChildren().addAll(textBox, moodCharts);
 
