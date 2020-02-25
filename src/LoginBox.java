@@ -117,7 +117,7 @@ public class LoginBox {
     }
 
     public static void setCurrentUser(String username){
-        MongoDB conn = new MongoDB("UsersDB","Users");
-        currentUser = conn.getDocument("Username",username);
+        //MongoDB conn = new MongoDB("UsersDB","Users");
+        currentUser = Main.userConn.getDocument("Username",username);
     }
 }
