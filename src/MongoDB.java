@@ -15,7 +15,7 @@ import static com.mongodb.client.model.Filters.and;
  * @since 2020-02-19
  */
 public class MongoDB{
-    static MongoCollection<Document> usersCollection;
+    MongoCollection<Document> usersCollection;
     MongoDatabase userDatabase;
 
     /**
@@ -28,7 +28,7 @@ public class MongoDB{
         MongoClientURI clientURI = new MongoClientURI(uri);
         MongoClient mongoClient = new MongoClient(clientURI);
         userDatabase = mongoClient.getDatabase(DB);
-        usersCollection = userDatabase.getCollection(collection);
+        this.usersCollection = userDatabase.getCollection(collection);
     }
 
     /**
@@ -54,7 +54,7 @@ public class MongoDB{
         return count;
     }
 
-    public static boolean submittedToday(String user, String date){
+    public boolean submittedToday(String user, String date){
         Bson userFilter = Filters.eq("User",user);
         Bson dateFilter = Filters.eq("Date",date);
 
@@ -93,7 +93,7 @@ public class MongoDB{
      * @param to new value after update
      * @return true if update was a success, else false.
      */
-    public static boolean updateValue(String key, String who, String valueToUpdate, String to){
+    public boolean updateValue(String key, String who, String valueToUpdate, String to){
         Document found = usersCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
@@ -113,7 +113,8 @@ public class MongoDB{
      * @param to new value after update
      * @return true if update was a success, else false
      */
-    public static boolean updateIntValue(String key, String who, String valueToUpdate, Integer to){
+
+    public boolean updateIntValue(String key, String who, String valueToUpdate, Integer to){
         Document found = usersCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);

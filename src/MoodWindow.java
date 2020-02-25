@@ -25,11 +25,11 @@ public class MoodWindow extends VBox {
 
         public static boolean submittedToday(){
 
-            MongoDB conn = new MongoDB("UsersDB", "MoodData");
+            //MongoDB conn = new MongoDB("UsersDB", "MoodData");
 
-            boolean sameUser = conn.find("User", LoginBox.currentUser.get("Username").toString());
+            boolean sameUser = Main.userConn.find("User", LoginBox.currentUser.get("Username").toString());
 
-            boolean sameDate = conn.find("Date", getCurrentDate());
+            boolean sameDate = Main.userConn.find("Date", getCurrentDate());
 
         return false;
         }
@@ -37,13 +37,13 @@ public class MoodWindow extends VBox {
 
     private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
 
-        MongoDB conn = new MongoDB("UsersDB", "MoodData");
+        //MongoDB conn = new MongoDB("UsersDB", "MoodData");
         Document moodSubmission = new Document();
         String currentUser = LoginBox.currentUser.get("Username").toString();
         String currentDate = getCurrentDate();
         moodSubmission.put("User", LoginBox.currentUser.get("Username"));
 
-        boolean submittedtoday = MongoDB.submittedToday(currentUser,currentDate);
+        boolean submittedtoday = Main.moodConn.submittedToday(currentUser,currentDate);
         System.out.println("Boolean submittedtoday is: " + submittedtoday);
 
             if(happy.isGlowing){
@@ -58,7 +58,7 @@ public class MoodWindow extends VBox {
             moodSubmission.put("Date", getCurrentDate());
 
             userinput.clear();
-            conn.addDoc(moodSubmission);
+            Main.moodConn.addDoc(moodSubmission);
         }
 
 public static MoodWindow makeMoodWindow(){

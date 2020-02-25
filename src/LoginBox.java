@@ -22,7 +22,7 @@ public class LoginBox {
     public static Document currentUser;
 
     public static void display(){
-        MongoDB conn = new MongoDB("UsersDB","Users");
+        //MongoDB conn = new MongoDB("UsersDB","Users");
         //Stage initialization
         Stage window = new Stage();
         window.setMinWidth(400);
@@ -66,8 +66,7 @@ public class LoginBox {
         //Buttons
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->{
-
-            Document user = conn.getDocument("Username",userInput.getText().toLowerCase());
+            Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
             if(user !=null) {
                 String userEmail = user.get("Username").toString().toLowerCase();
                 String userInputEmail = userInput.getText().toLowerCase();
@@ -78,13 +77,12 @@ public class LoginBox {
                 if(userEmail.equals(userInputEmail) && userHashedPassword == passwordInputHashed){
                     //INLOGGNING GODTAGEN
                     window.close();
-                    currentUser = user;
+                    currentUser=user;
                 }else{
                     errorLabel.setText("Fel användarnamn eller lösen");
                 }
             }else{
                     //Användarnamn ej registrerad
-
                 errorLabel.setText("Användare ej registrerad");
             }
 
@@ -118,4 +116,8 @@ public class LoginBox {
         //
     }
 
+    public static void setCurrentUser(String username){
+        MongoDB conn = new MongoDB("UsersDB","Users");
+        currentUser = conn.getDocument("Username",username);
+    }
 }

@@ -9,12 +9,12 @@ import javafx.scene.chart.XYChart;
 
 
 public class Chart {
-
+    //static MongoDB pieConn = new MongoDB("UsersDB", "MoodData");
     public static PieChart makeMoodPieChart() {
-        MongoDB conn = new MongoDB("UsersDB", "MoodData");
+        //MongoDB pieConn = new MongoDB("UsersDB", "MoodData");
 
-        long happySubmissions = conn.countMood("Happy");
-        long sadSubmissions = conn.countMood("Sad");
+        long happySubmissions = Main.moodConn.countMood("Happy");
+        long sadSubmissions = Main.moodConn.countMood("Sad");
 
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
