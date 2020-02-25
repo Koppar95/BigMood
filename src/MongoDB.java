@@ -4,6 +4,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.io.BsonOutput;
 
 import static com.mongodb.client.model.Filters.and;
 
@@ -50,7 +51,15 @@ public class MongoDB{
     public long countMood(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
         long count = usersCollection.countDocuments(moodFilter);
-        System.out.println(mood +" submissions: " + count);
+        return count;
+    }
+
+    public long countUserMood(String mood, String user){
+        Bson moodFilter = Filters.eq("Mood", mood);
+        Bson userFilter = Filters.eq("User",user);
+
+        long count = usersCollection.countDocuments(and(userFilter,moodFilter));
+        System.out.println("User: " + user + " Mood: " + mood + " Count:" + count);
         return count;
     }
 
