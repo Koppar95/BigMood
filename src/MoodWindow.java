@@ -23,21 +23,22 @@ public class MoodWindow extends VBox {
         }
 
 
-    private static void submitMood(Emoji sad, Emoji happy, TextField userinput){
+    private static void submitMood(Emoji sad, Emoji happy, TextField userinput) {
 
-        //MongoDB conn = new MongoDB("UsersDB", "MoodData");
-        Document moodSubmission = new Document();
-        String currentUser = LoginBox.currentUser.get("Username").toString();
-        String currentDate = getCurrentDate();
-        moodSubmission.put("User", LoginBox.currentUser.get("Username"));
+        boolean submittedtoday = Main.moodConn.submittedToday(LoginBox.currentUser.get("Username").toString(), getCurrentDate());
 
-        boolean submittedtoday = Main.moodConn.submittedToday(currentUser,currentDate);
-        System.out.println("Boolean submittedtoday is: " + submittedtoday);
+        if (submittedtoday) {
+            AlertBox.display("Nope!", "You've already submitted a mood today!");
+        } else {
+            Document moodSubmission = new Document();
+            String currentUser = LoginBox.currentUser.get("Username").toString();
+            String currentDate = getCurrentDate();
+            moodSubmission.put("User", LoginBox.currentUser.get("Username"));
 
-            if(happy.isGlowing){
+            if (happy.isGlowing) {
                 moodSubmission.put("Mood", "Happy");
                 happy.disableGlow();
-            }else if (sad.isGlowing){
+            } else if (sad.isGlowing) {
                 moodSubmission.put("Mood", "Sad");
                 sad.disableGlow();
             }
@@ -48,6 +49,7 @@ public class MoodWindow extends VBox {
             userinput.clear();
             Main.moodConn.addDoc(moodSubmission);
         }
+    }
 
 public static MoodWindow makeMoodWindow(){
 
