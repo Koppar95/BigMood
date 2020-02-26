@@ -12,6 +12,17 @@
     -fx-background-color: #99B686;
 }
 
+.custom-menu-logoutbutton {
+    -fx-background-color: #668B4E;
+    -fx-text-fill: white;
+    -fx-border-color: #668B4E;
+
+}
+
+.custom-menu-logoutbutton:hover {
+    -fx-background-color: #99B686;
+}
+
 .custom-open-menu-button {
     -fx-background-color: #668B4E;
     -fx-text-fill: white;
