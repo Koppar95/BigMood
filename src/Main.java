@@ -66,7 +66,7 @@ public class Main extends Application {
         Button originBtn = new Button();
         Image image = new Image(getClass().getResourceAsStream("smallMenu.png"));
         originBtn.setGraphic(new ImageView(image));
-        originBtn.setAlignment(Pos.CENTER_LEFT);
+        originBtn.setAlignment(Pos.CENTER);
         originBtn.setPrefWidth(100);
         originBtn.getStyleClass().add("custom-open-menu-button");
         HBox fileRoot = new HBox();
@@ -86,9 +86,11 @@ public class Main extends Application {
         mainLayout.setLeft(placeholder);
 
         //Logout window button
+
         Button logout = new Button("Logout");
         logout.setPrefWidth(100);
-        logout.getStyleClass().add("custom-menu-button");
+        logout.getStyleClass().add("custom-menu-logoutbutton");
+
         logout.setOnMouseClicked(e-> {
             if(menuState) {
                 window.hide();
@@ -126,7 +128,7 @@ public class Main extends Application {
                                 }
                             })
 
-                                    , logout);
+                                    );
 
         VBox.setVgrow(mood, Priority.ALWAYS);
 
@@ -139,17 +141,34 @@ public class Main extends Application {
                 if (getMenuState()) {
 
                     FadeTransition hideMenuTransition = new FadeTransition(Duration.millis(500), menu);
+                    FadeTransition hideLogoutTransition = new FadeTransition(Duration.millis(500), logout);
+
                     hideMenuTransition.setFromValue(1.0);
                     hideMenuTransition.setToValue(0.0);
+
+                    hideLogoutTransition.setFromValue(1.0);
+                    hideLogoutTransition.setToValue(0.0);
+
                     hideMenuTransition.play();
+                    hideLogoutTransition.play();
+
                     setMenuState(false);
                 } else {
 
                     FadeTransition showMenuTransition = new FadeTransition(Duration.millis(500), menu);
+                    FadeTransition showLogoutTransition = new FadeTransition(Duration.millis(500), logout);
+
                     showMenuTransition.setFromValue(0.0);
                     showMenuTransition.setToValue(1.0);
+
+                    showLogoutTransition.setFromValue(0.0);
+                    showLogoutTransition.setToValue(1.0);
+
                     mainLayout.setLeft(menu);
+                    mainLayout.setBottom(logout);
+
                     showMenuTransition.play();
+                    showLogoutTransition.play();
                     setMenuState(true);
 
                 }
