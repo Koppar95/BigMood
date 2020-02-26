@@ -28,5 +28,35 @@ public class Chart {
         chart.setTitle(title);
         return chart;
     }
+
+    public static BarChart makeMoodBarChart(String title, String user) {
+        long avgHappySubmissions = Main.moodConn.countMood("Happy"); //divide by #users
+        long avgSadSubmissions= Main.moodConn.countMood("Sad");
+        long userHappySubmissions = Main.moodConn.countUserMood("Happy", user);
+        long userSadSubmissions = Main.moodConn.countUserMood("Sad", user);
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> chart =
+                new BarChart<String,Number>(xAxis,yAxis);
+        chart.setTitle("You vs Avg user");
+        xAxis.setLabel("");
+        yAxis.setLabel("Moods");
+
+        XYChart.Series happySeries = new XYChart.Series();
+        happySeries.setName("Happy");
+        happySeries.getData().add(new XYChart.Data("User Avg", avgHappySubmissions));
+        happySeries.getData().add(new XYChart.Data("Your Avg", userHappySubmissions));
+
+        XYChart.Series sadSeries = new XYChart.Series();
+        sadSeries.setName("Sad");
+        sadSeries.getData().add(new XYChart.Data("User Avg", avgSadSubmissions));
+        sadSeries.getData().add(new XYChart.Data("Your Avg", userSadSubmissions));
+
+        chart.getData().addAll(happySeries, sadSeries);
+
+        return chart;
+    }
+
 }
 

@@ -69,7 +69,6 @@ public class MongoDB{
         Bson userFilter = Filters.eq("User",user);
 
         long count = usersCollection.countDocuments(and(userFilter,moodFilter));
-        System.out.println("User: " + user + " Mood: " + mood + " Count:" + count);
         return count;
     }
 

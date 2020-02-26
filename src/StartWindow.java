@@ -1,4 +1,5 @@
 import javafx.geometry.Pos;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -34,11 +35,20 @@ public class StartWindow extends VBox {
 
        // PieChart avgChart = Chart.makeMoodPieChart("Average user mood", "");
         PieChart userChart = Chart.makeMoodPieChart("Your average mood", LoginBox.currentUser.get("Username").toString());
+        userChart.setLabelsVisible(false);
+
+        //Bar Chart test
+        //BarChart userVsAvgMood = Chart.makeMoodBarChart("You vs Avg User", LoginBox.currentUser.get("Username").toString());
 
         HBox moodCharts = new HBox();
         moodCharts.getChildren().add(userChart);
+        moodCharts.setAlignment(Pos.CENTER);
 
-        start.getChildren().addAll(textBox, moodCharts);
+        BorderPane mainLayout = new BorderPane();
+        mainLayout.setTop(textBox);
+        mainLayout.setBottom(moodCharts);
+
+        start.getChildren().addAll(mainLayout);
 
         return start;
     }
