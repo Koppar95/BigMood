@@ -1,8 +1,6 @@
-import com.mongodb.Mongo;
 import insidefx.undecorator.Undecorator;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -20,15 +18,27 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.util.function.Consumer;
-
 public class Main extends Application {
+    /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
+     * windows.
+     * @param menuState A boolean that is true when the menu is open,false when menu is closed.
+     * @param window Stage that is the basic window.
+     */
     boolean menuState = false;
     Stage window;
 
-    private Button addMenuItem(String label, int with, EventHandler<? super MouseEvent> active) {
+
+    /**
+     *addMenuItem is a method used to create a button to be used in the menu.
+     *
+     * @param label String with the text that will show on the button.
+     * @param width The width of the the button to be.
+     * @param active The event that will activate when button is clicked.
+     * @return Returns a button.
+     */
+    private Button addMenuItem(String label, int width, EventHandler<? super MouseEvent> active) {
         Button b = new Button(label);
-        b.setPrefWidth(with);
+        b.setPrefWidth(width);
         b.getStyleClass().add("custom-menu-button");
         b.setOnMouseClicked(active);
         return b;
@@ -38,7 +48,25 @@ public class Main extends Application {
     static MongoDB moodConn = new MongoDB("UsersDB","MoodData");
 
     @Override
+    /**
+     * @param mainLayout BorderPane, the layout for the entire window.
+     * @param undecorator //TODO
+     * @param scene the part of the window where the actual application is shown
+     * @param originBtn A button that opens and closes the menu.
+     * @param image The Image that is shown on the originBtn.
+     * @param fileRoot HBox where the originButton is placed
+     * @param menu The VBox that works as the menu that contains all buttons(except the log in button)
+     * @param placeholder A Vbox tho occupy the space while menu is not showing, so that the other parts of the
+     *application won't move
+     * @param logout Button that when clicked, makes you log out.
+     * @param mood Button that when clicked, changes view to show MoodWindow.
+     * @param data Button that when clicked, changes view to show DataWindow
+     * @param
+     *
+     *
+     */
     public void start(Stage primaryStage) throws Exception{
+
         //Visa LoginBox
         LoginBox.display();
         //
@@ -69,6 +97,7 @@ public class Main extends Application {
         originBtn.setAlignment(Pos.CENTER);
         originBtn.setPrefWidth(100);
         originBtn.getStyleClass().add("custom-open-menu-button");
+
         HBox fileRoot = new HBox();
         fileRoot.getChildren().add(originBtn);
         mainLayout.setTop(fileRoot);
@@ -135,9 +164,10 @@ public class Main extends Application {
 
         originBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
+            /**
+             * Animations for the menu that will run when originBtn is pressed.
+             */
             public void handle(ActionEvent event) {
-
-
                 if (getMenuState()) {
 
                     FadeTransition hideMenuTransition = new FadeTransition(Duration.millis(500), menu);
@@ -177,9 +207,17 @@ public class Main extends Application {
     }
 
     // getters and setters to see if menu is open or not
+
+    /**
+     * @return Returns menuState to know if menu is open or not
+     */
     private boolean getMenuState(){
         return menuState;
     }
+
+    /**
+     * @param newState boolean value to set menuState to.
+     */
     private void setMenuState(boolean newState){
         menuState=newState;
     }
