@@ -100,7 +100,11 @@ public class Main extends Application {
             mainLayout.setCenter(MoodWindow.makeMoodWindow());
         }
         );
-        menu.getChildren().addAll(mood,
+
+        Button data = addMenuItem("Data", 100, e-> {
+            mainLayout.setCenter(DataWindow.makeDataWindow());
+        });
+        menu.getChildren().addAll(mood, data,
                             addMenuItem("Start", 100, e->{
                                 LoadWindow loadWindow = new LoadWindow(window.getX()+70,window.getY()+24);
                                 loadWindow.startLoadThread();
