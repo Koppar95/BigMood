@@ -48,6 +48,16 @@ public class MongoDB{
         return count;
     }
 
+    /*
+        Find common words:
+        - find every submission with Mood: happy
+            - loop through and split comment " "-space character
+            - lägg in varje ord i en associative array (key value pairs, nyckel är ord, value är hur frekvent)
+            - om ordet inte finns lägg till det, annars plussa value
+
+        - Gör om samma för Mood: sad
+     */
+
     public long countMood(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
         long count = usersCollection.countDocuments(moodFilter);

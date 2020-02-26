@@ -32,11 +32,11 @@ public class StartWindow extends VBox {
         textBox.getChildren().add(textFlow);
         textBox.setAlignment(Pos.TOP_CENTER);
 
-        PieChart avgChart = Chart.makeMoodPieChart("Average user mood", "");
-        PieChart userChart = Chart.makeMoodPieChart("Your mood", LoginBox.currentUser.get("Name").toString());
+       // PieChart avgChart = Chart.makeMoodPieChart("Average user mood", "");
+        PieChart userChart = Chart.makeMoodPieChart("Your average mood", LoginBox.currentUser.get("Username").toString());
 
         HBox moodCharts = new HBox();
-        moodCharts.getChildren().add(avgChart);
+        moodCharts.getChildren().add(userChart);
 
         start.getChildren().addAll(textBox, moodCharts);
 
