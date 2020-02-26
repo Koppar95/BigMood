@@ -14,6 +14,7 @@ public class StartWindow extends VBox {
 
     public static StartWindow makeStartWindow(){
         StartWindow start= new StartWindow();
+
         String family = "Helvetica";
         double size = 40;
 

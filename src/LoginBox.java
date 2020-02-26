@@ -17,18 +17,21 @@ import javafx.stage.StageStyle;
 import org.bson.Document;
 
 import java.awt.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LoginBox {
     public static Document currentUser;
 
     public static void display(){
-        //MongoDB conn = new MongoDB("UsersDB","Users");
+
+
         //Stage initialization
         Stage window = new Stage();
         window.setMinWidth(400);
         window.setMinHeight(200);
         window.initStyle(StageStyle.TRANSPARENT);
-        window.initModality(Modality.APPLICATION_MODAL);
+        //window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Login");
         window.setOnCloseRequest(e ->{
             System.exit(0);
@@ -51,7 +54,7 @@ public class LoginBox {
         //
 
         //Load Gif
-        /*Image loadGif = new Image("/load.gif");
+        /*Image loadGif = new Image("");
         ImageView loadGifView = new ImageView(loadGif);
         loadGifView.setFitHeight(20);
         loadGifView.setFitWidth(20);
@@ -66,6 +69,10 @@ public class LoginBox {
         //Buttons
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->{
+
+            LoadWindow loadWindow = new LoadWindow(window.getX()+16,window.getY()+16);
+            loadWindow.startLoadThread();
+
             Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
             if(user !=null) {
                 String userEmail = user.get("Username").toString().toLowerCase();
@@ -85,9 +92,7 @@ public class LoginBox {
                     //Användarnamn ej registrerad
                 errorLabel.setText("Användare ej registrerad");
             }
-
-            /*loadGifView.setVisible(false);*/
-
+            loadWindow.close();
         });
 
         Button registerButton = new Button("Register");

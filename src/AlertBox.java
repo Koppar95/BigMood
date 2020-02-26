@@ -1,3 +1,5 @@
+import insidefx.undecorator.Undecorator;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -10,6 +12,7 @@ public class AlertBox {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
+        window.initStyle(StageStyle.TRANSPARENT);
         window.setTitle(title);
         window.setMinWidth(250);
 
@@ -23,7 +26,13 @@ public class AlertBox {
         layout.getChildren().addAll(label, approveButton);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout);
+        Undecorator undecorator = new Undecorator(window,layout);
+        undecorator.getStylesheets().add("bmSkinTransparent.css");
+        undecorator.setMinSize(300,150);
+
+        Scene scene = new Scene(undecorator);
+
+        scene.setFill(Color.TRANSPARENT);
         window.setScene(scene);
         window.showAndWait();
     }

@@ -2,6 +2,7 @@ import com.mongodb.Mongo;
 import insidefx.undecorator.Undecorator;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -38,27 +39,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         //Visa LoginBox
         LoginBox.display();
         //
+
         window = primaryStage;
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);
 
-        // CREATING WINDOWS
-        VBox mainMood = MoodWindow.makeMoodWindow();
-        VBox mainStart = StartWindow.makeStartWindow();
-        VBox mainProfile = ProfileWindow.makeProfileWindow();
-
         BorderPane mainLayout = new BorderPane();
-
-        mainLayout.setCenter(mainStart);
+        mainLayout.setCenter(StartWindow.makeStartWindow());
 
         Undecorator undecorator = new Undecorator(window,mainLayout);
         undecorator.getStylesheets().add("bmSkin.css");
-        Scene scene = new Scene(undecorator, 600,550);
+        Scene scene = new Scene(undecorator, 900,800);
         scene.setFill(Color.TRANSPARENT);
+
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -100,10 +96,19 @@ public class Main extends Application {
             window.show();
         });
 
-        Button mood = addMenuItem("Mood Tracker",100, e-> mainLayout.setCenter(mainMood));
+        Button mood = addMenuItem("Mood Tracker",100, e-> {
+            mainLayout.setCenter(MoodWindow.makeMoodWindow());
+        }
+        );
         menu.getChildren().addAll(mood,
-                            addMenuItem("Start", 100, e-> mainLayout.setCenter(StartWindow.makeStartWindow())),
-                            addMenuItem("Edit Profile", 100, e-> mainLayout.setCenter(mainProfile)), logout);
+                            addMenuItem("Start", 100, e->{
+                                LoadWindow loadWindow = new LoadWindow(window.getX()+70,window.getY()+24);
+                                loadWindow.startLoadThread();
+                                mainLayout.setCenter(StartWindow.makeStartWindow());
+                                loadWindow.close();
+                            }
+                            ),
+                            addMenuItem("Edit Profile", 100, e-> mainLayout.setCenter(ProfileWindow.makeProfileWindow())), logout);
 
         VBox.setVgrow(mood, Priority.ALWAYS);
 

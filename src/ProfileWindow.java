@@ -70,7 +70,6 @@ public class ProfileWindow extends VBox {
         changeHeightBox.getChildren().addAll(heightlbl,height, changeHeightBtn);
 
         changeHeightBtn.setOnMouseClicked(e -> {
-            //MongoDB base = new MongoDB("UsersDB", "Users");
             String newHeight = height.getText();
             Integer updateValue = Integer.parseInt(newHeight);
             Main.userConn.updateIntValue("Username", currentUserName, "Height", updateValue);
