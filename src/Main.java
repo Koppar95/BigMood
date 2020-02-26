@@ -90,29 +90,43 @@ public class Main extends Application {
         logout.setPrefWidth(100);
         logout.getStyleClass().add("custom-menu-button");
         logout.setOnMouseClicked(e-> {
-            window.hide();
-            LoginBox.display();
-            mainLayout.setCenter(StartWindow.makeStartWindow());
-            window.show();
+            if(menuState) {
+                window.hide();
+                LoginBox.display();
+                mainLayout.setCenter(StartWindow.makeStartWindow());
+                window.show();
+            }
         });
 
         Button mood = addMenuItem("Mood Tracker",100, e-> {
-            mainLayout.setCenter(MoodWindow.makeMoodWindow());
+            if(menuState) {
+                mainLayout.setCenter(MoodWindow.makeMoodWindow());
+            }
         }
         );
 
         Button data = addMenuItem("Data", 100, e-> {
-            mainLayout.setCenter(DataWindow.makeDataWindow());
+            if(menuState) {
+                mainLayout.setCenter(DataWindow.makeDataWindow());
+            }
         });
         menu.getChildren().addAll(mood, data,
                             addMenuItem("Start", 100, e->{
-                                LoadWindow loadWindow = new LoadWindow(window.getX()+70,window.getY()+24);
-                                loadWindow.startLoadThread();
-                                mainLayout.setCenter(StartWindow.makeStartWindow());
-                                loadWindow.close();
+                                if(menuState) {
+                                    LoadWindow loadWindow = new LoadWindow(window.getX() + 70, window.getY() + 24);
+                                    loadWindow.startLoadThread();
+                                    mainLayout.setCenter(StartWindow.makeStartWindow());
+                                    loadWindow.close();
+                                }
                             }
                             ),
-                            addMenuItem("Edit Profile", 100, e-> mainLayout.setCenter(ProfileWindow.makeProfileWindow())), logout);
+                            addMenuItem("Edit Profile", 100, e-> {
+                                if(menuState) {
+                                    mainLayout.setCenter(ProfileWindow.makeProfileWindow());
+                                }
+                            })
+
+                                    , logout);
 
         VBox.setVgrow(mood, Priority.ALWAYS);
 
