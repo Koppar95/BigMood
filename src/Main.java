@@ -129,18 +129,6 @@ public class Main extends Application {
             }
         });
 
-      /*  Button mood = addMenuItem("Mood",100, e-> {
-            if(menuState) {
-                mainLayout.setCenter(MoodWindow.makeMoodWindow());
-            }
-        }
-        );
-
-        Button data = addMenuItem("Data", 100, e-> {
-            if(menuState) {
-                mainLayout.setCenter(DataWindow.makeDataWindow());
-            }
-        });*/
         menu.getChildren().addAll(
                             addMenuItem("Start", 100, e->{
                                 if(menuState) {
