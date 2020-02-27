@@ -1,13 +1,10 @@
 import insidefx.undecorator.Undecorator;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -16,22 +13,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bson.Document;
 
-import java.awt.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class LoginBox {
     public static Document currentUser;
 
     public static void display(){
-
 
         //Stage initialization
         Stage window = new Stage();
         window.setMinWidth(400);
         window.setMinHeight(200);
         window.initStyle(StageStyle.TRANSPARENT);
-        //window.initModality(Modality.APPLICATION_MODAL);
+        window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Login");
         window.setOnCloseRequest(e ->{
             System.exit(0);
@@ -51,14 +43,6 @@ public class LoginBox {
         passwordLabel.setText("Password");
         PasswordField passwordInput = new PasswordField();
         passwordInput.setMaxSize(200,5);
-        //
-
-        //Load Gif
-        /*Image loadGif = new Image("");
-        ImageView loadGifView = new ImageView(loadGif);
-        loadGifView.setFitHeight(20);
-        loadGifView.setFitWidth(20);
-        loadGifView.setVisible(false);*/
         //
 
         //Error Label
