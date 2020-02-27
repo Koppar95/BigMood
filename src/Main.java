@@ -153,7 +153,7 @@ public class Main extends Application {
                             ),
                             addMenuItem("Edit Profile", 100, e-> {
                                 if(menuState) {
-                                    mainLayout.setCenter(ProfileWindow.makeProfileWindow());
+                                    mainLayout.setCenter(new ProfileWindow());
                                 }
                             })
 
