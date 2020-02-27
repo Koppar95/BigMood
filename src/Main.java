@@ -144,7 +144,7 @@ public class Main extends Application {
         menu.getChildren().addAll(
                             addMenuItem("Start", 100, e->{
                                 if(menuState) {
-                                    LoadWindow loadWindow = new LoadWindow(window.getX() + 70, window.getY() + 24);
+                                    LoadWindow loadWindow = new LoadWindow(window.getX() + 16, window.getY() + 16);
                                     loadWindow.startLoadThread();
                                     mainLayout.setCenter(StartWindow.makeStartWindow());
                                     loadWindow.close();

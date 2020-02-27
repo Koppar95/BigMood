@@ -1,18 +1,6 @@
-import insidefx.undecorator.Undecorator;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import javax.swing.*;
-import javax.swing.text.html.ImageView;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import java.awt.event.WindowEvent;
 
 public class LoadWindow {
     private JFrame window;
@@ -25,6 +13,7 @@ public class LoadWindow {
         this.yPos = yPos;
 
     }
+
     public void init(){
         window.setTitle("Ladd");
         window.setUndecorated(true);
@@ -47,6 +36,7 @@ public class LoadWindow {
         window.setVisible(true);
     }
     public void close(){
-        window.dispose();
+        //window.dispose();
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 }
