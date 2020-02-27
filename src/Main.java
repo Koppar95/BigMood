@@ -129,7 +129,7 @@ public class Main extends Application {
             }
         });
 
-        Button mood = addMenuItem("Mood Tracker",100, e-> {
+      /*  Button mood = addMenuItem("Mood",100, e-> {
             if(menuState) {
                 mainLayout.setCenter(MoodWindow.makeMoodWindow());
             }
@@ -140,8 +140,8 @@ public class Main extends Application {
             if(menuState) {
                 mainLayout.setCenter(DataWindow.makeDataWindow());
             }
-        });
-        menu.getChildren().addAll(mood, data,
+        });*/
+        menu.getChildren().addAll(
                             addMenuItem("Start", 100, e->{
                                 if(menuState) {
                                     LoadWindow loadWindow = new LoadWindow(window.getX() + 70, window.getY() + 24);
@@ -150,7 +150,16 @@ public class Main extends Application {
                                     loadWindow.close();
                                 }
                             }
-                            ),
+                            ),addMenuItem("Mood",100, e-> {
+                                if(menuState) {
+                                 mainLayout.setCenter(MoodWindow.makeMoodWindow());
+                                }
+                            }),
+                            addMenuItem("Data", 100, e-> {
+                                if(menuState) {
+                                    mainLayout.setCenter(DataWindow.makeDataWindow());
+                                }
+                            }) ,
                             addMenuItem("Edit Profile", 100, e-> {
                                 if(menuState) {
                                     mainLayout.setCenter(new ProfileWindow());
@@ -159,7 +168,7 @@ public class Main extends Application {
 
                                     );
 
-        VBox.setVgrow(mood, Priority.ALWAYS);
+        VBox.setVgrow(logout, Priority.ALWAYS);
 
 
         originBtn.setOnAction(new EventHandler<ActionEvent>() {
