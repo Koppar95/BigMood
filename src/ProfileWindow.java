@@ -13,7 +13,9 @@ import org.bson.Document;
 
 import java.awt.*;
 
-
+/**
+ *
+ */
 public class ProfileWindow extends VBox {
     //static MongoDB base = new MongoDB("UsersDB", "Users");
     static Document currentUser = LoginBox.currentUser;
@@ -27,11 +29,10 @@ public class ProfileWindow extends VBox {
 
     }
 
-    public static ProfileWindow makeProfileWindow() {
-
-        ProfileWindow profile = new ProfileWindow();
-        profile.setPadding(new Insets(10, 50, 50, 50));
-        profile.setSpacing(spacing);
+    public ProfileWindow() {
+        super();
+        this.setPadding(new Insets(10, 50, 50, 50));
+        this.setSpacing(spacing);
 
 
       HBox nameUpdate = changeName();
@@ -39,12 +40,8 @@ public class ProfileWindow extends VBox {
       VBox passwordUpdate = changePassword();
 
 
-      profile.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate);
+      this.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate);
 
-
-
-
-        return profile;
 
     }
 
