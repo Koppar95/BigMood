@@ -30,10 +30,14 @@ public class Chart {
     }
 
     public static BarChart makeMoodBarChart(String title, String user) {
-        long avgHappySubmissions = Main.moodConn.countMood("Happy"); //divide by #users
-        long avgSadSubmissions= Main.moodConn.countMood("Sad");
+        long happySubmissions = Main.moodConn.countMood("Happy");
+        long sadSubmissions= Main.moodConn.countMood("Sad");
         long userHappySubmissions = Main.moodConn.countUserMood("Happy", user);
         long userSadSubmissions = Main.moodConn.countUserMood("Sad", user);
+        long userCount = Main.moodConn.countUsers();
+
+        float avgHappySubmissions = happySubmissions / userCount;
+        float avgSadSubmissions = sadSubmissions / userCount;
 
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();

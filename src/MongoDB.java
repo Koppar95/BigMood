@@ -72,6 +72,19 @@ public class MongoDB{
         return count;
     }
 
+    public long countUsers(){
+        long userCount = 0;
+
+        MongoCursor users = usersCollection.distinct("User", String.class).iterator();
+
+        while (users.hasNext()){
+            userCount++;
+            users.next();
+        }
+        System.out.println("Users: " + userCount);
+        return userCount;
+    }
+
     public boolean submittedToday(String user, String date){
         Bson userFilter = Filters.eq("User",user);
         Bson dateFilter = Filters.eq("Date",date);
