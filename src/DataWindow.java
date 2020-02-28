@@ -6,9 +6,7 @@ import javafx.scene.layout.HBox;
 
 public class DataWindow extends VBox {
 
-    public static DataWindow makeDataWindow() {
-       DataWindow mainData = new DataWindow();
-
+    public DataWindow() {
         //Bar Chart test
         BarChart userVsAvgMood = Chart.makeMoodBarChart("You vs Avg User", LoginBox.currentUser.get("Username").toString());
 
@@ -16,9 +14,8 @@ public class DataWindow extends VBox {
         moodCharts.getChildren().add(userVsAvgMood);
         moodCharts.setAlignment(Pos.CENTER);
 
-        mainData.getChildren().add(moodCharts);
+        this.getChildren().add(moodCharts);
 
-        return mainData;
 
     }
 
