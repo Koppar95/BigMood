@@ -13,9 +13,6 @@ import java.util.Date;
 
 public class MoodWindow extends VBox {
 
-
-    private MoodWindow(){
-    }
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date date = new Date();
@@ -51,9 +48,8 @@ public class MoodWindow extends VBox {
         }
     }
 
-public static MoodWindow makeMoodWindow(){
-
-    MoodWindow mainMood = new MoodWindow();
+public MoodWindow(){
+    super();
     //Big Mood Headline (shorten and fix with CSS)
     String family = "Helvetica";
     double size = 40;
@@ -104,10 +100,9 @@ public static MoodWindow makeMoodWindow(){
     emojis.getChildren().addAll(happyEmoji,sadEmoji);
     emojis.setAlignment(Pos.CENTER);
 
-    mainMood.getChildren().addAll(textFlow, emojis, comments, submitMood);
-    mainMood.setAlignment(Pos.CENTER);
+    this.getChildren().addAll(textFlow, emojis, comments, submitMood);
+    this.setAlignment(Pos.CENTER);
 
-        return mainMood;
 }
 
 }
