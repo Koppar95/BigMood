@@ -1,29 +1,16 @@
 import insidefx.undecorator.Undecorator;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 public class Main extends Application {
     /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
      * windows.
      * @param window Stage that is the basic window.
      */
-    Stage window;
 
     static MongoDB userConn = new MongoDB("UsersDB","Users");
     static MongoDB moodConn = new MongoDB("UsersDB","MoodData");
@@ -36,13 +23,12 @@ public class Main extends Application {
      * @param scene the part of the window where the actual application is shown
 
      */
-    public void start(Stage primaryStage){
+    public void start(Stage window){
 
         //Visa LoginBox
         LoginBox.display();
         //
 
-        window = primaryStage;
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);
         window.setMinWidth(600);
@@ -55,12 +41,11 @@ public class Main extends Application {
         undecorator.getStylesheets().add("bmSkin.css");
         Scene scene = new Scene(undecorator, 900,800);
         scene.setFill(Color.TRANSPARENT);
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        window.setOnCloseRequest(e->System.exit(0));
+        window.setScene(scene);
+        window.show();
 
         new Menu(window,mainLayout);
-
 
     }
 

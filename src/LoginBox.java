@@ -108,4 +108,5 @@ public class LoginBox {
     public static void setCurrentUser(String username){
         currentUser = Main.userConn.getDocument("Username",username);
     }
+
 }
