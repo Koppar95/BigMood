@@ -9,6 +9,10 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class StartWindow extends VBox {
 
@@ -30,13 +34,19 @@ public class StartWindow extends VBox {
         textBox.getChildren().add(textFlow);
         textBox.setAlignment(Pos.TOP_CENTER);
 
-       // PieChart avgChart = Chart.makeMoodPieChart("Average user mood", "");
-        PieChart userChart = Chart.makeMoodPieChart("Your average mood", LoginBox.currentUser.get("Username").toString());
-        userChart.setLabelsVisible(false);
+        LineChart weeklyAverage = Chart.makeLineChart(LoginBox.currentUser.get("Username").toString());
 
+    /*
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date[] dates = MoodWindow.getLastSevenDays();
+
+        for (int i=0; i < 7; i++){
+            String mood = Main.moodConn.findUserMood("teo", dateFormat.format(dates[i]));
+            System.out.println("Teo is : " + mood);
+        }*/
 
         HBox moodCharts = new HBox();
-        moodCharts.getChildren().add(userChart);
+        moodCharts.getChildren().add(weeklyAverage);
         moodCharts.setAlignment(Pos.CENTER);
 
         BorderPane mainLayout = new BorderPane();

@@ -6,6 +6,14 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Chart {
@@ -26,7 +34,53 @@ public class Chart {
                         new PieChart.Data("Sad", sadSubmissions));
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle(title);
+
+        String mood = Main.moodConn.findUserMood("teo", MoodWindow.getCurrentDate());
+        System.out.println("teo's mood today is: " + mood);
+
         return chart;
+    }
+
+    public static LineChart makeLineChart(String user){
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dayFormat = new SimpleDateFormat("EEE");
+        //xAxis.setLabel("Weekly average");
+        yAxis.setLabel("Mood");
+        Date[] dates = MoodWindow.getLastSevenDays();
+
+        final LineChart<String,Number> lineChart =
+                new LineChart<String,Number>(xAxis,yAxis);
+
+        lineChart.setTitle("Your Weekly Mood");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        series.setName("-1=Sad 0=no submission 1=Happy");
+        //populating the series with data
+        //creating the chart
+
+        for (int i = 0; i < dates.length; i++){
+            String date = dateFormat.format(dates[i]);
+            String mood = Main.moodConn.findUserMood(user,date);
+            String day = dayFormat.format(dates[i]);
+
+            //System.out.println("date is " + date + " day is " + day + " user is " + user + " mood is " + mood);
+
+            if (mood.equals("Happy")) {
+                series.getData().add(new XYChart.Data(day, 1));
+            } else if(mood.equals("Sad")) {
+                series.getData().add(new XYChart.Data(day, -1));
+            } else {
+                series.getData().add(new XYChart.Data(day, 0));
+            }
+
+
+
+        }
+
+        lineChart.getData().add(series);
+        return lineChart;
     }
 
     public static BarChart makeMoodBarChart(String title, String user) {

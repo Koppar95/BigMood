@@ -81,8 +81,20 @@ public class MongoDB{
             userCount++;
             users.next();
         }
-        System.out.println("Users: " + userCount);
         return userCount;
+    }
+    // clean up and turn into one function??
+
+    //Vad händer om det inte finns någon mood submission?
+    public String findUserMood(String user, String date){
+        Bson userFilter = Filters.eq("User",user);
+        Bson dateFilter = Filters.eq("Date",date);
+        Document userMood = usersCollection.find(and(userFilter,dateFilter)).first();
+        String mood ="";
+        if(userMood !=null) {
+            mood = userMood.getString("Mood");
+        }
+        return mood;
     }
 
     public boolean submittedToday(String user, String date){

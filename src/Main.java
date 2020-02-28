@@ -65,7 +65,7 @@ public class Main extends Application {
      *
      *
      */
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
 
         //Visa LoginBox
         LoginBox.display();

@@ -9,6 +9,7 @@ import javafx.scene.text.*;
 import org.bson.Document;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MoodWindow extends VBox {
@@ -23,9 +24,17 @@ public class MoodWindow extends VBox {
         }
 
 
-        public static String getLastSevenDays(){
+        public static Date[] getLastSevenDays() {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_YEAR, -6);
+        Date[] dates = new Date[6];
 
-            return "hej";
+            for(int i = 0; i< 6; i++){
+                c.add(Calendar.DAY_OF_YEAR, 1);
+                dates[i] = c.getTime();
+            }
+
+        return dates;
         }
 
 
@@ -89,13 +98,6 @@ public MoodWindow(){
     userComment.setPromptText("Add a comment!");
     Button submitMood = new Button("Submit Mood");
     submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
-
-    /* Fixa till egen metod och metodanropp?
-    if (submittedToday()){
-        submitMood.getStyleClass().add("already-submitted-button");
-        System.out.println("User already submitted mood today!");
-    } else {}
-    */
 
     //Boxes for smileys and comments
     HBox comments = new HBox();
