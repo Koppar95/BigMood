@@ -145,7 +145,7 @@ public class Main extends Application {
                             }),
                             addMenuItem("Data", 100, e-> {
                                 if(menuState) {
-                                    mainLayout.setCenter(DataWindow.makeDataWindow());
+                                    mainLayout.setCenter(new DataWindow());
                                 }
                             }) ,
                             addMenuItem("Edit Profile", 100, e-> {
