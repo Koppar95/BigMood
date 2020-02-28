@@ -140,7 +140,7 @@ public class Main extends Application {
                             }
                             ),addMenuItem("Mood",100, e-> {
                                 if(menuState) {
-                                 mainLayout.setCenter(MoodWindow.makeMoodWindow());
+                                 mainLayout.setCenter(new MoodWindow());
                                 }
                             }),
                             addMenuItem("Data", 100, e-> {
