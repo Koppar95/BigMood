@@ -175,19 +175,20 @@ public class ProfileWindow extends VBox {
                 int matchPasswordHash = matchPasswordField.getText().hashCode();
 
                 if (userHashedPassword == passwordInputHashed && newPasswordHash==matchPasswordHash) {
-                    //MongoDB base = new MongoDB("UsersDB", "Users");
                     errorWrongPassword.setText("");
                     Main.userConn.updateIntValue("Username",currentUserName,"Password",newPasswordHash);
                     currentPasswordField.clear();
                     newPasswordField.clear();
                     matchPasswordField.clear();
+                    matchPasswordField.setPromptText("Password changed");
                     System.out.println("Password changed");
-
-
 
                 } else if (!(userHashedPassword == passwordInputHashed)) {
                     errorWrongPassword.setText("Fel lösenord");
                     errorWrongPassword.setTextFill(Color.rgb(180, 30, 30));
+                    Toolkit.getDefaultToolkit().beep();
+                }
+                else{
                     Toolkit.getDefaultToolkit().beep();
                 }
             });
