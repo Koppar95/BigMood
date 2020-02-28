@@ -76,7 +76,7 @@ public class Main extends Application {
         window.initStyle(StageStyle.TRANSPARENT);
 
         BorderPane mainLayout = new BorderPane();
-        mainLayout.setCenter(StartWindow.makeStartWindow());
+        mainLayout.setCenter(new StartWindow());
 
         Undecorator undecorator = new Undecorator(window,mainLayout);
         undecorator.getStylesheets().add("bmSkin.css");
@@ -124,7 +124,7 @@ public class Main extends Application {
             if(menuState) {
                 window.hide();
                 LoginBox.display();
-                mainLayout.setCenter(StartWindow.makeStartWindow());
+                mainLayout.setCenter(new StartWindow());
                 window.show();
             }
         });
@@ -134,7 +134,7 @@ public class Main extends Application {
                                 if(menuState) {
                                     LoadWindow loadWindow = new LoadWindow(window.getX() + 16, window.getY() + 16);
                                     loadWindow.startLoadThread();
-                                    mainLayout.setCenter(StartWindow.makeStartWindow());
+                                    mainLayout.setCenter(new StartWindow());
                                     loadWindow.close();
                                 }
                             }
