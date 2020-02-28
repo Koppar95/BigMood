@@ -14,7 +14,7 @@ import java.util.Date;
 public class MoodWindow extends VBox {
 
         //Skapa en egen date klass??
-        // Hej hej
+        // Test test
 
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
