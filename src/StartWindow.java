@@ -11,11 +11,8 @@ import javafx.scene.chart.*;
 
 
 public class StartWindow extends VBox {
-    private StartWindow(){}
 
-    public static StartWindow makeStartWindow(){
-        StartWindow start= new StartWindow();
-
+    public StartWindow(){
         String family = "Helvetica";
         double size = 40;
 
@@ -46,8 +43,8 @@ public class StartWindow extends VBox {
         mainLayout.setTop(textBox);
         mainLayout.setBottom(moodCharts);
 
-        start.getChildren().addAll(mainLayout);
+        this.getChildren().addAll(mainLayout);
 
-        return start;
+
     }
 }
