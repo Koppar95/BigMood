@@ -17,9 +17,7 @@ import java.awt.*;
  *
  */
 public class ProfileWindow extends VBox {
-    //static MongoDB base = new MongoDB("UsersDB", "Users");
-    static Document currentUser = LoginBox.currentUser;
-    static String currentUserName = currentUser.get("Username").toString();
+    static String currentUserName = LoginBox.currentUser.get("Username").toString();
     static int spacing = 8;
     static int minWidth =115;
     static Insets boxPadding = new Insets(10, 10, 10, 10);
@@ -172,7 +170,7 @@ public class ProfileWindow extends VBox {
 
             changePasswordBtn.setOnAction(e -> {
                 int passwordInputHashed = currentPasswordField.getText().hashCode();
-                int userHashedPassword = currentUser.getInteger("Password");
+                int userHashedPassword = LoginBox.currentUser.getInteger("Password");
                 int newPasswordHash = newPasswordField.getText().hashCode();
                 int matchPasswordHash = matchPasswordField.getText().hashCode();
 
@@ -180,6 +178,9 @@ public class ProfileWindow extends VBox {
                     //MongoDB base = new MongoDB("UsersDB", "Users");
                     errorWrongPassword.setText("");
                     Main.userConn.updateIntValue("Username",currentUserName,"Password",newPasswordHash);
+                    currentPasswordField.clear();
+                    newPasswordField.clear();
+                    matchPasswordField.clear();
                     System.out.println("Password changed");
 
 
