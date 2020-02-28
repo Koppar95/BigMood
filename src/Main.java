@@ -74,6 +74,8 @@ public class Main extends Application {
         window = primaryStage;
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);
+        window.setMinWidth(600);
+        window.setMinHeight(600);
 
         BorderPane mainLayout = new BorderPane();
         mainLayout.setCenter(new StartWindow());
