@@ -34,13 +34,11 @@ public class ProfileWindow extends VBox {
         this.setPadding(new Insets(10, 50, 50, 50));
         this.setSpacing(spacing);
 
+        HBox nameUpdate = changeName();
+        HBox heightUpdate = changeHeight();
+        VBox passwordUpdate = changePassword();
 
-      HBox nameUpdate = changeName();
-      HBox heightUpdate = changeHeight();
-      VBox passwordUpdate = changePassword();
-
-
-      this.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate);
+        this.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate);
 
 
     }
@@ -52,7 +50,7 @@ public class ProfileWindow extends VBox {
         changeHeightBox.setBackground(Background.EMPTY);
         changeHeightBox.setStyle(boxStyle);
 
-        String userHeight = (currentUser.get("Height")).toString();
+        String userHeight = (LoginBox.currentUser.get("Height")).toString();
 
         Label heightlbl = new Label("Height:");
         heightlbl.setMinWidth(minWidth);
@@ -102,7 +100,7 @@ public class ProfileWindow extends VBox {
         changeNameBox.setBackground(Background.EMPTY);
         changeNameBox.setStyle(boxStyle);
 
-        String usersName= (currentUser.get("Name").toString());
+        String usersName= (LoginBox.currentUser.get("Name").toString());
 
         Label nameLbl = new Label("Name:");
         nameLbl.setMinWidth(minWidth);
