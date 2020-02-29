@@ -21,7 +21,7 @@ public class Chart {
     public static PieChart makeMoodPieChart(String title, String user) {
         long happySubmissions;
         long sadSubmissions;
-        if(user == "") {
+        if(user.equals("")) {
             happySubmissions = Main.moodConn.countMood("Happy");
             sadSubmissions = Main.moodConn.countMood("Sad");
         } else {
@@ -34,9 +34,6 @@ public class Chart {
                         new PieChart.Data("Sad", sadSubmissions));
         final PieChart chart = new PieChart(pieChartData);
         chart.setTitle(title);
-
-        String mood = Main.moodConn.findUserMood("teo", MoodWindow.getCurrentDate());
-        System.out.println("teo's mood today is: " + mood);
 
         return chart;
     }
@@ -54,18 +51,13 @@ public class Chart {
                 new LineChart<String,Number>(xAxis,yAxis);
 
         lineChart.setTitle("Your Weekly Mood");
-        //defining a series
         XYChart.Series series = new XYChart.Series();
         series.setName("-1=Sad 0=no submission 1=Happy");
-        //populating the series with data
-        //creating the chart
 
         for (int i = 0; i < dates.length; i++){
             String date = dateFormat.format(dates[i]);
             String mood = Main.moodConn.findUserMood(user,date);
             String day = dayFormat.format(dates[i]);
-
-            //System.out.println("date is " + date + " day is " + day + " user is " + user + " mood is " + mood);
 
             if (mood.equals("Happy")) {
                 series.getData().add(new XYChart.Data(day, 1));
@@ -74,11 +66,7 @@ public class Chart {
             } else {
                 series.getData().add(new XYChart.Data(day, 0));
             }
-
-
-
         }
-
         lineChart.getData().add(series);
         return lineChart;
     }

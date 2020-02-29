@@ -9,11 +9,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-
 public class StartWindow extends VBox {
 
     public StartWindow(){
@@ -36,15 +31,6 @@ public class StartWindow extends VBox {
 
         LineChart weeklyAverage = Chart.makeLineChart(LoginBox.currentUser.get("Username").toString());
 
-    /*
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Date[] dates = MoodWindow.getLastSevenDays();
-
-        for (int i=0; i < 7; i++){
-            String mood = Main.moodConn.findUserMood("teo", dateFormat.format(dates[i]));
-            System.out.println("Teo is : " + mood);
-        }*/
-
         HBox moodCharts = new HBox();
         moodCharts.getChildren().add(weeklyAverage);
         moodCharts.setAlignment(Pos.CENTER);
@@ -54,7 +40,5 @@ public class StartWindow extends VBox {
         mainLayout.setBottom(moodCharts);
 
         this.getChildren().addAll(mainLayout);
-
-
     }
 }

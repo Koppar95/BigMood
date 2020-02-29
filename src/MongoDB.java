@@ -1,10 +1,16 @@
+import com.mongodb.Block;
 import com.mongodb.client.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.io.BsonOutput;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.and;
 
@@ -32,6 +38,25 @@ public class MongoDB{
         this.usersCollection = userDatabase.getCollection(collection);
     }
 
+    //List allow for adding and not defining size when initilialized
+    public static List<String> happyComments = new ArrayList<String>();
+    public static List<String> sadComments = new ArrayList<String>();
+
+    //function to call forEach comment in submissions could probably be combined with toSadArray
+    Block<Document> toHappyArray = new Block<Document>() {
+        @Override
+        public void apply(final Document document) {
+            happyComments.add(document.get("Comment").toString());
+        }
+    };
+
+    Block<Document> toSadArray = new Block<Document>() {
+        @Override
+        public void apply(final Document document) {
+            sadComments.add(document.get("Comment").toString());
+        }
+    };
+
     /**
      * Searches the DB for a specific key and value.
      * @param key DB key.
@@ -50,13 +75,29 @@ public class MongoDB{
 
     /*
         Find common words:
-        - find every submission with Mood: happy
-            - loop through and split comment " "-space character
+        - find every submission with Mood: happy -> lista med alla submissions och ta comments -x
+            - loop through and split comment " "-space character -x
+
             - lägg in varje ord i en associative array (key value pairs, nyckel är ord, value är hur frekvent)
             - om ordet inte finns lägg till det, annars plussa value
 
-        - Gör om samma för Mood: sad
      */
+
+    //Gets comments from submissions
+    public void getComments(String mood){
+        Bson moodFilter = Filters.eq("Mood", mood);
+        Bson incCommentProjection = Projections.include("Comment");
+        Bson excIdProjection = Projections.excludeId();
+
+        FindIterable submissions = usersCollection.find(moodFilter).projection(and(incCommentProjection, excIdProjection));
+
+        if (mood.equals("Happy")) {
+            submissions.forEach(toHappyArray);
+        } else {
+            submissions.forEach(toSadArray);
+        }
+
+    }
 
     public long countMood(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
@@ -85,7 +126,6 @@ public class MongoDB{
     }
     // clean up and turn into one function??
 
-    //Vad händer om det inte finns någon mood submission?
     public String findUserMood(String user, String date){
         Bson userFilter = Filters.eq("User",user);
         Bson dateFilter = Filters.eq("Date",date);
