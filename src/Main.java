@@ -5,6 +5,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 public class Main extends Application {
     /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
@@ -15,15 +18,14 @@ public class Main extends Application {
     static MongoDB userConn = new MongoDB("UsersDB","Users");
     static MongoDB moodConn = new MongoDB("UsersDB","MoodData");
 
-
     @Override
     /**
      * @param mainLayout BorderPane, the layout for the entire window.
      * @param undecorator //TODO
      * @param scene the part of the window where the actual application is shown
-
      */
-    public void start(Stage window){
+    public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
+        Configuration.parseConfig();
 
         //Visa LoginBox
         LoginBox.display();
@@ -38,13 +40,12 @@ public class Main extends Application {
         mainLayout.setCenter(new StartWindow());
 
         Undecorator undecorator = new Undecorator(window,mainLayout);
-        undecorator.getStylesheets().add("bmSkin.css");
-        Scene scene = new Scene(undecorator, 900,800);
+        undecorator.getStylesheets().add("bmSkin-"+Configuration.color+".css");
+        Scene scene = new Scene(undecorator, Configuration.width,Configuration.height);
         scene.setFill(Color.TRANSPARENT);
         window.setOnCloseRequest(e->System.exit(0));
         window.setScene(scene);
         window.show();
-
         new Menu(window,mainLayout);
 
     }

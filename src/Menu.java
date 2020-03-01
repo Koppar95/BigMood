@@ -49,7 +49,7 @@ public class Menu {
         originBtn.setGraphic(new ImageView(image));
         originBtn.setAlignment(Pos.CENTER);
         originBtn.setPrefWidth(100);
-        originBtn.getStyleClass().add("custom-open-menu-button");
+        originBtn.getStyleClass().add("custom-open-menu-button-"+Configuration.color);
 
         HBox fileRoot = new HBox();
         fileRoot.getChildren().add(originBtn);
@@ -57,7 +57,9 @@ public class Menu {
 
         VBox menu = new VBox();
         menu.setSpacing(2);
-        menu.setStyle("-fx-background-color: #668B4E;");
+        //menu.setStyle("-fx-background-color: #668B4E;");
+        //menu.setStyle("-fx-background-color: #a59115;");
+        menu.getStyleClass().add("custom-menu-bar-"+Configuration.color);
         menu.setFillWidth(true);
 
         VBox placeholder = new VBox();
@@ -71,7 +73,7 @@ public class Menu {
 
         Button logout = new Button("Logout");
         logout.setPrefWidth(100);
-        logout.getStyleClass().add("custom-menu-logoutbutton");
+        logout.getStyleClass().add("custom-menu-logoutbutton-"+Configuration.color);
 
         logout.setOnMouseClicked(e-> {
             if(menuState) {
@@ -183,7 +185,7 @@ public class Menu {
     private Button addMenuItem(String label, int width, EventHandler<? super MouseEvent> active) {
         Button b = new Button(label);
         b.setPrefWidth(width);
-        b.getStyleClass().add("custom-menu-button");
+        b.getStyleClass().add("custom-menu-button-"+Configuration.color);
         b.setOnMouseClicked(active);
         return b;
     }

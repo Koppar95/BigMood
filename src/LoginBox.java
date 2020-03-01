@@ -67,6 +67,7 @@ public class LoginBox {
 
                 if(userEmail.equals(userInputEmail) && userHashedPassword == passwordInputHashed){
                     //INLOGGNING GODTAGEN
+                    Session currentSession = new Session(user);
                     window.close();
                     currentUser=user;
                 }else{
@@ -94,7 +95,7 @@ public class LoginBox {
 
         //Undecorator initialization
         Undecorator undecorator = new Undecorator(window,layout);
-        undecorator.getStylesheets().add("bmSkinTransparent.css");
+        undecorator.getStylesheets().add("bmSkinTransparent-"+Configuration.color+".css");
         undecorator.setMinSize(500,300);
 
         Scene scene = new Scene(undecorator);

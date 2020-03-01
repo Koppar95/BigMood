@@ -21,7 +21,6 @@ public class ProfileWindow extends VBox {
     static int spacing = 8;
     static int minWidth =115;
     static Insets boxPadding = new Insets(10, 10, 10, 10);
-    static String boxStyle ="-fx-background-color: rgba(102, 139, 78, 0.5);";
 
     public void ProfileWindow() {
 
@@ -46,7 +45,7 @@ public class ProfileWindow extends VBox {
         changeHeightBox.setSpacing(spacing);
         changeHeightBox.setPadding(boxPadding);
         changeHeightBox.setBackground(Background.EMPTY);
-        changeHeightBox.setStyle(boxStyle);
+        changeHeightBox.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
         String userHeight = (LoginBox.currentUser.get("Height")).toString();
 
@@ -58,7 +57,7 @@ public class ProfileWindow extends VBox {
 
         Button changeHeightBtn = new Button();
         changeHeightBtn.setText("Update");
-        changeHeightBtn.getStyleClass().add("custom-profile-edit-button");
+        changeHeightBtn.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
         changeHeightBox.getChildren().addAll(heightlbl,height, changeHeightBtn);
 
@@ -96,7 +95,7 @@ public class ProfileWindow extends VBox {
         changeNameBox.setSpacing(spacing);
         changeNameBox.setPadding(boxPadding);
         changeNameBox.setBackground(Background.EMPTY);
-        changeNameBox.setStyle(boxStyle);
+        changeNameBox.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
         String usersName= (LoginBox.currentUser.get("Name").toString());
 
@@ -108,7 +107,7 @@ public class ProfileWindow extends VBox {
 
         Button changeNameBtn= new Button();
         changeNameBtn.setText("Update");
-        changeNameBtn.getStyleClass().add("custom-profile-edit-button");
+        changeNameBtn.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
 
         changeNameBtn.setOnMouseClicked(e->{
@@ -132,7 +131,7 @@ public class ProfileWindow extends VBox {
 
 
             changePassword.setBackground(Background.EMPTY);
-            changePassword.setStyle(boxStyle);
+            changePassword.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
             HBox currentPasswordBox = new HBox();
             currentPasswordBox.setSpacing(spacing);
@@ -166,7 +165,7 @@ public class ProfileWindow extends VBox {
 
             Button changePasswordBtn = new Button();
             changePasswordBtn.setText("Update");
-            changePasswordBtn.getStyleClass().add("custom-profile-edit-button");
+            changePasswordBtn.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
             changePasswordBtn.setOnAction(e -> {
                 int passwordInputHashed = currentPasswordField.getText().hashCode();

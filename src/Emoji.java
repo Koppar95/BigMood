@@ -45,7 +45,7 @@ public class Emoji extends ImageView {
     }
 
     public static Emoji makeHappyEmoji() {
-        Image happy = new Image("/happy.png");
+        Image happy = new Image("happy.png");
         return new Emoji(happy);
     }
 

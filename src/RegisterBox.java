@@ -174,7 +174,7 @@ public class RegisterBox {
                 heightInput,registerButton, warningLabel, wrongHeight, cancelButton
         );
         Undecorator undecorator = new Undecorator(window,grid);
-        undecorator.getStylesheets().add("bmSkinTransparent.css");
+        undecorator.getStylesheets().add("bmSkinTransparent-"+Configuration.color+".css");
         undecorator.setMinSize(520,350);
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);

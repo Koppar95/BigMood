@@ -1,4 +1,4 @@
-.custom-menu-button {
+.custom-menu-button-green {
     -fx-background-color: transparent #668B4E;
     -fx-text-fill: white;
     -fx-border-color: transparent, #668B4E;
@@ -8,22 +8,53 @@
     -fx-border-insets: 1 1 1 1, 0;
 }
 
-.custom-menu-button:hover {
+.custom-menu-button-gold {
+    -fx-background-color: transparent #a59115;
+    -fx-text-fill: white;
+    -fx-border-color: transparent, #a59115;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.custom-menu-button-green:hover {
     -fx-background-color: #99B686;
 }
 
-.custom-menu-logoutbutton {
+.custom-menu-button-gold:hover {
+    -fx-background-color: #ebe1a3;
+}
+
+.custom-menu-bar-green{
+    -fx-background-color: #668B4E
+}
+
+.custom-menu-bar-gold{
+    -fx-background-color: #a59115
+}
+
+.custom-menu-logoutbutton-green {
     -fx-background-color: #668B4E;
     -fx-text-fill: white;
     -fx-border-color: #668B4E;
-
 }
 
-.custom-menu-logoutbutton:hover {
+.custom-menu-logoutbutton-gold {
+    -fx-background-color: #a59115;
+    -fx-text-fill: white;
+    -fx-border-color: #a59115;
+}
+
+.custom-menu-logoutbutton-green:hover {
     -fx-background-color: #99B686;
 }
 
-.custom-open-menu-button {
+.custom-menu-logoutbutton-gold:hover {
+    -fx-background-color: #ebe1a3;
+}
+
+.custom-open-menu-button-green {
     -fx-background-color: #668B4E;
     -fx-text-fill: white;
     -fx-border-color: transparent, #668B4E;
@@ -33,11 +64,33 @@
     -fx-border-insets: 1 1 1 1, 0;
 }
 
-.custom-open-menu-button:hover {
+.custom-open-menu-button-gold {
+    -fx-background-color: #a59115;
+    -fx-text-fill: white;
+    -fx-border-color: transparent, #a59115;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.custom-open-menu-button-green:hover {
     -fx-background-color: #99B686;
 }
 
-.custom-profile-edit-button {
+.custom-open-menu-button-gold:hover {
+    -fx-background-color: #ebe1a3;
+}
+
+.custom-profile-edit-boxStyle-green{
+    -fx-background-color: rgba(102, 139, 78, 0.5);
+}
+
+.custom-profile-edit-boxStyle-gold{
+    -fx-background-color: rgba(165, 145, 21, 0.5);
+}
+
+.custom-profile-edit-button-green {
     -fx-background-color: rgba(102, 139, 78, 0.8);
     -fx-text-fill: black;
     -fx-border-color: transparent, #668B4E;
@@ -47,6 +100,21 @@
     -fx-border-insets: 1 1 1 1, 0;
 }
 
-.custom-profile-edit-button:hover {
+.custom-profile-edit-button-gold {
+    -fx-background-color: rgba(165, 145, 21, 0.8);
+    -fx-text-fill: black;
+    -fx-border-color: transparent, #a59115;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.custom-profile-edit-button-green:hover {
     -fx-background-color: rgba(162, 209, 138, 0.6);
 }
+
+.custom-profile-edit-button-gold:hover {
+    -fx-background-color: rgba(235, 225, 163, 0.6);
+}
+
