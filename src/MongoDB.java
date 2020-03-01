@@ -6,9 +6,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.io.BsonOutput;
-import org.w3c.dom.ls.LSOutput;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,16 +72,6 @@ public class MongoDB{
         return count;
     }
 
-    /*
-        Find common words:
-        - find every submission with Mood: happy -> lista med alla submissions och ta comments -x
-            - loop through and split comment " "-space character -x
-
-            - lägg in varje ord i en associative array (key value pairs, nyckel är ord, value är hur frekvent)
-            - om ordet inte finns lägg till det, annars plussa value
-
-     */
-
     //Gets comments from submissions
     public void getComments(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
@@ -113,6 +102,26 @@ public class MongoDB{
         return count;
     }
 
+    public String[] getUsers(){
+        Bson incUserProjection = Projections.include("User");
+        Bson excIdProjection = Projections.excludeId();
+
+        MongoCursor users = usersCollection.distinct("User", String.class).iterator();
+
+        List<String> userList= new ArrayList<String>();
+
+        while( users.hasNext()){
+            userList.add(users.toString());
+            users.next();
+        }
+
+        String[] userArr = new String[userList.size()];
+        userArr = userList.toArray(userArr);
+
+        return userArr;
+    }
+
+    //funkar ej
     public long countUsers(){
         long userCount = 0;
 

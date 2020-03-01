@@ -1,15 +1,24 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextFlow;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DataWindow extends VBox {
 
-    public void addToHashMap(HashMap<String, Integer> hash, String[] array){
+    public static String[] topHappyWords = new String[3];
+    public static String[] topSadWords = new String[3];
 
+    public static void countComments(HashMap<String, Integer> hash, String[] array){
         for(int i=0; i < array.length; i++){
             if(hash.containsKey(array[i])){
                 hash.put(array[i], 1 + hash.get(array[i]));
@@ -18,7 +27,6 @@ public class DataWindow extends VBox {
             }
         }
     }
-
 
     //Redo function?
     private static Map<String, Integer> sortByComparator(Map<String, Integer> unsortMap)
@@ -54,12 +62,17 @@ public class DataWindow extends VBox {
         }
     }
 
-    public DataWindow() {
-        String username = LoginBox.currentUser.get("Username").toString();
+    public static Map<String, Integer> filterMoodWords(Map<String, Integer> map){
 
-        BarChart userVsAvgMood = Chart.makeMoodBarChart("You vs Avg User", username);
+        String[] filterArr = {"testing", "with", "TESTAR", "I","is", "a", "är", "i","Det"};
+        List <String> filterList = Arrays.asList(filterArr);
 
-        //Test for getting comments
+        map = map.entrySet().stream().filter(x-> !(filterList.contains(x.getKey()))).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        return map;
+    }
+
+    public static void getMoodWords(){
         Main.moodConn.getComments("Happy");
         Main.moodConn.getComments("Sad");
 
@@ -95,27 +108,51 @@ public class DataWindow extends VBox {
         HashMap happyHash = new HashMap();
         HashMap sadHash = new HashMap();
 
-        addToHashMap(happyHash,happyWordsArr);
-        addToHashMap(sadHash, sadWordsArr);
+        countComments(happyHash,happyWordsArr);
+        countComments(sadHash, sadWordsArr);
+
+        Map<String, Integer> sortedHappy = filterMoodWords(happyHash);
+        sortedHappy = sortByComparator(sortedHappy);
 
         System.out.println("Words associated with happiness: ");
-        Map<String, Integer> sortedHappy = sortByComparator(happyHash);
         printMap(sortedHappy);
 
+        Map<String, Integer> sortedSad = filterMoodWords(sadHash);
+        sortedSad = sortByComparator(sortedSad);
+
         System.out.println("Words associated with sadness: ");
-        Map<String, Integer> sortedSad = sortByComparator(sadHash);
         printMap(sortedSad);
+    }
 
+    public DataWindow() {
+        String username = LoginBox.currentUser.get("Username").toString();
 
-        PieChart userAvg = Chart.makeMoodPieChart("Your Total Submissions", username);
-        userAvg.setLabelsVisible(false);
+        BarChart userVsAvgMood = Chart.makeMoodBarChart("You vs Avg User", username);
+
+        /*
+        String[] userArr = Main.moodConn.getUsers();
+
+        for(int i = 0; i < userArr.length; i++){
+            System.out.println("User: " + userArr[i]);
+        }
+
+        TextFlow userCount = new TextFlow();
+
+         */
 
         HBox userVsAvgBox = new HBox();
         userVsAvgBox.getChildren().add(userVsAvgMood);
         userVsAvgBox.setAlignment(Pos.CENTER);
 
+        PieChart userAvg = Chart.makeMoodPieChart("Your Total Submissions", username);
+        userAvg.setLabelsVisible(false);
+
+        getMoodWords();
+
+        VBox table = Table.makeUserTable();
+
         HBox userAvgBox = new HBox();
-        userAvgBox.getChildren().add(userAvg);
+        userAvgBox.getChildren().addAll(table, userAvg);
         userAvgBox.setAlignment(Pos.CENTER);
 
         VBox moodCharts = new VBox();
@@ -128,3 +165,20 @@ public class DataWindow extends VBox {
     }
 
 }
+
+/*
+class Moods {
+    private hashmap;
+    constuctor(haschmap) {
+        sthis.hashmap = hashmap;
+    }
+    public sort() {
+        // cpoty
+
+    }
+    pub
+
+
+}
+
+ */
