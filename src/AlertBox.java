@@ -1,14 +1,27 @@
 import insidefx.undecorator.Undecorator;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
-import javafx.scene.control.*;
 import javafx.geometry.*;
+import java.awt.*;
 
+/**
+ * AlertBox to inform user, requires an action to be closed.
+ * @author Karl Svensson
+ * @version 1.2
+ * @since 2020-03-03
+ */
 public class AlertBox {
-
+    /**
+     * Creates and displays the alertBox to the user.
+     * @param title The window title for the AlertBox
+     * @param message The message to be displayed in the AlertBoc
+     */
     public static void display(String title, String message){
+        Toolkit.getDefaultToolkit().beep();
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -19,7 +32,6 @@ public class AlertBox {
         Label label = new Label();
         label.setText(message);
         Button approveButton = new Button("OK");
-        //Button cancelButton = new Button("Cancel");
         approveButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
