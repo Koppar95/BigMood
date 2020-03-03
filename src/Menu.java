@@ -13,20 +13,21 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Class to implement drop down side bar menu containing buttons to windows.
+ * @author Rebecka Axelborn
+ * @version 1.1
+ * @since 2020-03-03
+ */
+
 public class Menu {
-    /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
-     * windows.
-     * menuState A boolean that is true when the menu is open,false when menu is closed.
+    /**
+     * A boolean that is true when the menu is open,false when menu is closed.
      */
     private static boolean menuState=false;
 
-    /**
-     * A button that opens and closes the menu, The Image that is shown on the originBtn.
-     * HBox where the originButton is placed, HBox where the originButton is placed.
-     * The VBox that works as the menu that contains all buttons(except the log in button).
-     * A Vbox tho occupy the space while menu is not showing, so that the other parts of the.
-     * Button that when clicked, makes you log out.
-     * Button that when clicked, changes view to show DataWindow
+    /**A button is created that when clicked will run a FadeTransition to show or remove the menu. The
+     * fade in menu contains window buttons and a logout button.
      * @param window Stage that is the initial window. Used in menu to be able to hide the window during logout and login.
      * @param mainLayout BorderPane which is the main layout for the application. Used in Menu to be able to add the menu
      * to the layout.
@@ -109,9 +110,6 @@ public class Menu {
 
 
         originBtn.setOnAction(new EventHandler<ActionEvent>() {
-            /**
-             * Animations for the menu that will run when originBtn is pressed.
-             */
             @Override
             public void handle(ActionEvent event) {
                 if (getMenuState()) {
@@ -154,7 +152,7 @@ public class Menu {
 
     // getters and setters to see if menu is open or not
 
-    /**
+    /** getMenuState is a method to get the state of the menu.
      * @return Returns menuState to know if menu is open or not
      */
     private boolean getMenuState(){
