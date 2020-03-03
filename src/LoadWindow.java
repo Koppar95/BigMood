@@ -23,7 +23,7 @@ public class LoadWindow {
         window.setLocation((int)xPos,(int)yPos);
         //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(30,30);
-        ImageIcon loadIcon = new ImageIcon("images/89.gif");
+        ImageIcon loadIcon = new ImageIcon("src/Assets/89.gif");
         JLabel image = new JLabel(loadIcon);
         window.add(image);
     }
