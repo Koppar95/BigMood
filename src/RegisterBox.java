@@ -167,6 +167,7 @@ public class RegisterBox {
         });
 
         cancelButton.setOnAction(e-> window.close());
+
         grid.getChildren().addAll(
                 usernameLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
@@ -174,7 +175,7 @@ public class RegisterBox {
                 heightInput,registerButton, warningLabel, wrongHeight, cancelButton
         );
 
-        window.setOnCloseRequest(e -> { window.close();});
+        window.setOnCloseRequest(e -> window.close());
 
         Undecorator undecorator = new Undecorator(window,grid);
         undecorator.getStylesheets().add("bmSkinTransparent-"+Configuration.color+".css");
