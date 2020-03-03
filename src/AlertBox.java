@@ -27,7 +27,7 @@ public class AlertBox {
         layout.setAlignment(Pos.CENTER);
 
         Undecorator undecorator = new Undecorator(window,layout);
-        undecorator.getStylesheets().add("bmSkinTransparent.css");
+        undecorator.getStylesheets().add("bmSkinTransparent-"+Configuration.color+".css");
         undecorator.setMinSize(300,150);
 
         Scene scene = new Scene(undecorator);
