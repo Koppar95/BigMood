@@ -36,7 +36,6 @@ public class LoginBox {
         userLabel.setText("Username");
         TextField userInput = new TextField();
         userInput.setMaxSize(200,5);
-        //
 
         //Password input
         Label passwordLabel = new Label();
@@ -54,8 +53,8 @@ public class LoginBox {
         Button loginButton = new Button("Login");
         loginButton.setOnAction(e->{
 
-            LoadWindow loadWindow = new LoadWindow(window.getX()+16,window.getY()+16);
-            loadWindow.startLoadThread();
+            //LoadWindow loadWindow = new LoadWindow(window.getX()+16,window.getY()+16);
+            //loadWindow.startLoadThread();
 
             Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
             if(user !=null) {
@@ -76,7 +75,7 @@ public class LoginBox {
                     //Användarnamn ej registrerad
                 errorLabel.setText("Användare ej registrerad");
             }
-            loadWindow.close();
+            //loadWindow.close();
         });
 
         Button registerButton = new Button("Register");
