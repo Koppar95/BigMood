@@ -17,14 +17,15 @@ public class Menu {
     /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
      * windows.
      * @param menuState A boolean that is true when the menu is open,false when menu is closed.
-     * @param window Stage that is the basic window.
+
      */
     private static boolean menuState=false;
 
     /**
      *
-     * @param window
-     * @param mainLayout
+     * @param window Stage that is the initial window. Used in menu to be able to hide the window during logout and login.
+     * @param mainLayout BorderPane which is the main layout for the application. Used in Menu to be able to add the menu
+     *                   to the layout.
      */
     public Menu(Stage window, BorderPane mainLayout){
         /**
@@ -33,14 +34,14 @@ public class Menu {
          * @param fileRoot HBox where the originButton is placed
          * @param menu The VBox that works as the menu that contains all buttons(except the log in button)
          * @param placeholder A Vbox tho occupy the space while menu is not showing, so that the other parts of the
-         *application won't move
+         *                    application won't move
          * @param logout Button that when clicked, makes you log out.
          * @param mood Button that when clicked, changes view to show MoodWindow.
          * @param data Button that when clicked, changes view to show DataWindow
          * @param
          */
         // MENU PART START
-        //load cc stylesheet
+        //load css stylesheet
         mainLayout.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
         //main window button
@@ -84,6 +85,7 @@ public class Menu {
             }
         });
 
+        // Creates and adds buttons connected to windows to menu.
         menu.getChildren().addAll(
                 addMenuItem("Start", 100, e->{
                             if(menuState) {
