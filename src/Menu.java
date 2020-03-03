@@ -46,7 +46,7 @@ public class Menu {
 
         //main window button
         Button originBtn = new Button();
-        Image image = new Image(getClass().getResourceAsStream("smallMenu.png"));
+        Image image = new Image(getClass().getResourceAsStream("images/smallMenu.png"));
         originBtn.setGraphic(new ImageView(image));
         originBtn.setAlignment(Pos.CENTER);
         originBtn.setPrefWidth(100);
