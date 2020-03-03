@@ -43,7 +43,6 @@ public class AlertBox {
         undecorator.setMinSize(300,150);
 
         Scene scene = new Scene(undecorator);
-
         scene.setFill(Color.TRANSPARENT);
         window.setScene(scene);
         window.showAndWait();
