@@ -11,27 +11,24 @@ import java.io.IOException;
 
 public class Main extends Application {
     /** In Main all parts of the application are put together. In main().
-     * @param window Stage that is the initial window.
-     * @param userConn Connection to MongoDB database containing login data.
-     * @param moodConn Connection to MongoDB database containing mood data.
+     * window Stage that is the initial window.
+     * userConn Connection to MongoDB database containing login data.
+     * moodConn Connection to MongoDB database containing mood data.
      */
 
-    static MongoDB userConn = new MongoDB("UsersDB","Users");
-    static MongoDB moodConn = new MongoDB("UsersDB","MoodData");
+    static MongoDB userConn;
+    static MongoDB moodConn;
 
     @Override
-    /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
-     * menu is added.
-     * @param mainLayout BorderPane, the layout for the entire window.
-     * @param undecorator //TODO
-     * @param scene the part of the window where the actual application is shown
-     */
     public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
         Configuration.parseConfig();
-
+        //Start a thread to when connection to MongoDB, i case no internet connection the program does not crash.
+        new Thread (()->{
+            userConn = new MongoDB("UsersDB","Users");
+            moodConn = new MongoDB("UsersDB","MoodData");
+        }).start();
         //Visa LoginBox
         LoginBox.display();
-        //
 
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);

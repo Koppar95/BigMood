@@ -16,30 +16,22 @@ import javafx.util.Duration;
 public class Menu {
     /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
      * windows.
-     * @param menuState A boolean that is true when the menu is open,false when menu is closed.
-
+     * menuState A boolean that is true when the menu is open,false when menu is closed.
      */
     private static boolean menuState=false;
 
     /**
-     *
+     * A button that opens and closes the menu, The Image that is shown on the originBtn.
+     * HBox where the originButton is placed, HBox where the originButton is placed.
+     * The VBox that works as the menu that contains all buttons(except the log in button).
+     * A Vbox tho occupy the space while menu is not showing, so that the other parts of the.
+     * Button that when clicked, makes you log out.
+     * Button that when clicked, changes view to show DataWindow
      * @param window Stage that is the initial window. Used in menu to be able to hide the window during logout and login.
      * @param mainLayout BorderPane which is the main layout for the application. Used in Menu to be able to add the menu
-     *                   to the layout.
+     * to the layout.
      */
     public Menu(Stage window, BorderPane mainLayout){
-        /**
-         * @param originBtn A button that opens and closes the menu.
-         * @param image The Image that is shown on the originBtn.
-         * @param fileRoot HBox where the originButton is placed
-         * @param menu The VBox that works as the menu that contains all buttons(except the log in button)
-         * @param placeholder A Vbox tho occupy the space while menu is not showing, so that the other parts of the
-         *                    application won't move
-         * @param logout Button that when clicked, makes you log out.
-         * @param mood Button that when clicked, changes view to show MoodWindow.
-         * @param data Button that when clicked, changes view to show DataWindow
-         * @param
-         */
         // MENU PART START
         //load css stylesheet
         mainLayout.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
@@ -117,10 +109,10 @@ public class Menu {
 
 
         originBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
             /**
              * Animations for the menu that will run when originBtn is pressed.
              */
+            @Override
             public void handle(ActionEvent event) {
                 if (getMenuState()) {
 
