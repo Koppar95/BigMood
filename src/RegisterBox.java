@@ -173,6 +173,9 @@ public class RegisterBox {
                 dobLabel, datePicker, heightLabel,
                 heightInput,registerButton, warningLabel, wrongHeight, cancelButton
         );
+
+        window.setOnCloseRequest(e -> { window.close();});
+
         Undecorator undecorator = new Undecorator(window,grid);
         undecorator.getStylesheets().add("bmSkinTransparent-"+Configuration.color+".css");
         undecorator.setMinSize(520,350);
