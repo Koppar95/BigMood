@@ -10,16 +10,18 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class Main extends Application {
-    /** In Main the side bar menu is created and the buttons are connected to instances of other classes that are various
-     * windows.
-     * @param window Stage that is the basic window.
+    /** In Main all parts of the application are put together. In main().
+     * @param window Stage that is the initial window.
+     * @param userConn Connection to MongoDB database containing login data.
+     * @param moodConn Connection to MongoDB database containing mood data.
      */
 
     static MongoDB userConn = new MongoDB("UsersDB","Users");
     static MongoDB moodConn = new MongoDB("UsersDB","MoodData");
 
     @Override
-    /**
+    /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
+     * menu is added.
      * @param mainLayout BorderPane, the layout for the entire window.
      * @param undecorator //TODO
      * @param scene the part of the window where the actual application is shown
@@ -50,6 +52,9 @@ public class Main extends Application {
 
     }
 
+    /**
+     * the javaFX is launched and start() will run.
+     */
     public static void main(String[] args) {
         launch(args);
     }
