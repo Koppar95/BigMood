@@ -9,45 +9,102 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import org.bson.Document;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
  */
 public class ProfileWindow extends VBox {
-    static String currentUserName = LoginBox.currentUser.get("Username").toString();
     static int spacing = 8;
     static int minWidth =115;
     static Insets boxPadding = new Insets(10, 10, 10, 10);
-
-    public void ProfileWindow() {
-
-    }
-
-    public ProfileWindow() {
+    private Session currentSession;
+    private Stage window;
+    public ProfileWindow(Session currentSession, Stage window) {
         super();
+        this.currentSession=currentSession;
+        this.window=window;
         this.setPadding(new Insets(10, 50, 50, 50));
         this.setSpacing(spacing);
 
         HBox nameUpdate = changeName();
         HBox heightUpdate = changeHeight();
         VBox passwordUpdate = changePassword();
+        HBox configureSettings = configureSettings();
 
-        this.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate);
+        this.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate, configureSettings);
+    }
+    private HBox configureSettings(){
+        HBox configureSettingsBox = new HBox();
+        configureSettingsBox.setSpacing(spacing);
+        configureSettingsBox.setPadding(boxPadding);
+        configureSettingsBox.setBackground(Background.EMPTY);
+        configureSettingsBox.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
 
+        Button changeColorGold = new Button();
+        changeColorGold.getStyleClass().add("custom-profile-edit-button-gold");
+        changeColorGold.setOnMouseClicked(e->{
+            try {
+                Configuration.updateElementValue("gold");
+            } catch (TransformerException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                Configuration.parseConfig();
+            } catch (SAXException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ParserConfigurationException ex) {
+                ex.printStackTrace();
+            }
+            MainStage mainStage = new MainStage(currentSession,window);
+            mainStage.updateGUI();
+        });
+
+        Button changeColorGreen = new Button();
+        changeColorGreen.getStyleClass().add("custom-profile-edit-button-green");
+        changeColorGreen.setOnMouseClicked(e->{
+            try {
+                Configuration.updateElementValue("green");
+            } catch (TransformerException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                Configuration.parseConfig();
+            } catch (SAXException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ParserConfigurationException ex) {
+                ex.printStackTrace();
+            }
+            MainStage mainStage = new MainStage(currentSession,window);
+            mainStage.updateGUI();
+        });
+
+        configureSettingsBox.getChildren().addAll(changeColorGold, changeColorGreen);
+
+        return configureSettingsBox;
     }
 
-    private static HBox changeHeight() {
+    private HBox changeHeight() {
         HBox changeHeightBox = new HBox();
         changeHeightBox.setSpacing(spacing);
         changeHeightBox.setPadding(boxPadding);
         changeHeightBox.setBackground(Background.EMPTY);
         changeHeightBox.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
-        String userHeight = (LoginBox.currentUser.get("Height")).toString();
+        String userHeight = (currentSession.getCurrentUser().get("Height")).toString();
 
         Label heightlbl = new Label("Height:");
         heightlbl.setMinWidth(minWidth);
@@ -64,10 +121,10 @@ public class ProfileWindow extends VBox {
         changeHeightBtn.setOnMouseClicked(e -> {
             String newHeight = height.getText();
             Integer updateValue = Integer.parseInt(newHeight);
-            Main.userConn.updateIntValue("Username", currentUserName, "Height", updateValue);
+            Main.userConn.updateIntValue("Username", currentSession.getCurrentUser().get("Username").toString(), "Height", updateValue);
             height.clear();
             height.setPromptText(newHeight + "(cm)");
-            LoginBox.setCurrentUser(currentUserName);
+            currentSession.updateCurrentUser(currentSession.getCurrentUserName());
         });
 
         Label wrongHeight = new Label();
@@ -90,14 +147,14 @@ public class ProfileWindow extends VBox {
         return changeHeightBox;
     }
 
-    private static HBox changeName(){
+    private HBox changeName(){
         HBox changeNameBox = new HBox();
         changeNameBox.setSpacing(spacing);
         changeNameBox.setPadding(boxPadding);
         changeNameBox.setBackground(Background.EMPTY);
         changeNameBox.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
-        String usersName= (LoginBox.currentUser.get("Name").toString());
+        String usersName= (currentSession.getCurrentUser().get("Name").toString());
 
         Label nameLbl = new Label("Name:");
         nameLbl.setMinWidth(minWidth);
@@ -113,10 +170,10 @@ public class ProfileWindow extends VBox {
         changeNameBtn.setOnMouseClicked(e->{
             //MongoDB base = new MongoDB("UsersDB", "Users");
             String updateValue = name.getText();
-            Main.userConn.updateValue("Username",currentUserName,"Name",updateValue);
+            Main.userConn.updateValue("Username",currentSession.getCurrentUser().get("Username").toString(),"Name",updateValue);
             name.clear();
             name.setPromptText(updateValue);
-            LoginBox.setCurrentUser(currentUserName);
+            currentSession.updateCurrentUser(currentSession.getCurrentUserName());
         });
 
         changeNameBox.getChildren().addAll(nameLbl,name,changeNameBtn);
@@ -124,7 +181,7 @@ public class ProfileWindow extends VBox {
         return changeNameBox;
     }
 
-        private static VBox changePassword() {
+        private VBox changePassword() {
             VBox changePassword = new VBox();
             changePassword.setSpacing(spacing);
             changePassword.setPadding(boxPadding);
@@ -169,18 +226,19 @@ public class ProfileWindow extends VBox {
 
             changePasswordBtn.setOnAction(e -> {
                 int passwordInputHashed = currentPasswordField.getText().hashCode();
-                int userHashedPassword = LoginBox.currentUser.getInteger("Password");
+                int userHashedPassword = currentSession.getCurrentUser().getInteger("Password");
                 int newPasswordHash = newPasswordField.getText().hashCode();
                 int matchPasswordHash = matchPasswordField.getText().hashCode();
 
                 if (userHashedPassword == passwordInputHashed && newPasswordHash==matchPasswordHash) {
                     errorWrongPassword.setText("");
-                    Main.userConn.updateIntValue("Username",currentUserName,"Password",newPasswordHash);
+                    Main.userConn.updateIntValue("Username", currentSession.getCurrentUser().get("Username").toString(),"Password",newPasswordHash);
                     currentPasswordField.clear();
                     newPasswordField.clear();
                     matchPasswordField.clear();
                     matchPasswordField.setPromptText("Password changed");
                     System.out.println("Password changed");
+                    currentSession.updateCurrentUser(currentSession.getCurrentUserName());
 
                 } else if (!(userHashedPassword == passwordInputHashed)) {
                     errorWrongPassword.setText("Fel lösenord");
@@ -205,10 +263,6 @@ public class ProfileWindow extends VBox {
                 }
             });
 
-
-
-
-
             currentPasswordBox.getChildren().addAll(currentPassword, currentPasswordField);
             wrongPasswordBox.getChildren().addAll(placeholderLabel2,errorWrongPassword);
             newPasswordBox.getChildren().addAll(newPassword,newPasswordField);
@@ -218,7 +272,5 @@ public class ProfileWindow extends VBox {
                                                 matchPasswordBox, noMatchBox);
 
             return changePassword;
-
-
     }
 }

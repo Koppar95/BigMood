@@ -13,10 +13,22 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bson.Document;
 
+/**
+ * Class for creating a Login Box and checking login authentication
+ * Sets a current user variable on successful login to track who is currently logged in.
+ * @author Samuel Leckborn
+ * @version 1.0
+ * @since 2020-02-19
+ */
 public class LoginBox {
+    private Session currentSession;
+
+    public LoginBox(Session currentSession){
+    this.currentSession=currentSession;
+    }
     public static Document currentUser;
 
-    public static void display(){
+    public void display(){
 
         //Stage initialization
         Stage window = new Stage();
@@ -36,6 +48,7 @@ public class LoginBox {
         userLabel.setText("Username");
         TextField userInput = new TextField();
         userInput.setMaxSize(200,5);
+        //
 
         //Password input
         Label passwordLabel = new Label();
@@ -51,40 +64,32 @@ public class LoginBox {
 
         //Buttons
         Button loginButton = new Button("Login");
-        loginButton.setOnAction(e->{
 
-            //LoadWindow loadWindow = new LoadWindow(window.getX()+16,window.getY()+16);
-            //loadWindow.startLoadThread();
+        loginButton.setOnAction(e->{
+            LoadWindow loadWindow = new LoadWindow(window.getX()+16,window.getY()+16);
+            loadWindow.startLoadThread();
 
             Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
-            if(user !=null) {
-                String userEmail = user.get("Username").toString().toLowerCase();
-                String userInputEmail = userInput.getText().toLowerCase();
 
-                int passwordInputHashed = passwordInput.getText().hashCode();
-                int userHashedPassword = user.getInteger("Password");
+            int passwordInputHashed = passwordInput.getText().hashCode();
+            String userInputEmail = userInput.getText().toLowerCase();
 
-                if(userEmail.equals(userInputEmail) && userHashedPassword == passwordInputHashed){
-                    //INLOGGNING GODTAGEN
+                if(loginCheck(user, passwordInputHashed, userInputEmail)){
                     window.close();
-                    currentUser=user;
+                    currentSession.setCurrentUser(user);
                 }else{
-                    errorLabel.setText("Fel användarnamn eller lösen");
+                    errorLabel.setText("Wrong username or password");
                 }
-            }else{
-                    //Användarnamn ej registrerad
-                errorLabel.setText("Användare ej registrerad");
-            }
-            //loadWindow.close();
+            loadWindow.close();
         });
 
         Button registerButton = new Button("Register");
         registerButton.setOnAction(e->RegisterBox.display("Register"));
-        //
 
         //Layout initialization and component positioning
         VBox layout = new VBox(10);
         HBox buttonLayout = new HBox(10);
+
         buttonLayout.getChildren().addAll(loginButton,registerButton);
         buttonLayout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(userLabel,userInput,passwordLabel,passwordInput,buttonLayout,errorLabel);
@@ -104,7 +109,22 @@ public class LoginBox {
         //
     }
 
-    public static void setCurrentUser(String username){
+    public boolean loginCheck(Document user, int passInput, String userInput){
+        if(user !=null) {
+            String userEmail = user.get("Username").toString().toLowerCase();
+            int userHashedPassword = user.getInteger("Password");
+            if(userEmail.equals(userInput) && userHashedPassword == passInput) {
+                //Login Successful
+                return true;
+            }
+            //Login Unsuccessful
+            return false;
+        }
+        //User is null
+        return false;
+    }
+
+    public void setCurrentUser(String username){
         currentUser = Main.userConn.getDocument("Username",username);
     }
 

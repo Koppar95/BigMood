@@ -16,7 +16,57 @@ public class MoodWindow extends VBox {
 
         //Skapa en egen date klass??
         // Test test
+    private Session currentSession;
 
+    public MoodWindow(Session currentSession){
+        super();
+        this.currentSession=currentSession;
+        //Big Mood Headline (shorten and fix with CSS)
+        String family = "Helvetica";
+        double size = 40;
+
+        TextFlow textFlow = new TextFlow();
+        textFlow.setLayoutX(40);
+        textFlow.setLayoutY(40);
+        Text text1 = new Text("How's ");
+        text1.setFont(Font.font(family, size));
+        text1.setFill(Color.RED);
+        text1.setStroke(Color.rgb(0,0,0,0.2));
+        Text text2 = new Text("Your");
+        text2.setFill(Color.ORANGE);
+        text2.setStroke(Color.rgb(0,0,0,0.2));
+        text2.setFont(Font.font(family, FontPosture.ITALIC, size));
+        Text text3 = new Text(" Mood?");
+        text3.setFill(Color.GREEN);
+        text3.setStroke(Color.rgb(0,0,0,0.2));
+        text3.setFont(Font.font(family, FontWeight.BOLD, size));
+        textFlow.getChildren().addAll(text1, text2, text3);
+        textFlow.setTextAlignment(TextAlignment.CENTER);
+
+        Emoji happyEmoji = Emoji.makeHappyEmoji();
+        Emoji sadEmoji = Emoji.makeSadEmoji();
+
+        //User comments
+        TextField userComment = new TextField();
+        userComment.setPromptText("Add a comment!");
+        Button submitMood = new Button("Submit Mood");
+        submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
+
+        //Boxes for smileys and comments
+        HBox comments = new HBox();
+        comments.getChildren().addAll(userComment);
+        comments.setAlignment(Pos.CENTER);
+
+        happyEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> sadEmoji.disableGlow());
+        sadEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> happyEmoji.disableGlow());
+
+        HBox emojis = new HBox();
+        emojis.getChildren().addAll(happyEmoji,sadEmoji);
+        emojis.setAlignment(Pos.CENTER);
+
+        this.getChildren().addAll(textFlow, emojis, comments, submitMood);
+        this.setAlignment(Pos.CENTER);
+    }
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date date = new Date();
@@ -38,17 +88,17 @@ public class MoodWindow extends VBox {
         }
 
 
-    private static void submitMood(Emoji sad, Emoji happy, TextField userinput) {
+    private void submitMood(Emoji sad, Emoji happy, TextField userinput) {
 
-        boolean submittedtoday = Main.moodConn.submittedToday(LoginBox.currentUser.get("Username").toString(), getCurrentDate());
+        boolean submittedtoday = Main.moodConn.submittedToday(currentSession.getCurrentUser().get("Username").toString(), getCurrentDate());
 
         if (submittedtoday) {
             AlertBox.display("Nope!", "You've already submitted a mood today!");
         } else {
             Document moodSubmission = new Document();
-            String currentUser = LoginBox.currentUser.get("Username").toString();
+            String currentUser = currentSession.getCurrentUser().get("Username").toString();
             String currentDate = getCurrentDate();
-            moodSubmission.put("User", LoginBox.currentUser.get("Username"));
+            moodSubmission.put("User", currentSession.getCurrentUser().get("Username"));
 
             if (happy.isGlowing) {
                 moodSubmission.put("Mood", "Happy");
@@ -65,55 +115,5 @@ public class MoodWindow extends VBox {
             Main.moodConn.addDoc(moodSubmission);
         }
     }
-
-public MoodWindow(){
-    super();
-    //Big Mood Headline (shorten and fix with CSS)
-    String family = "Helvetica";
-    double size = 40;
-
-    TextFlow textFlow = new TextFlow();
-    textFlow.setLayoutX(40);
-    textFlow.setLayoutY(40);
-    Text text1 = new Text("How's ");
-    text1.setFont(Font.font(family, size));
-    text1.setFill(Color.RED);
-    text1.setStroke(Color.rgb(0,0,0,0.2));
-    Text text2 = new Text("Your");
-    text2.setFill(Color.ORANGE);
-    text2.setStroke(Color.rgb(0,0,0,0.2));
-    text2.setFont(Font.font(family, FontPosture.ITALIC, size));
-    Text text3 = new Text(" Mood?");
-    text3.setFill(Color.GREEN);
-    text3.setStroke(Color.rgb(0,0,0,0.2));
-    text3.setFont(Font.font(family, FontWeight.BOLD, size));
-    textFlow.getChildren().addAll(text1, text2, text3);
-    textFlow.setTextAlignment(TextAlignment.CENTER);
-
-    Emoji happyEmoji = Emoji.makeHappyEmoji();
-    Emoji sadEmoji = Emoji.makeSadEmoji();
-
-    //User comments
-    TextField userComment = new TextField();
-    userComment.setPromptText("Add a comment!");
-    Button submitMood = new Button("Submit Mood");
-    submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
-
-    //Boxes for smileys and comments
-    HBox comments = new HBox();
-    comments.getChildren().addAll(userComment);
-    comments.setAlignment(Pos.CENTER);
-
-    happyEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> sadEmoji.disableGlow());
-    sadEmoji.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> happyEmoji.disableGlow());
-
-    HBox emojis = new HBox();
-    emojis.getChildren().addAll(happyEmoji,sadEmoji);
-    emojis.setAlignment(Pos.CENTER);
-
-    this.getChildren().addAll(textFlow, emojis, comments, submitMood);
-    this.setAlignment(Pos.CENTER);
-
-}
 
 }

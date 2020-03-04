@@ -25,6 +25,9 @@ public class Menu {
      * A boolean that is true when the menu is open,false when menu is closed.
      */
     private static boolean menuState=false;
+    private Stage window;
+    private BorderPane mainLayout;
+    private Session currentSession;
 
     /**A button is created that when clicked will run a FadeTransition to show or remove the menu. The
      * fade in menu contains window buttons and a logout button.
@@ -32,7 +35,13 @@ public class Menu {
      * @param mainLayout BorderPane which is the main layout for the application. Used in Menu to be able to add the menu
      * to the layout.
      */
-    public Menu(Stage window, BorderPane mainLayout){
+    public Menu(Stage window, BorderPane mainLayout, Session currentSession){
+        this.window=window;
+        this.mainLayout=mainLayout;
+        this.currentSession=currentSession;
+    }
+
+    public void init(){
         // MENU PART START
         //load css stylesheet
         mainLayout.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
@@ -72,8 +81,12 @@ public class Menu {
         logout.setOnMouseClicked(e-> {
             if(menuState) {
                 window.hide();
-                LoginBox.display();
-                mainLayout.setCenter(new StartWindow());
+                LoginBox loginBox = new LoginBox(currentSession);
+                loginBox.display();
+                StartWindow startWindow = new StartWindow(currentSession);
+                startWindow.init();
+                mainLayout.setCenter(startWindow);
+
                 window.show();
             }
         });
@@ -82,25 +95,24 @@ public class Menu {
         menu.getChildren().addAll(
                 addMenuItem("Start", 100, e->{
                             if(menuState) {
-                                //LoadWindow loadWindow = new LoadWindow(window.getX() + 16, window.getY() + 16);
-                                //loadWindow.startLoadThread();
-                                mainLayout.setCenter(new StartWindow());
-                                //loadWindow.close();
+                                StartWindow startwindow = new StartWindow(currentSession);
+                                startwindow.init();
+                                mainLayout.setCenter(startwindow);
                             }
                         }
                 ),addMenuItem("Mood",100, e-> {
                     if(menuState) {
-                        mainLayout.setCenter(new MoodWindow());
+                        mainLayout.setCenter(new MoodWindow(currentSession));
                     }
                 }),
                 addMenuItem("Data", 100, e-> {
                     if(menuState) {
-                        mainLayout.setCenter(new DataWindow());
+                        mainLayout.setCenter(new DataWindow(currentSession));
                     }
                 }) ,
                 addMenuItem("Edit Profile", 100, e-> {
                     if(menuState) {
-                        mainLayout.setCenter(new ProfileWindow());
+                        mainLayout.setCenter(new ProfileWindow(currentSession,window));
                     }
                 })
 

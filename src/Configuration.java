@@ -1,17 +1,31 @@
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * Class for creating a Login Box and checking login authentication
+ * Sets a current user variable on successful login to track who is currently logged in.
+ * @author Samuel Leckborn
+ * @version 1.0
+ * @since 2020-03-01
+ */
 public class Configuration{
         public static int height;
         public static int width;
         public static String color;
+        public static Document doc;
 
     public static void parseConfig() throws SAXException,
             IOException, ParserConfigurationException {
@@ -19,7 +33,7 @@ public class Configuration{
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = factory.newDocumentBuilder();
-        Document doc = dBuilder.parse(xmlFile);
+        doc = dBuilder.parse(xmlFile);
         doc.getDocumentElement().normalize();
 
         Element root = doc.getDocumentElement();
@@ -42,5 +56,19 @@ public class Configuration{
         if(!(color.equals("green")||color.equals("gold"))){
             color="green";
         }
+    }
+
+    public static void updateElementValue(String updateValue) throws TransformerException {
+        Element root = doc.getDocumentElement();
+
+        Node color = root.getElementsByTagName("color").item(0).getFirstChild();
+        color.setNodeValue(updateValue);
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File("xml/config.xml"));
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.transform(source, result);
+        System.out.println("XML file updated successfully");
     }
 }

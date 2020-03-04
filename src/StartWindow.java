@@ -10,15 +10,20 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
 
 public class StartWindow extends VBox {
+    private Session currentSession;
 
-    public StartWindow(){
+    public StartWindow(Session currentSession){
+        this.currentSession=currentSession;
+    }
+
+    public void init(){
         String family = "Helvetica";
         double size = 40;
 
         TextFlow textFlow = new TextFlow();
         textFlow.setLayoutX(40);
         textFlow.setLayoutY(40);
-        Text text1 = new Text("Welcome " + LoginBox.currentUser.get("Name").toString() + "!");
+        Text text1 = new Text("Welcome " + currentSession.currentUser.get("Name").toString() + "!");
         text1.setFont(Font.font(family, size));
         text1.setFill(Color.DARKGREEN);
         text1.setStroke(Color.rgb(0,0,0,0.2));
@@ -29,7 +34,7 @@ public class StartWindow extends VBox {
         textBox.getChildren().add(textFlow);
         textBox.setAlignment(Pos.TOP_CENTER);
 
-        LineChart weeklyAverage = Chart.makeLineChart(LoginBox.currentUser.get("Username").toString());
+        LineChart weeklyAverage = Chart.makeLineChart(currentSession.currentUser.get("Username").toString());
 
         HBox moodCharts = new HBox();
         moodCharts.getChildren().add(weeklyAverage);

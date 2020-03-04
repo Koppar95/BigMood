@@ -7,9 +7,11 @@ import javafx.scene.layout.HBox;
 import java.util.Map;
 
 public class DataWindow extends VBox {
+private Session currentSession;
 
-    public DataWindow() {
-        String username = LoginBox.currentUser.get("Username").toString();
+    public DataWindow(Session currentSession) {
+        this.currentSession=currentSession;
+        String username = currentSession.getCurrentUserName();
 
         BarChart userVsAvgMood = Chart.makeMoodBarChart("You vs Avg User", username);
 

@@ -20,6 +20,12 @@ public class Main extends Application {
     static MongoDB moodConn;
 
     @Override
+    /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
+     * menu is added.
+     * @param mainLayout BorderPane, the layout for the entire window.
+     * @param undecorator //TODO
+     * @param scene the part of the window where the actual application is shown
+     */
     public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
         Configuration.parseConfig();
         //Start a thread to when connection to MongoDB, i case no internet connection the program does not crash.
@@ -27,25 +33,14 @@ public class Main extends Application {
             userConn = new MongoDB("UsersDB","Users");
             moodConn = new MongoDB("UsersDB","MoodData");
         }).start();
-        //Visa LoginBox
-        LoginBox.display();
 
-        window.setTitle("Big Mood");
-        window.initStyle(StageStyle.TRANSPARENT);
-        window.setMinWidth(600);
-        window.setMinHeight(600);
-
-        BorderPane mainLayout = new BorderPane();
-        mainLayout.setCenter(new StartWindow());
-
-        Undecorator undecorator = new Undecorator(window,mainLayout);
-        undecorator.getStylesheets().add("bmSkin-"+Configuration.color+".css");
-        Scene scene = new Scene(undecorator, Configuration.width,Configuration.height);
-        scene.setFill(Color.TRANSPARENT);
-        window.setOnCloseRequest(e->System.exit(0));
-        window.setScene(scene);
-        window.show();
-        new Menu(window,mainLayout);
+        //Create and show loginbox
+        Session currentSession = new Session(null);
+        LoginBox loginBox = new LoginBox(currentSession);
+        loginBox.display();
+        MainStage mainStage = new MainStage(currentSession, window);
+        mainStage.init();
+        //
 
     }
 
