@@ -6,8 +6,6 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,25 +35,6 @@ public class MongoDB{
         this.usersCollection = userDatabase.getCollection(collection);
     }
 
-    //List allow for adding and not defining size when initilialized
-    public static List<String> happyComments = new ArrayList<String>();
-    public static List<String> sadComments = new ArrayList<String>();
-
-    //function to call forEach comment in submissions could probably be combined with toSadArray
-    Block<Document> toHappyArray = new Block<Document>() {
-        @Override
-        public void apply(final Document document) {
-            happyComments.add(document.get("Comment").toString());
-        }
-    };
-
-    Block<Document> toSadArray = new Block<Document>() {
-        @Override
-        public void apply(final Document document) {
-            sadComments.add(document.get("Comment").toString());
-        }
-    };
-
     /**
      * Searches the DB for a specific key and value.
      * @param key DB key.
@@ -72,7 +51,6 @@ public class MongoDB{
         return count;
     }
 
-    //Gets comments from submissions
     public void getComments(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
         Bson incCommentProjection = Projections.include("Comment");
@@ -80,12 +58,7 @@ public class MongoDB{
 
         FindIterable submissions = usersCollection.find(moodFilter).projection(and(incCommentProjection, excIdProjection));
 
-        if (mood.equals("Happy")) {
-            submissions.forEach(toHappyArray);
-        } else {
-            submissions.forEach(toSadArray);
-        }
-
+        submissions.forEach(MoodHashMap.toCommentArray);
     }
 
     public long countMood(String mood){
