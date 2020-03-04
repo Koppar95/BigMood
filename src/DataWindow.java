@@ -25,15 +25,13 @@ private Session currentSession;
         Map<String, Integer> happyWords = MoodHashMap.getMoodWords("Happy");
         Map<String, Integer> sadWords = MoodHashMap.getMoodWords("Sad");
 
-        System.out.println("Happy words:");
-        MoodHashMap.printMap(happyWords);
-        System.out.println("Sad words");
-        MoodHashMap.printMap(sadWords);
-
-        VBox table = Table.makeUserTable();
+        VBox tables = new VBox();
+        VBox happyTable = Table.makeMoodWordTable("Happy", happyWords);
+        VBox sadTable = Table.makeMoodWordTable("Sad", sadWords);
+        tables.getChildren().addAll(happyTable,sadTable);
 
         HBox userAvgBox = new HBox();
-        userAvgBox.getChildren().addAll(table, userAvg);
+        userAvgBox.getChildren().addAll(tables, userAvg);
         userAvgBox.setAlignment(Pos.CENTER);
 
         VBox moodCharts = new VBox();
@@ -44,22 +42,4 @@ private Session currentSession;
 
 
     }
-
 }
-
-/*
-class Moods {
-    private hashmap;
-    constuctor(haschmap) {
-        sthis.hashmap = hashmap;
-    }
-    public sort() {
-        // cpoty
-
-    }
-    pub
-
-
-}
-
- */
