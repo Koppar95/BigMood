@@ -1,7 +1,6 @@
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -58,10 +57,10 @@ public class Configuration{
         }
     }
 
-    public static void updateElementValue(String updateValue) throws TransformerException {
+    public static void updateElementValue(String what,String updateValue) throws TransformerException {
         Element root = doc.getDocumentElement();
 
-        Node color = root.getElementsByTagName("color").item(0).getFirstChild();
+        Node color = root.getElementsByTagName(what).item(0).getFirstChild();
         color.setNodeValue(updateValue);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();

@@ -26,7 +26,7 @@ public class LoginBox {
     public LoginBox(Session currentSession){
     this.currentSession=currentSession;
     }
-    public static Document currentUser;
+    //public static Document currentUser;
 
     public void display(){
 
@@ -66,9 +66,6 @@ public class LoginBox {
         Button loginButton = new Button("Login");
 
         loginButton.setOnAction(e->{
-            LoadWindow loadWindow = new LoadWindow(window.getX()+16,window.getY()+16);
-            loadWindow.startLoadThread();
-
             Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
 
             int passwordInputHashed = passwordInput.getText().hashCode();
@@ -80,7 +77,6 @@ public class LoginBox {
                 }else{
                     errorLabel.setText("Wrong username or password");
                 }
-            loadWindow.close();
         });
 
         Button registerButton = new Button("Register");
@@ -109,7 +105,7 @@ public class LoginBox {
         //
     }
 
-    public boolean loginCheck(Document user, int passInput, String userInput){
+    private boolean loginCheck(Document user, int passInput, String userInput){
         if(user !=null) {
             String userEmail = user.get("Username").toString().toLowerCase();
             int userHashedPassword = user.getInteger("Password");
@@ -122,10 +118,6 @@ public class LoginBox {
         }
         //User is null
         return false;
-    }
-
-    public void setCurrentUser(String username){
-        currentUser = Main.userConn.getDocument("Username",username);
     }
 
 }

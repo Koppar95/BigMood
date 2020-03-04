@@ -14,8 +14,6 @@ import java.util.Date;
 
 public class MoodWindow extends VBox {
 
-        //Skapa en egen date klass??
-        // Test test
     private Session currentSession;
 
     public MoodWindow(Session currentSession){

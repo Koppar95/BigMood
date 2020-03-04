@@ -5,12 +5,20 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ *
+ */
 public class MainStage {
     private Undecorator undecorator;
     private Stage window;
     private Scene scene;
     private Session currentSession;
 
+    /**
+     *
+     * @param currentSession
+     * @param window
+     */
     public MainStage(Session currentSession,Stage window){
         this.currentSession=currentSession;
         this.window= window;

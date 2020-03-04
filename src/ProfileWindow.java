@@ -10,13 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.bson.Document;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -28,6 +25,7 @@ public class ProfileWindow extends VBox {
     static Insets boxPadding = new Insets(10, 10, 10, 10);
     private Session currentSession;
     private Stage window;
+
     public ProfileWindow(Session currentSession, Stage window) {
         super();
         this.currentSession=currentSession;
@@ -49,12 +47,14 @@ public class ProfileWindow extends VBox {
         configureSettingsBox.setBackground(Background.EMPTY);
         configureSettingsBox.getStyleClass().add("custom-profile-edit-boxStyle-"+Configuration.color);
 
+        Label colorLbl = new Label("Color Scheme:");
+        colorLbl.setMinWidth(minWidth);
 
         Button changeColorGold = new Button();
         changeColorGold.getStyleClass().add("custom-profile-edit-button-gold");
         changeColorGold.setOnMouseClicked(e->{
             try {
-                Configuration.updateElementValue("gold");
+                Configuration.updateElementValue("color","gold");
             } catch (TransformerException ex) {
                 ex.printStackTrace();
             }
@@ -75,7 +75,7 @@ public class ProfileWindow extends VBox {
         changeColorGreen.getStyleClass().add("custom-profile-edit-button-green");
         changeColorGreen.setOnMouseClicked(e->{
             try {
-                Configuration.updateElementValue("green");
+                Configuration.updateElementValue("color","green");
             } catch (TransformerException ex) {
                 ex.printStackTrace();
             }
@@ -92,7 +92,7 @@ public class ProfileWindow extends VBox {
             mainStage.updateGUI();
         });
 
-        configureSettingsBox.getChildren().addAll(changeColorGold, changeColorGreen);
+        configureSettingsBox.getChildren().addAll(colorLbl, changeColorGold, changeColorGreen);
 
         return configureSettingsBox;
     }

@@ -1,8 +1,13 @@
-import javafx.application.Platform;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+
+/**
+ * Class for creating a transparent window containing a load gif image.
+ * @author Samuel Leckborn
+ * @version 1.0
+ * @since 2020-03-03
+ */
 
 public class LoadWindow {
     private JFrame window;
@@ -21,7 +26,6 @@ public class LoadWindow {
         window.setUndecorated(true);
         window.setBackground(new Color(0,0,0,0));
         window.setLocation((int)xPos,(int)yPos);
-        //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(30,30);
         ImageIcon loadIcon = new ImageIcon("src/Assets/89.gif");
         JLabel image = new JLabel(loadIcon);
