@@ -26,7 +26,7 @@ public class LoginBox {
     public LoginBox(Session currentSession){
     this.currentSession=currentSession;
     }
-    //public static Document currentUser;
+
 
     public void display(){
 
@@ -66,6 +66,8 @@ public class LoginBox {
         Button loginButton = new Button("Login");
 
         loginButton.setOnAction(e->{
+
+
             Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
 
             int passwordInputHashed = passwordInput.getText().hashCode();
@@ -77,6 +79,7 @@ public class LoginBox {
                 }else{
                     errorLabel.setText("Wrong username or password");
                 }
+
         });
 
         Button registerButton = new Button("Register");
