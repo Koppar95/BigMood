@@ -14,8 +14,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 /**
- * Class for creating a Login Box and checking login authentication
- * Sets a current user variable on successful login to track who is currently logged in.
+ * This class can read and write to the configuration file of this application
  * @author Samuel Leckborn
  * @version 1.0
  * @since 2020-03-01
@@ -26,6 +25,12 @@ public class Configuration{
         public static String color;
         public static Document doc;
 
+    /**
+     * Parses the configuration file and stores the values in static varables.
+     * @throws SAXException
+     * @throws IOException
+     * @throws ParserConfigurationException
+     */
     public static void parseConfig() throws SAXException,
             IOException, ParserConfigurationException {
         File xmlFile = new File("xml/config.xml");
@@ -57,6 +62,12 @@ public class Configuration{
         }
     }
 
+    /**
+     * Updates the document.
+     * @param what What element in the configuration file to edit.
+     * @param updateValue The new value.
+     * @throws TransformerException
+     */
     public static void updateElementValue(String what,String updateValue) throws TransformerException {
         Element root = doc.getDocumentElement();
 

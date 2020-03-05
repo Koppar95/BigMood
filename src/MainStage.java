@@ -6,7 +6,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- *
+ * Initializes the mainframe window of the application.
+ * @author Samuel Leckborn
+ * @version 1.0
+ * @since 2020-03-04
  */
 public class MainStage {
     private Undecorator undecorator;
@@ -16,14 +19,17 @@ public class MainStage {
 
     /**
      *
-     * @param currentSession
-     * @param window
+     * @param currentSession Holds information of the current session.
+     * @param window The JavaFx Stage to build on.
      */
     public MainStage(Session currentSession,Stage window){
         this.currentSession=currentSession;
         this.window= window;
     }
 
+    /**
+     * Initializes and show the window.
+     */
     public void init(){
         window.setTitle("Big Mood");
         window.initStyle(StageStyle.TRANSPARENT);
@@ -47,6 +53,9 @@ public class MainStage {
         menu.init();
     }
 
+    /**
+     * updates the GUI of the main window.
+     */
     public void updateGUI(){
         BorderPane mainLayout = new BorderPane();
         ProfileWindow profileWindow = new ProfileWindow(currentSession,window);

@@ -9,6 +9,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
 
+/**
+ *
+ */
 public class StartWindow extends VBox {
     private Session currentSession;
 

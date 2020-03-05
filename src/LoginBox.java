@@ -15,7 +15,7 @@ import org.bson.Document;
 
 /**
  * Class for creating a Login Box and checking login authentication
- * Sets a current user variable on successful login to track who is currently logged in.
+ * updates user in currentSession on successful login to track who is currently logged in.
  * @author Samuel Leckborn
  * @version 1.0
  * @since 2020-02-19
@@ -27,7 +27,9 @@ public class LoginBox {
     this.currentSession=currentSession;
     }
 
-
+    /**
+     * Initializing and showing the login window.
+     */
     public void display(){
 
         //Stage initialization
@@ -66,8 +68,6 @@ public class LoginBox {
         Button loginButton = new Button("Login");
 
         loginButton.setOnAction(e->{
-
-
             Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
 
             int passwordInputHashed = passwordInput.getText().hashCode();
@@ -79,7 +79,6 @@ public class LoginBox {
                 }else{
                     errorLabel.setText("Wrong username or password");
                 }
-
         });
 
         Button registerButton = new Button("Register");
@@ -108,6 +107,13 @@ public class LoginBox {
         //
     }
 
+    /**
+     * Compares user input with database database entries.
+     * @param user
+     * @param passInput
+     * @param userInput
+     * @return true if userInput and passInput equals that users username and password in the database, ow false.
+     */
     private boolean loginCheck(Document user, int passInput, String userInput){
         if(user !=null) {
             String userEmail = user.get("Username").toString().toLowerCase();
