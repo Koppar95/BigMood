@@ -3,6 +3,14 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * This class creates and adds functionality to the emojis we  use to submit moods to the database. We added some basic
+ * effects to enhance the experience and add a new level of immersion.
+ * @author Teo
+ * @version 1.1
+ * @since 2020-03-05
+ */
+
 public class Emoji extends ImageView {
     public boolean isGlowing;
 

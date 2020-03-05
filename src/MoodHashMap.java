@@ -1,12 +1,24 @@
 import com.mongodb.Block;
 import org.bson.Document;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Class for creating a a HashMap of mood words.
+ * Collects all comments submitted for a certain mood, "Happy" for example and splits comments so that each
+ * word is an element in an array. It then maps them to a hash map and counts most frequent comments. It then sorts
+ * the comments and filter out irrelevant words like "happy, sad, etc".
+ * Returns hash map of sorted filtered mood words.
+ * @author Teo Becerra
+ * @version 1.1
+ * @since 2020-03-05
+ */
+
 public class MoodHashMap {
 
-    //private HashMap<String, Integer> moodHashMap;
+    /**
+     * The arrayLists and Block-functions are used with MongoDB.getComments
+     */
     static List<String> happyComments = new ArrayList<String>();
     static List<String> sadComments = new ArrayList<String>();
 
@@ -24,6 +36,9 @@ public class MoodHashMap {
         }
     };
 
+    /**
+     * Maps mood words and counts frequency
+     */
     public static void countComments(HashMap<String, Integer> hash, String[] array){
         for(int i=0; i < array.length; i++){
             if(hash.containsKey(array[i])){
@@ -34,12 +49,13 @@ public class MoodHashMap {
         }
     }
 
-    private static Map<String, Integer> sortByComparator(Map<String, Integer> unsortMap)
+    /**
+     * This function sorts the key-value pairs in hash map with a linked list. It compares the values of each mapping.
+     */
+    private static Map<String, Integer> sortHashMap(Map<String, Integer> unsortMap)
     {
-
         List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
 
-        // Sorting the list based on values
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
         {
             public int compare(Map.Entry<String, Integer> o1,
@@ -49,7 +65,6 @@ public class MoodHashMap {
             }
         });
 
-        // Maintaining insertion order with the help of LinkedList
         Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : list)
         {
@@ -59,6 +74,9 @@ public class MoodHashMap {
         return sortedMap;
     }
 
+    /**
+     * printMap prints out all mood words in the map, mostly used for bug searching
+     */
     public static void printMap(Map<String, Integer> map)
     {
         for (Map.Entry<String, Integer> entry : map.entrySet())
@@ -67,6 +85,9 @@ public class MoodHashMap {
         }
     }
 
+    /**
+     * A simple filter for filtering out irrelevant words.
+     */
     public static Map<String, Integer> filterMoodWords(Map<String, Integer> map){
 
         String[] filterArr = {"testing", "with", "testar", "I","is", "a", "är", "i","det", "happy", "sad"};
@@ -77,6 +98,10 @@ public class MoodHashMap {
         return map;
     }
 
+    /**
+     * The crown jewel of MoodHashMap, this function collects comments, splits into words, filters, sorts
+     * and returns all words associated with a mood-submission.
+     */
     public static Map<String, Integer> getMoodWords(String mood){
         Main.moodConn.getComments(mood);
 
@@ -112,7 +137,7 @@ public class MoodHashMap {
         countComments(moodHash,wordsArr);
 
         Map<String, Integer> sortedMoods = filterMoodWords(moodHash);
-        sortedMoods= sortByComparator(sortedMoods);
+        sortedMoods= sortHashMap(sortedMoods);
 
         return sortedMoods;
     }

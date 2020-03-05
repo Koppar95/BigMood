@@ -3,8 +3,16 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-
 import java.util.Map;
+
+/**
+ * This is the coolest window of the app, presents very useful and cool data. Informs the user of amount of happy / sad
+ * submissions of the user and compared to the average user. But most important and coolest function of the entire program
+ * is the ability to do some simple basic data science and calculate which words are most frequent with a submitted mood.
+ * @author Teo
+ * @version 1.1
+ * @since 2020-03-05
+ */
 
 public class DataWindow extends VBox {
 private Session currentSession;
@@ -29,10 +37,12 @@ private Session currentSession;
         VBox happyTable = Table.makeMoodWordTable("Happy", happyWords);
         VBox sadTable = Table.makeMoodWordTable("Sad", sadWords);
 
+        /*
         System.out.println("Happy words: ");
         MoodHashMap.printMap(happyWords);
         System.out.println("Sad words: ");
         MoodHashMap.printMap(sadWords);
+         */
 
         tables.getChildren().addAll(happyTable,sadTable);
 

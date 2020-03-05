@@ -1,4 +1,3 @@
-import com.mongodb.Block;
 import com.mongodb.client.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -15,12 +14,13 @@ import static com.mongodb.client.model.Filters.and;
  * Class to connections to MongoDB.
  * Includes methods do add Bson document, find specific key and update values.
  * @author Karl Svensson
+ * @coauthor Teo Becerra
  * @version 1.1
  * @since 2020-02-19
  */
 public class MongoDB{
-    MongoCollection<Document> usersCollection;
-    MongoDatabase userDatabase;
+    MongoCollection<Document> mongoCollection;
+    MongoDatabase mongoDatabase;
 
     /**
      * Creates a new connection to selected DB and Collection
@@ -31,8 +31,8 @@ public class MongoDB{
         String uri = "mongodb+srv://admin:abcd@bigmood-1h8lf.mongodb.net/test?retryWrites=true&w=majority";
         MongoClientURI clientURI = new MongoClientURI(uri);
         MongoClient mongoClient = new MongoClient(clientURI);
-        userDatabase = mongoClient.getDatabase(DB);
-        this.usersCollection = userDatabase.getCollection(collection);
+        mongoDatabase = mongoClient.getDatabase(DB);
+        this.mongoCollection = mongoDatabase.getCollection(collection);
     }
 
     /**
@@ -42,21 +42,30 @@ public class MongoDB{
      * @return true if "what" is found, else false.
      */
     public boolean find(String key, String what){
-        Document found = usersCollection.find(new Document(key, what)).first();
+        Document found = mongoCollection.find(new Document(key, what)).first();
         return found != null;
     }
 
-    public long countTotal(){
-        long count = usersCollection.countDocuments();
+    /**
+     * Counts the total amount of documents, can be used for counting users or mood submissions
+     */
+    public long countTotalDocuments(){
+        long count = mongoCollection.countDocuments();
         return count;
     }
+
+    /**
+     * This functions gets all comments from users mood submission. It adds the comments to the lists
+     * happyComments and sadComments in MoodHashMap.
+     * @param mood decides which submissions to get comments from.
+     */
 
     public void getComments(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
         Bson incCommentProjection = Projections.include("Comment");
         Bson excIdProjection = Projections.excludeId();
 
-        FindIterable submissions = usersCollection.find(moodFilter).projection(and(incCommentProjection, excIdProjection));
+        FindIterable submissions = mongoCollection.find(moodFilter).projection(and(incCommentProjection, excIdProjection));
 
         if(mood.equals("Happy")){
             submissions.forEach(MoodHashMap.toHappyCommentArray);
@@ -66,25 +75,34 @@ public class MongoDB{
 
     }
 
+    /**
+     * Counts the number of submissions of a certain mood (for all users).
+     */
     public long countMood(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
-        long count = usersCollection.countDocuments(moodFilter);
+        long count = mongoCollection.countDocuments(moodFilter);
         return count;
     }
 
+    /**
+     * Counts the number of submissions of a certain mood (for each individual user).
+     */
     public long countUserMood(String mood, String user){
         Bson moodFilter = Filters.eq("Mood", mood);
         Bson userFilter = Filters.eq("User",user);
 
-        long count = usersCollection.countDocuments(and(userFilter,moodFilter));
+        long count = mongoCollection.countDocuments(and(userFilter,moodFilter));
         return count;
     }
 
+    /**
+     * Supposed to get an array of all indivdual users. Currently not working, returns jibberish.
+     */
     public String[] getUsers(){
         Bson incUserProjection = Projections.include("User");
         Bson excIdProjection = Projections.excludeId();
 
-        MongoCursor users = usersCollection.distinct("User", String.class).iterator();
+        MongoCursor users = mongoCollection.distinct("User", String.class).iterator();
 
         List<String> userList= new ArrayList<String>();
 
@@ -99,11 +117,13 @@ public class MongoDB{
         return userArr;
     }
 
-    //funkar ej
+    /**
+     * Supposed to get an array of all indivdual users. Currently not working.
+     */
     public long countUsers(){
         long userCount = 0;
 
-        MongoCursor users = usersCollection.distinct("User", String.class).iterator();
+        MongoCursor users = mongoCollection.distinct("User", String.class).iterator();
 
         while (users.hasNext()){
             userCount++;
@@ -111,12 +131,14 @@ public class MongoDB{
         }
         return userCount;
     }
-    // clean up and turn into one function??
 
+    /**
+     * Finds the submitted mood of a certain date and user.
+     */
     public String findUserMood(String user, String date){
         Bson userFilter = Filters.eq("User",user);
         Bson dateFilter = Filters.eq("Date",date);
-        Document userMood = usersCollection.find(and(userFilter,dateFilter)).first();
+        Document userMood = mongoCollection.find(and(userFilter,dateFilter)).first();
         String mood ="";
         if(userMood !=null) {
             mood = userMood.getString("Mood");
@@ -124,11 +146,14 @@ public class MongoDB{
         return mood;
     }
 
+    /**
+     * Checks if the user has already submitted a mood today. We limit mood submissions to one a day for users.
+     */
     public boolean submittedToday(String user, String date){
         Bson userFilter = Filters.eq("User",user);
         Bson dateFilter = Filters.eq("Date",date);
 
-        Document submittedToday = usersCollection.find(and(userFilter,dateFilter)).first();
+        Document submittedToday = mongoCollection.find(and(userFilter,dateFilter)).first();
         if (submittedToday!= null){
             System.out.println("User posted this today: " + submittedToday.toString());
             return true;
@@ -144,7 +169,7 @@ public class MongoDB{
      * @return Bson document included information for the selected name,
      */
     public Document getDocument(String key, String who){
-        return usersCollection.find(new Document(key, who)).first();
+        return mongoCollection.find(new Document(key, who)).first();
     }
 
     /**
@@ -152,7 +177,7 @@ public class MongoDB{
      * @param toAdd Bson document to add.
      */
     public void addDoc(Document toAdd){
-        usersCollection.insertOne(toAdd);
+        mongoCollection.insertOne(toAdd);
     }
 
     /**
@@ -164,11 +189,11 @@ public class MongoDB{
      * @return true if update was a success, else false.
      */
     public boolean updateValue(String key, String who, String valueToUpdate, String to){
-        Document found = usersCollection.find(new Document(key, who)).first();
+        Document found = mongoCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
             Bson updateOperation = new Document("$set", updatedValue);
-            usersCollection.updateOne(found,updateOperation);
+            mongoCollection.updateOne(found,updateOperation);
             System.out.println("Updated the database");
             return true;
         }
@@ -185,11 +210,11 @@ public class MongoDB{
      */
 
     public boolean updateIntValue(String key, String who, String valueToUpdate, Integer to){
-        Document found = usersCollection.find(new Document(key, who)).first();
+        Document found = mongoCollection.find(new Document(key, who)).first();
         if (found != null){
             Bson updatedValue = new Document(valueToUpdate, to);
             Bson updateOperation = new Document("$set", updatedValue);
-            usersCollection.updateOne(found,updateOperation);
+            mongoCollection.updateOne(found,updateOperation);
             System.out.println("Updated the database");
             return true;
         }

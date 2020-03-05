@@ -12,6 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This class displays the mood window which handles mood submissions.
+ *
+ * @author Teo Becerra
+ * @version 1.1
+ * @since 2020-03-05
+ */
+
 public class MoodWindow extends VBox {
 
     private Session currentSession;
@@ -19,7 +27,6 @@ public class MoodWindow extends VBox {
     public MoodWindow(Session currentSession){
         super();
         this.currentSession=currentSession;
-        //Big Mood Headline (shorten and fix with CSS)
         String family = "Helvetica";
         double size = 40;
 
@@ -65,19 +72,23 @@ public class MoodWindow extends VBox {
         this.getChildren().addAll(textFlow, emojis, comments, submitMood);
         this.setAlignment(Pos.CENTER);
     }
+
+    /**
+     * These functions should probably belong to their own Class (suggestion DateandTime). They handle date and time
+     * for example to restrict the user to post once a day and to display the last seven days mood in the start window.
+     */
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date date = new Date();
             return dateFormat.format(date);
         }
 
-
         public static Date[] getLastSevenDays() {
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_YEAR, -6);
-        Date[] dates = new Date[6];
+        c.add(Calendar.DAY_OF_YEAR, -7);
+        Date[] dates = new Date[7];
 
-            for(int i = 0; i< 6; i++){
+            for(int i = 0; i< 7; i++){
                 c.add(Calendar.DAY_OF_YEAR, 1);
                 dates[i] = c.getTime();
             }
@@ -85,6 +96,10 @@ public class MoodWindow extends VBox {
         return dates;
         }
 
+    /**
+     * This function allows the user to submit their mood to the datebase and is such a part of the backbone for this app.
+     * Without any submissions there would be no data to analyze.
+     */
 
     private void submitMood(Emoji sad, Emoji happy, TextField userinput) {
 
@@ -94,8 +109,6 @@ public class MoodWindow extends VBox {
             AlertBox.display("Nope!", "You've already submitted a mood today!");
         } else {
             Document moodSubmission = new Document();
-            String currentUser = currentSession.getCurrentUser().get("Username").toString();
-            String currentDate = getCurrentDate();
             moodSubmission.put("User", currentSession.getCurrentUser().get("Username"));
 
             if (happy.isGlowing) {

@@ -1,3 +1,13 @@
+/**
+ * This handles mood words to use for the charts in the DataWindow. To my limited knowledge Javafx-charts needed the
+ * data input to be instances of a class so we simply create an object with the mood word and count of how many times it's
+ * been added with a submission.
+ *
+ * @author Teo Becerra
+ * @version 1.1
+ * @since 2020-03-05
+ */
+
 public class MoodWord {
     private String word;
     private Integer count;

@@ -9,10 +9,23 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * This class creates tables used in DataWindow.
+ *
+ * @author Teo Becerra
+ * @version 1.1
+ * @since 2020-03-05
+ */
+
+
 public class Table extends VBox{
 
-    HashMap users = new HashMap();
-
+/**
+ * Creates a table for the DataWindow. The tables values has to be objects so I created the MoodWord class for this
+ * sole purpose. It presents the data from the mood word hash map. For some reason it has a decided amount of rows
+ * even if there is no data to fill the rows. Hopefully I will have time to manually override this to make the DataWindow
+ * more presentable.
+ */
     public static VBox makeMoodWordTable(String mood, Map<String, Integer> moodWords){
 
         Label label = new Label(mood +" Words");

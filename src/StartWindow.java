@@ -10,7 +10,7 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
 
 /**
- *
+ *Did i create this? //Teo
  */
 public class StartWindow extends VBox {
     private Session currentSession;

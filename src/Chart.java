@@ -7,20 +7,29 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+/**
+ * Used for creating charts for the DataWindow and StartWindow
+ * @author Teo Becerra
+ * @version 1.1
+ * @since 2020-03-05
+ */
 
 
 public class Chart {
 
+    /**
+     * Creates a PieCart to the user total submissions. The pie chart is split
+     * into Happy and Sad submissions. At first it could collect both user submissions and total submissions
+     * but is now only used for collecting user submissions.
+     */
     public static PieChart makeMoodPieChart(String title, String user) {
         long happySubmissions;
         long sadSubmissions;
+
         if(user.equals("")) {
             happySubmissions = Main.moodConn.countMood("Happy");
             sadSubmissions = Main.moodConn.countMood("Sad");
@@ -38,12 +47,15 @@ public class Chart {
         return chart;
     }
 
+    /**
+     * Creates and a Line chart of the users weekly moods (current day and six days back).
+     * For simplicity a happy mood = 1, sad mood = -1 and no submissions = 0.
+     */
     public static LineChart makeLineChart(String user){
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         DateFormat dayFormat = new SimpleDateFormat("EEE");
-        //xAxis.setLabel("Weekly average");
         yAxis.setLabel("Mood");
         Date[] dates = MoodWindow.getLastSevenDays();
 
@@ -71,6 +83,11 @@ public class Chart {
         return lineChart;
     }
 
+    /**
+     * Creates and displays the a Bar chart of the user and total user base moods
+     * It counts the total happy and sad submissions for the user and the total amount of
+     * submissions / users.
+     */
     public static BarChart makeMoodBarChart(String title, String user) {
         long happySubmissions = Main.moodConn.countMood("Happy");
         long sadSubmissions= Main.moodConn.countMood("Sad");
@@ -103,6 +120,5 @@ public class Chart {
 
         return chart;
     }
-
 }
 
