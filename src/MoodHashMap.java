@@ -7,19 +7,27 @@ import java.util.stream.Collectors;
 public class MoodHashMap {
 
     //private HashMap<String, Integer> moodHashMap;
-    static List<String> comments = new ArrayList<String>();
+    static List<String> happyComments = new ArrayList<String>();
+    static List<String> sadComments = new ArrayList<String>();
 
-    static  Block<Document> toCommentArray = new Block<Document>() {
+    static  Block<Document> toHappyCommentArray = new Block<Document>() {
         @Override
         public void apply(final Document document) {
-            comments.add(document.get("Comment").toString());
+            happyComments.add(document.get("Comment").toString());
+        }
+    };
+
+    static  Block<Document> toSadCommentArray = new Block<Document>() {
+        @Override
+        public void apply(final Document document) {
+            sadComments.add(document.get("Comment").toString());
         }
     };
 
     public static void countComments(HashMap<String, Integer> hash, String[] array){
         for(int i=0; i < array.length; i++){
             if(hash.containsKey(array[i])){
-                hash.put(array[i], 1 + hash.get(array[i]));
+                hash.put(array[i].toLowerCase(), 1 + hash.get(array[i]));
             } else{
                 hash.put(array[i], 1);
             }
@@ -61,7 +69,7 @@ public class MoodHashMap {
 
     public static Map<String, Integer> filterMoodWords(Map<String, Integer> map){
 
-        String[] filterArr = {"testing", "with", "TESTAR", "I","is", "a", "är", "i","Det"};
+        String[] filterArr = {"testing", "with", "testar", "I","is", "a", "är", "i","det", "happy", "sad"};
         List <String> filterList = Arrays.asList(filterArr);
 
         map = map.entrySet().stream().filter(x-> !(filterList.contains(x.getKey()))).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -72,15 +80,27 @@ public class MoodHashMap {
     public static Map<String, Integer> getMoodWords(String mood){
         Main.moodConn.getComments(mood);
 
-        String[] commentsArr = new String[comments.size()];
-        comments.toArray(commentsArr);
-
         List<String> moodWords= new ArrayList<String>();
 
-        for(int i = 0; i< commentsArr.length;i++) {
-            String[] words = commentsArr[i].split(" ");
-            for(int j = 0; j < words.length; j++){
-                moodWords.add(words[j]);
+        if(mood.equals("Happy")){
+            String[] commentsArr = new String[happyComments.size()];
+            happyComments.toArray(commentsArr);
+
+            for(int i = 0; i< commentsArr.length;i++) {
+                String[] words = commentsArr[i].split(" ");
+                for(int j = 0; j < words.length; j++){
+                    moodWords.add(words[j]);
+                }
+            }
+        } else{
+            String[] commentsArr = new String[sadComments.size()];
+            sadComments.toArray(commentsArr);
+
+            for(int i = 0; i< commentsArr.length;i++) {
+                String[] words = commentsArr[i].split(" ");
+                for(int j = 0; j < words.length; j++){
+                    moodWords.add(words[j]);
+                }
             }
         }
 

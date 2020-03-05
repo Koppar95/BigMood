@@ -58,7 +58,12 @@ public class MongoDB{
 
         FindIterable submissions = usersCollection.find(moodFilter).projection(and(incCommentProjection, excIdProjection));
 
-        submissions.forEach(MoodHashMap.toCommentArray);
+        if(mood.equals("Happy")){
+            submissions.forEach(MoodHashMap.toHappyCommentArray);
+        } else {
+            submissions.forEach(MoodHashMap.toSadCommentArray);
+        }
+
     }
 
     public long countMood(String mood){

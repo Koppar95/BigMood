@@ -28,6 +28,12 @@ private Session currentSession;
         VBox tables = new VBox();
         VBox happyTable = Table.makeMoodWordTable("Happy", happyWords);
         VBox sadTable = Table.makeMoodWordTable("Sad", sadWords);
+
+        System.out.println("Happy words: ");
+        MoodHashMap.printMap(happyWords);
+        System.out.println("Sad words: ");
+        MoodHashMap.printMap(sadWords);
+
         tables.getChildren().addAll(happyTable,sadTable);
 
         HBox userAvgBox = new HBox();
