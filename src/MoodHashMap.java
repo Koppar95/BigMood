@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  * the comments and filter out irrelevant words like "happy, sad, etc".
  * Returns hash map of sorted filtered mood words.
  * @author Teo Becerra
- * @version 1.1
- * @since 2020-03-05
+ * @version 1.4
+ * @since 2020-03-07
  */
 
 public class MoodHashMap {
@@ -90,7 +90,7 @@ public class MoodHashMap {
      */
     public static Map<String, Integer> filterMoodWords(Map<String, Integer> map){
 
-        String[] filterArr = {"testing", "with", "testar", "I","is", "a", "är", "i","det", "happy", "sad"};
+        String[] filterArr = {"testing", "with", "testar", "I","is", "a", "är", "i","det", "happy", "sad", "to", "because", "get"};
         List <String> filterList = Arrays.asList(filterArr);
 
         map = map.entrySet().stream().filter(x-> !(filterList.contains(x.getKey()))).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

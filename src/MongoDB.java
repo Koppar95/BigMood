@@ -84,6 +84,17 @@ public class MongoDB{
         return count;
     }
 
+    public long countSubmissions(){
+        long count = mongoCollection.countDocuments();
+        return count;
+    }
+
+    public long countUserSubmissions(String user){
+        Bson userFilter = Filters.eq("User",user);
+        long count = mongoCollection.countDocuments(userFilter);
+        return count;
+    }
+
     /**
      * Counts the number of submissions of a certain mood (for each individual user).
      */

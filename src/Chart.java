@@ -88,35 +88,27 @@ public class Chart {
      * It counts the total happy and sad submissions for the user and the total amount of
      * submissions / users.
      */
-    public static BarChart makeMoodBarChart(String title, String user) {
-        long happySubmissions = Main.moodConn.countMood("Happy");
-        long sadSubmissions= Main.moodConn.countMood("Sad");
-        long userHappySubmissions = Main.moodConn.countUserMood("Happy", user);
-        long userSadSubmissions = Main.moodConn.countUserMood("Sad", user);
-        long userCount = Main.moodConn.countUsers();
+    public static BarChart makeActivityChart(String title, String user) {
 
-        float avgHappySubmissions = happySubmissions / userCount;
-        float avgSadSubmissions = sadSubmissions / userCount;
+        long userSubmissions = Main.moodConn.countUserSubmissions(user);
+        long totalSubmissions = Main.moodConn.countSubmissions();
+        long userCount = Main.moodConn.countUsers();
+        float totalAvgSub = totalSubmissions / userCount;
 
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> chart =
                 new BarChart<String,Number>(xAxis,yAxis);
-        chart.setTitle("You vs Avg user");
+        chart.setTitle("Mood Activity");
         xAxis.setLabel("");
-        yAxis.setLabel("Moods");
+        yAxis.setLabel("Submissions");
 
-        XYChart.Series happySeries = new XYChart.Series();
-        happySeries.setName("Happy");
-        happySeries.getData().add(new XYChart.Data("User Avg", avgHappySubmissions));
-        happySeries.getData().add(new XYChart.Data("Your Avg", userHappySubmissions));
+        XYChart.Series activity = new XYChart.Series();
+        activity.setName("# of submissions");
+        activity.getData().add(new XYChart.Data("User Avg", totalAvgSub));
+        activity.getData().add(new XYChart.Data("Your submissions", userSubmissions));
 
-        XYChart.Series sadSeries = new XYChart.Series();
-        sadSeries.setName("Sad");
-        sadSeries.getData().add(new XYChart.Data("User Avg", avgSadSubmissions));
-        sadSeries.getData().add(new XYChart.Data("Your Avg", userSadSubmissions));
-
-        chart.getData().addAll(happySeries, sadSeries);
+        chart.getData().addAll(activity);
 
         return chart;
     }

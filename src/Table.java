@@ -1,3 +1,4 @@
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -13,8 +14,8 @@ import java.util.Map;
  * This class creates tables used in DataWindow.
  *
  * @author Teo Becerra
- * @version 1.1
- * @since 2020-03-05
+ * @version 1.2
+ * @since 2020-03-07
  */
 
 
@@ -32,6 +33,8 @@ public class Table extends VBox{
         label.setFont(new Font("Arial", 20));
 
         TableView table = new TableView();
+        table.setFixedCellSize(25);
+        table.prefHeightProperty().bind(Bindings.size(table.getItems()).multiply(table.getFixedCellSize()).add(40));
 
         TableColumn<String, MoodWord> wordCol = new TableColumn<>(mood + " Words");
         wordCol.setCellValueFactory(new PropertyValueFactory<>("word"));

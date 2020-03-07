@@ -10,8 +10,8 @@ import java.util.Map;
  * submissions of the user and compared to the average user. But most important and coolest function of the entire program
  * is the ability to do some simple basic data science and calculate which words are most frequent with a submitted mood.
  * @author Teo
- * @version 1.1
- * @since 2020-03-05
+ * @version 1.2
+ * @since 2020-03-07
  */
 
 public class DataWindow extends VBox {
@@ -21,14 +21,18 @@ private Session currentSession;
         this.currentSession=currentSession;
         String username = currentSession.getCurrentUserName();
 
-        BarChart userVsAvgMood = Chart.makeMoodBarChart("You vs Avg User", username);
+        BarChart userVsAvgMood = Chart.makeActivityChart("You vs Avg User", username);
+
+        PieChart userAvg = Chart.makeMoodPieChart("Your Average Mood", username);
+        userAvg.setLabelsVisible(false);
+
+        PieChart totalAvg = Chart.makeMoodPieChart("Total user average","");
+        userAvg.setLabelsVisible(false);
 
         HBox userVsAvgBox = new HBox();
-        userVsAvgBox.getChildren().add(userVsAvgMood);
+        userVsAvgBox.getChildren().addAll(userAvg, totalAvg);
         userVsAvgBox.setAlignment(Pos.CENTER);
 
-        PieChart userAvg = Chart.makeMoodPieChart("Your Total Submissions", username);
-        userAvg.setLabelsVisible(false);
 
         Map<String, Integer> happyWords = MoodHashMap.getMoodWords("Happy");
         Map<String, Integer> sadWords = MoodHashMap.getMoodWords("Sad");
@@ -37,21 +41,14 @@ private Session currentSession;
         VBox happyTable = Table.makeMoodWordTable("Happy", happyWords);
         VBox sadTable = Table.makeMoodWordTable("Sad", sadWords);
 
-        /*
-        System.out.println("Happy words: ");
-        MoodHashMap.printMap(happyWords);
-        System.out.println("Sad words: ");
-        MoodHashMap.printMap(sadWords);
-         */
-
         tables.getChildren().addAll(happyTable,sadTable);
 
-        HBox userAvgBox = new HBox();
-        userAvgBox.getChildren().addAll(tables, userAvg);
-        userAvgBox.setAlignment(Pos.CENTER);
+        HBox tablesBox = new HBox();
+        tablesBox.getChildren().addAll(tables, userVsAvgMood);
+        tablesBox.setAlignment(Pos.CENTER);
 
         VBox moodCharts = new VBox();
-        moodCharts.getChildren().addAll(userVsAvgBox, userAvgBox);
+        moodCharts.getChildren().addAll(userVsAvgBox, tablesBox);
         moodCharts.setAlignment(Pos.CENTER);
 
         this.getChildren().add(moodCharts);
