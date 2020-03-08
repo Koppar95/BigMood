@@ -13,6 +13,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
+
 /**
  * This class can read and write to the configuration file of this application
  * @author Samuel Leckborn
@@ -20,19 +21,21 @@ import java.io.IOException;
  * @since 2020-03-01
  */
 public class Configuration{
-        public static int height;
-        public static int width;
-        public static String color;
-        public static Document doc;
+    public static int height;
+    public static int width;
+    public static String color;
+    public static Document doc;
 
     /**
      * Parses the configuration file and stores the values in static varables.
+     *
      * @throws SAXException
      * @throws IOException
      * @throws ParserConfigurationException
      */
-    public static void parseConfig() throws SAXException,
-            IOException, ParserConfigurationException {
+    public static boolean parseConfig() throws SAXException, IOException, ParserConfigurationException {
+
+
         File xmlFile = new File("xml/config.xml");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -48,27 +51,27 @@ public class Configuration{
         try {
             height = Integer.parseInt(node1.getTextContent());
             width = Integer.parseInt(node2.getTextContent());
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             System.out.println("NumberFormatException");
             height = 600;
             width = 600;
         }
 
-        color=node3.getTextContent().toLowerCase();
-        if(!(color.equals("green")||color.equals("gold"))){
-            color="green";
+        color = node3.getTextContent().toLowerCase();
+        if (!(color.equals("green") || color.equals("gold"))) {
+            color = "green";
         }
+        return true;
     }
 
     /**
      * Updates the document.
-     * @param what What element in the configuration file to edit.
+     *
+     * @param what        What element in the configuration file to edit.
      * @param updateValue The new value.
      * @throws TransformerException
      */
-    public static void updateElementValue(String what,String updateValue) throws TransformerException {
+    public static void updateElementValue(String what, String updateValue) throws TransformerException {
         Element root = doc.getDocumentElement();
 
         Node color = root.getElementsByTagName(what).item(0).getFirstChild();
@@ -81,4 +84,5 @@ public class Configuration{
         transformer.transform(source, result);
         System.out.println("XML file updated successfully");
     }
+
 }

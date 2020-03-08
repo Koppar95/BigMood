@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -18,11 +19,17 @@ public class Main extends Application {
     /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
      * menu is added.
      * @param mainLayout BorderPane, the layout for the entire window.
-     * @param undecorator //TODO
      * @param scene the part of the window where the actual application is shown
      */
     public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
-        Configuration.parseConfig();
+
+        try{
+            Configuration.parseConfig();
+        }catch(FileNotFoundException e){
+            Configuration.height=600;
+            Configuration.width=600;
+            Configuration.color="green";
+        }
         //Start a thread to when connection to MongoDB, i case no internet connection the program does not crash.
         new Thread (()->{
             userConn = new MongoDB("UsersDB","Users");

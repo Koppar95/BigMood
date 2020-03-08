@@ -1,9 +1,9 @@
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
@@ -40,6 +40,29 @@ public class SettingsWindow extends VBox {
 
         this.getChildren().addAll(nameUpdate, passwordUpdate, configureSettings);   //heightUpdate,
     }
+
+    private void colorChange(String color){
+        try {
+            Configuration.updateElementValue("color",color);
+        } catch (TransformerException ex) {
+            ex.printStackTrace();
+        } catch (NullPointerException e){
+            AlertBox.display("Fel", "Konfigureringsfil saknas");
+            return;
+        }
+        try {
+            Configuration.parseConfig();
+        } catch (SAXException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ParserConfigurationException ex) {
+            ex.printStackTrace();
+        }
+        MainStage mainStage = new MainStage(currentSession,window);
+        mainStage.updateGUI();
+    }
+
     private HBox configureSettings(){
         HBox configureSettingsBox = new HBox();
         configureSettingsBox.setSpacing(spacing);
@@ -53,43 +76,15 @@ public class SettingsWindow extends VBox {
         Button changeColorGold = new Button();
         changeColorGold.getStyleClass().add("custom-profile-edit-button-gold");
         changeColorGold.setOnMouseClicked(e->{
-            try {
-                Configuration.updateElementValue("color","gold");
-            } catch (TransformerException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                Configuration.parseConfig();
-            } catch (SAXException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (ParserConfigurationException ex) {
-                ex.printStackTrace();
-            }
-            MainStage mainStage = new MainStage(currentSession,window);
-            mainStage.updateGUI();
+
+            colorChange("gold");
+
         });
 
         Button changeColorGreen = new Button();
         changeColorGreen.getStyleClass().add("custom-profile-edit-button-green");
         changeColorGreen.setOnMouseClicked(e->{
-            try {
-                Configuration.updateElementValue("color","green");
-            } catch (TransformerException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                Configuration.parseConfig();
-            } catch (SAXException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (ParserConfigurationException ex) {
-                ex.printStackTrace();
-            }
-            MainStage mainStage = new MainStage(currentSession,window);
-            mainStage.updateGUI();
+            colorChange("green");
         });
 
         configureSettingsBox.getChildren().addAll(colorLbl, changeColorGold, changeColorGreen);
@@ -169,7 +164,6 @@ public class SettingsWindow extends VBox {
 
 
         changeNameBtn.setOnMouseClicked(e->{
-            //MongoDB base = new MongoDB("UsersDB", "Users");
             String updateValue = name.getText();
             Main.userConn.updateValue("Username",currentSession.getCurrentUser().get("Username").toString(),"Name",updateValue);
             name.clear();
