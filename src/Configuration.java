@@ -28,14 +28,12 @@ public class Configuration{
 
     /**
      * Parses the configuration file and stores the values in static varables.
-     *
+     * Sets default values if the data in the file is in wrong format.
      * @throws SAXException
      * @throws IOException
      * @throws ParserConfigurationException
      */
     public static boolean parseConfig() throws SAXException, IOException, ParserConfigurationException {
-
-
         File xmlFile = new File("xml/config.xml");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -53,8 +51,8 @@ public class Configuration{
             width = Integer.parseInt(node2.getTextContent());
         } catch (NumberFormatException e) {
             System.out.println("NumberFormatException");
-            height = 600;
-            width = 600;
+            height = 800;
+            width = 900;
         }
 
         color = node3.getTextContent().toLowerCase();
@@ -73,14 +71,13 @@ public class Configuration{
      */
     public static void updateElementValue(String what, String updateValue) throws TransformerException {
         Element root = doc.getDocumentElement();
-
         Node color = root.getElementsByTagName(what).item(0).getFirstChild();
         color.setNodeValue(updateValue);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(new File("xml/config.xml"));
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, "no");
         transformer.transform(source, result);
         System.out.println("XML file updated successfully");
     }

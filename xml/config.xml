@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<window>
-	<height>900</height>
-	<width>800</width>
-	<color>gold</color><!--Allowed colors: "green" and "gold", will default to green-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><window> 
+    <height>800</height>
+    <width>900</width>
+    <color>gold</color>
+    <!--Allowed colors: "green" and "gold", will default to green-->
 </window>

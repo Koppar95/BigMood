@@ -4,7 +4,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -38,7 +37,7 @@ public class MainStage {
         window.initStyle(StageStyle.TRANSPARENT);
         window.setMinWidth(600);
         window.setMinHeight(600);
-
+        window.setResizable(false);
         BorderPane mainLayout = new BorderPane();
         StartWindow startWindow = new StartWindow(currentSession);
         startWindow.init();
@@ -47,6 +46,7 @@ public class MainStage {
         undecorator = new Undecorator(window,mainLayout);
         undecorator.getStylesheets().add("bmSkin-"+Configuration.color+".css");
         scene = new Scene(undecorator, Configuration.width,Configuration.height);
+
         scene.setFill(Color.TRANSPARENT);
         window.setOnCloseRequest(e->System.exit(0));
         window.setScene(scene);
@@ -60,15 +60,20 @@ public class MainStage {
      * updates the GUI of the main window.
      */
     public void updateGUI(){
+        double height = window.getHeight();
+        double width = window.getWidth();
         BorderPane mainLayout = new BorderPane();
         SettingsWindow settingsWindow = new SettingsWindow(currentSession,window);
         mainLayout.setCenter(settingsWindow);
         undecorator = new Undecorator(window, mainLayout);
+        undecorator.setPrefSize(width,height);
+        undecorator.setMaxSize(width,height);
         undecorator.getStylesheets().add("bmSkin-"+Configuration.color+".css");
-        scene = new Scene(undecorator, Configuration.width,Configuration.height);
-        scene.setFill(Color.TRANSPARENT);
-        window.setScene(scene);
         Menu menu = new Menu(window,mainLayout,currentSession);
         menu.init();
+
+        scene = new Scene(undecorator, width,height);
+        scene.setFill(Color.TRANSPARENT);
+        window.setScene(scene);
     }
 }

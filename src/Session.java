@@ -8,6 +8,11 @@ import org.bson.Document;
  */
 public class Session {
     public Document currentUser;
+
+    /**
+     * Creates a Session.
+     * @param currentUser is the Bson Document of the session user
+     */
     public Session(Document currentUser){
         this.currentUser=currentUser;
     }

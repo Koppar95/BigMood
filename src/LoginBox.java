@@ -22,7 +22,6 @@ import org.bson.Document;
  */
 public class LoginBox {
     private Session currentSession;
-
     public LoginBox(Session currentSession){
     this.currentSession=currentSession;
     }
