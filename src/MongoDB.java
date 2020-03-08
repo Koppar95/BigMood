@@ -15,8 +15,8 @@ import static com.mongodb.client.model.Filters.and;
  * Includes methods do add Bson document, find specific key and update values.
  * @author Karl Svensson
  * @coauthor Teo Becerra
- * @version 1.1
- * @since 2020-02-19
+ * @version 1.8
+ * @since 2020-03-6
  */
 public class MongoDB{
     MongoCollection<Document> mongoCollection;
@@ -47,14 +47,6 @@ public class MongoDB{
     }
 
     /**
-     * Counts the total amount of documents, can be used for counting users or mood submissions
-     */
-    public long countTotalDocuments(){
-        long count = mongoCollection.countDocuments();
-        return count;
-    }
-
-    /**
      * This functions gets all comments from users mood submission. It adds the comments to the lists
      * happyComments and sadComments in MoodHashMap.
      * @param mood decides which submissions to get comments from.
@@ -77,6 +69,7 @@ public class MongoDB{
 
     /**
      * Counts the number of submissions of a certain mood (for all users).
+     *  @param mood decides which submissions to count.
      */
     public long countMood(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
@@ -84,11 +77,18 @@ public class MongoDB{
         return count;
     }
 
+    /**
+     * Counts total number of submissions in database..
+     */
     public long countSubmissions(){
         long count = mongoCollection.countDocuments();
         return count;
     }
 
+    /**
+     * Counts the number of submissions of a certain user.
+     *  @param user decides which users submissions to count.
+     */
     public long countUserSubmissions(String user){
         Bson userFilter = Filters.eq("User",user);
         long count = mongoCollection.countDocuments(userFilter);
@@ -97,6 +97,8 @@ public class MongoDB{
 
     /**
      * Counts the number of submissions of a certain mood (for each individual user).
+     * @param mood decides which mood to count submissions from.
+     * @param user decides which users submissions to count.
      */
     public long countUserMood(String mood, String user){
         Bson moodFilter = Filters.eq("Mood", mood);
@@ -107,29 +109,7 @@ public class MongoDB{
     }
 
     /**
-     * Supposed to get an array of all indivdual users. Currently not working, returns jibberish.
-     */
-    public String[] getUsers(){
-        Bson incUserProjection = Projections.include("User");
-        Bson excIdProjection = Projections.excludeId();
-
-        MongoCursor users = mongoCollection.distinct("User", String.class).iterator();
-
-        List<String> userList= new ArrayList<String>();
-
-        while( users.hasNext()){
-            userList.add(users.toString());
-            users.next();
-        }
-
-        String[] userArr = new String[userList.size()];
-        userArr = userList.toArray(userArr);
-
-        return userArr;
-    }
-
-    /**
-     * Supposed to get an array of all indivdual users. Currently not working.
+     * Counts total amount of users in the database.
      */
     public long countUsers(){
         long userCount = 0;
@@ -159,6 +139,8 @@ public class MongoDB{
 
     /**
      * Checks if the user has already submitted a mood today. We limit mood submissions to one a day for users.
+     * @param date which date to filter for.
+     * @param user which user to filter for.
      */
     public boolean submittedToday(String user, String date){
         Bson userFilter = Filters.eq("User",user);

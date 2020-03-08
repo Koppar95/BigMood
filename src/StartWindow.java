@@ -10,10 +10,20 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
 
 /**
- *Did i create this? //Teo
+ * This class displays the start window which presents the user with a line chart of their weekly mood.
+ *
+ * @author Teo Becerra
+ * @version 1.3
+ * @since 2020-02-28
  */
+
 public class StartWindow extends VBox {
     private Session currentSession;
+
+    /**
+     * Creates the start window to the user.
+     * @param currentSession A session that represents the current user
+     */
 
     public StartWindow(Session currentSession){
         this.currentSession=currentSession;
@@ -37,7 +47,7 @@ public class StartWindow extends VBox {
         textBox.getChildren().add(textFlow);
         textBox.setAlignment(Pos.TOP_CENTER);
 
-        LineChart weeklyAverage = Chart.makeLineChart(currentSession.currentUser.get("Username").toString());
+        LineChart weeklyAverage = Chart.makeLineChart("Your Weekly Mood", currentSession.currentUser.get("Username").toString());
 
         HBox moodCharts = new HBox();
         moodCharts.getChildren().add(weeklyAverage);

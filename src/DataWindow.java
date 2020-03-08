@@ -6,22 +6,29 @@ import javafx.scene.layout.HBox;
 import java.util.Map;
 
 /**
- * This is the coolest window of the app, presents very useful and cool data. Informs the user of amount of happy / sad
- * submissions of the user and compared to the average user. But most important and coolest function of the entire program
- * is the ability to do some simple basic data science and calculate which words are most frequent with a submitted mood.
+ * Presents interesting data about the user and the userbase. Two pie charts informs the user about their amount of happy / sad
+ * submissions, a sort of general mood analysis. The same date is collected for the average user for comparison. A bar chart shows
+ * the amount of user submissions and compares it with the amount for the average user. In my humble opinion, the most important
+ * and coolest function of the entire program are the happy and sad word charts. They display which words are most commonly associated
+ * with happy and sad submissions, a brief little step into data science!
  * @author Teo
- * @version 1.2
+ * @version 1.9
  * @since 2020-03-07
  */
 
 public class DataWindow extends VBox {
 private Session currentSession;
 
+    /**
+     * Creates and displays the data window to the user.
+     * @param currentSession A session that represents the current user
+     */
+
     public DataWindow(Session currentSession) {
         this.currentSession=currentSession;
         String username = currentSession.getCurrentUserName();
 
-        BarChart userVsAvgMood = Chart.makeActivityChart("You vs Avg User", username);
+        BarChart userVsAvgMood = Chart.makeActivityChart("Activity", username);
 
         PieChart userAvg = Chart.makeMoodPieChart("Your Average Mood", username);
         userAvg.setLabelsVisible(false);

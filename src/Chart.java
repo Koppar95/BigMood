@@ -12,19 +12,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Used for creating charts for the DataWindow and StartWindow
+ * Creates different types of charts for the DataWindow and StartWindow displays data stored in mongoDB about users and submissions
  * @author Teo Becerra
  * @version 1.3
- * @since 2020-03-07
+ * @since 2020-03-08
  */
 
 
 public class Chart {
 
     /**
-     * Creates a PieCart to the user total submissions. The pie chart is split
-     * into Happy and Sad submissions. At first it could collect both user submissions and total submissions
-     * but is now only used for collecting user submissions.
+     * Creates a PieCart of the total submissions and is split into Happy and Sad.
+     * @param title The title of the chart
+     * @param user The user to filter submissions for. If user == empty string,  method will collect data for all users
      */
     public static PieChart makeMoodPieChart(String title, String user) {
         long happySubmissions;
@@ -48,10 +48,11 @@ public class Chart {
     }
 
     /**
-     * Creates and a Line chart of the users weekly moods (current day and six days back).
-     * For simplicity a happy mood = 1, sad mood = -1 and no submissions = 0.
+     * Creates a Line chart of the users weekly moods (current day and six days back).
+     * @param title The title of the chart
+     * @param user Parameter is used to filter submissions per user.
      */
-    public static LineChart makeLineChart(String user){
+    public static LineChart makeLineChart(String title, String user){
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -62,7 +63,7 @@ public class Chart {
         final LineChart<String,Number> lineChart =
                 new LineChart<String,Number>(xAxis,yAxis);
 
-        lineChart.setTitle("Your Weekly Mood");
+        lineChart.setTitle(title);
         XYChart.Series series = new XYChart.Series();
         series.setName("-1=Sad 0=no submission 1=Happy");
 
@@ -84,9 +85,9 @@ public class Chart {
     }
 
     /**
-     * Creates and displays the a Bar chart of the user and total user base moods
-     * It counts the total happy and sad submissions for the user and the total amount of
-     * submissions / users.
+     * Creates a Bar chart of activity. It displays the users amount of submissions and average amount for all users.
+     * @param title The title of the chart
+     * @param user Parameter is used to filter submissions per user
      */
     public static BarChart makeActivityChart(String title, String user) {
 
@@ -99,7 +100,7 @@ public class Chart {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> chart =
                 new BarChart<String,Number>(xAxis,yAxis);
-        chart.setTitle("Activity");
+        chart.setTitle("title");
         xAxis.setLabel("");
         yAxis.setLabel("Submissions");
 

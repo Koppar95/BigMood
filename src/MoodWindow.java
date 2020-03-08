@@ -16,13 +16,18 @@ import java.util.Date;
  * This class displays the mood window which handles mood submissions.
  *
  * @author Teo Becerra
- * @version 1.1
+ * @version 1.3
  * @since 2020-03-05
  */
 
 public class MoodWindow extends VBox {
 
     private Session currentSession;
+
+    /**
+     * Creates and displays the mood window to the user.
+     * @param currentSession A session that represents the current user
+     */
 
     public MoodWindow(Session currentSession){
         super();
@@ -76,6 +81,7 @@ public class MoodWindow extends VBox {
     /**
      * These functions should probably belong to their own Class (suggestion DateandTime). They handle date and time
      * for example to restrict the user to post once a day and to display the last seven days mood in the start window.
+     * At this current point (day of deadline) there's has not yet been time to fix this.
      */
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -97,15 +103,19 @@ public class MoodWindow extends VBox {
         }
 
     /**
-     * This function allows the user to submit their mood to the datebase and is such a part of the backbone for this app.
-     * Without any submissions there would be no data to analyze.
+     * This function allows the user to submit their mood to the datebase and such is a part of the backbone for this app.
+     * Without any submissions there would be no data to analyze. The function uses the Emojis to see which state is active
+     * and gets the comment from the input box.
+     * @param sad The sad Emoji, used to log state in database.
+     * @param happy The happy Emoji, used to log state in database.
+     * @param userinput The comment to be stored in the database.
      */
 
     private void submitMood(Emoji sad, Emoji happy, TextField userinput) {
 
-        boolean submittedtoday = Main.moodConn.submittedToday(currentSession.getCurrentUser().get("Username").toString(), getCurrentDate());
+        boolean submittedToday = Main.moodConn.submittedToday(currentSession.getCurrentUser().get("Username").toString(), getCurrentDate());
 
-        if (submittedtoday) {
+        if (submittedToday) {
             AlertBox.display("Nope!", "You've already submitted a mood today!");
         } else {
             Document moodSubmission = new Document();

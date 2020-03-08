@@ -4,11 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Class for creating a a HashMap of mood words.
+ * Class for creating a HashMap of mood words.
  * Collects all comments submitted for a certain mood, "Happy" for example and splits comments so that each
  * word is an element in an array. It then maps them to a hash map and counts most frequent comments. It then sorts
- * the comments and filter out irrelevant words like "happy, sad, etc".
- * Returns hash map of sorted filtered mood words.
+ * the comments and filter out irrelevant words like "happy, sad, etc". After that it sorts the filtered words by
+ * most frequent and returns the mood words
  * @author Teo Becerra
  * @version 1.4
  * @since 2020-03-07
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class MoodHashMap {
 
     /**
-     * The arrayLists and Block-functions are used with MongoDB.getComments
+     * The arrayLists and Block-functions are used with MongoDB.getComments to get comments and sort them by mood.
      */
     static List<String> happyComments = new ArrayList<String>();
     static List<String> sadComments = new ArrayList<String>();
@@ -37,9 +37,11 @@ public class MoodHashMap {
     };
 
     /**
-     * Maps mood words and counts frequency
+     * Maps mood words from array into hash map and counts frequency
+     * @param hash The hash map where the mood words are mapped into.
+     * @param array The array from where the mood words are stored
      */
-    public static void countComments(HashMap<String, Integer> hash, String[] array){
+    public static void mapWords(HashMap<String, Integer> hash, String[] array){
         for(int i=0; i < array.length; i++){
             if(hash.containsKey(array[i])){
                 hash.put(array[i].toLowerCase(), 1 + hash.get(array[i]));
@@ -51,6 +53,7 @@ public class MoodHashMap {
 
     /**
      * This function sorts the key-value pairs in hash map with a linked list. It compares the values of each mapping.
+     * @param unsortMap The original hash map from where the values will be sorted
      */
     private static Map<String, Integer> sortHashMap(Map<String, Integer> unsortMap)
     {
@@ -75,18 +78,8 @@ public class MoodHashMap {
     }
 
     /**
-     * printMap prints out all mood words in the map, mostly used for bug searching
-     */
-    public static void printMap(Map<String, Integer> map)
-    {
-        for (Map.Entry<String, Integer> entry : map.entrySet())
-        {
-            System.out.println("Word : " + entry.getKey() + " # of submissions : "+ entry.getValue());
-        }
-    }
-
-    /**
-     * A simple filter for filtering out irrelevant words.
+     * A simple filter for filtering out irrelevant words. We've updated this continuously while discovering new irrelevant words.
+     * @param map The hash map to filter words from
      */
     public static Map<String, Integer> filterMoodWords(Map<String, Integer> map){
 
@@ -99,8 +92,9 @@ public class MoodHashMap {
     }
 
     /**
-     * The crown jewel of MoodHashMap, this function collects comments, splits into words, filters, sorts
+     * The crown jewel of MoodHashMap, this function collects comments, splits them into words, filters, sorts
      * and returns all words associated with a mood-submission.
+     * @param mood The mood from which to get comments from
      */
     public static Map<String, Integer> getMoodWords(String mood){
         Main.moodConn.getComments(mood);
@@ -134,7 +128,7 @@ public class MoodHashMap {
 
         HashMap moodHash = new HashMap();
 
-        countComments(moodHash,wordsArr);
+        mapWords(moodHash,wordsArr);
 
         Map<String, Integer> sortedMoods = filterMoodWords(moodHash);
         sortedMoods= sortHashMap(sortedMoods);
