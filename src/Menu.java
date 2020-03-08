@@ -25,15 +25,24 @@ public class Menu {
      * A boolean that is true when the menu is open,false when menu is closed.
      */
     private static boolean menuState=false;
+    /**
+     *A Stage that is the initial window.Used in menu to be able to hide the window during logout and login.
+     */
     private Stage window;
+    /**
+     *BorderPane which is the main layout for the application. Used in Menu to be able to add the menu to the layout.
+     */
     private BorderPane mainLayout;
+    /**
+     * A Session that represents the current user.
+     */
     private Session currentSession;
 
-    /**A button is created that when clicked will run a FadeTransition to show or remove the menu. The
-     * fade in menu contains window buttons and a logout button.
-     * @param window Stage that is the initial window. Used in menu to be able to hide the window during logout and login.
-     * @param mainLayout BorderPane which is the main layout for the application. Used in Menu to be able to add the menu
-     * to the layout.
+    /**
+     * Parameters that are used in the initialisation of the menu are set.
+     * @param window Takes in the Stage where the menu is to be added.
+     * @param mainLayout Takes in the layout (BorderPane) where the menu is to be added.
+     * @param currentSession Takes in the MongoDB current user that menu is to use.
      */
     public Menu(Stage window, BorderPane mainLayout, Session currentSession){
         this.window=window;
@@ -41,6 +50,9 @@ public class Menu {
         this.currentSession=currentSession;
     }
 
+    /**The menu gets initialised. A button is created that when clicked will run a FadeTransition to show or remove the menu. The
+     * fade in menu contains window buttons and a logout button.
+     */
     public void init(){
         // MENU PART START
         //load css stylesheet
@@ -165,13 +177,13 @@ public class Menu {
     // getters and setters to see if menu is open or not
 
     /** getMenuState is a method to get the state of the menu.
-     * @return Returns menuState to know if menu is open or not
+     * @return Returns menuState to know if menu is open or not.
      */
     private boolean getMenuState(){
         return menuState;
     }
 
-    /**
+    /** Method to set the state of the menu.
      * @param newState boolean value to set menuState to.
      */
     private void setMenuState(boolean newState){
@@ -182,8 +194,8 @@ public class Menu {
      *addMenuItem is a method used to create a button to be used in the menu.
      *
      * @param label String with the text that will show on the button.
-     * @param width The width of the the button to be.
-     * @param active The event that will activate when button is clicked.
+     * @param width An int representing the width of the the button to be.
+     * @param active EventHandler, the event that will activate when button is clicked.
      * @return Returns a button.
      */
     private Button addMenuItem(String label, int width, EventHandler<? super MouseEvent> active) {
