@@ -11,7 +11,7 @@ import java.util.Map;
  * the amount of user submissions and compares it with the amount for the average user. In my humble opinion, the most important
  * and coolest function of the entire program are the happy and sad word charts. They display which words are most commonly associated
  * with happy and sad submissions, a brief little step into data science!
- * @author Teo
+ * @author Teo Becerra
  * @version 1.9
  */
 

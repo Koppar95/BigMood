@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 /**
  * This class creates and adds functionality to the emojis we use for mood submissions. We added some basic
  * effects to enhance the experience and add some of immersion.
- * @author Teo
+ * @author Teo Becerra
  * @version 1.1
  */
 
