@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  *  SettingsWindow is a VBox that is the window where the user can control its settings. The user can change Presentation name, password and
  *  window colour scheme.
- * @Author Rebecka Axelborn
+ * @author Rebecka Axelborn
  * @version 1.5
  */
 public class SettingsWindow extends VBox {
