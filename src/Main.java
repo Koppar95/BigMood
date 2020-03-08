@@ -5,21 +5,23 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/** In Main all parts necessary to run the application are put together.
+ */
 public class Main extends Application {
-    /** In Main all parts of the application are put together. In main().
-     * window Stage that is the initial window.
-     * userConn Connection to MongoDB database containing login data.
-     * moodConn Connection to MongoDB database containing mood data.
-     */
 
+    /**
+     * userConn is of type MongoDB and represents the connection to MongoDB database containing login data.
+     */
     static MongoDB userConn;
+    /**
+     *moodConn is of type MongoDB and represents the connection to MongoDB database containing mood data.
+     */
     static MongoDB moodConn;
 
     @Override
     /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
      * menu is added.
-     * @param mainLayout BorderPane, the layout for the entire window.
-     * @param scene the part of the window where the actual application is shown
+     * @param window A Stage that is the initial application window.
      */
     public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
 
