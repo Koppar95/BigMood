@@ -92,56 +92,26 @@ public class RegisterBox {
 
         //Labels for input fields
         Label usernameLabel = addLabel("Username:", 0,3);
-        Label passwordLabel = addLabel("Password:", 0,4);
-        Label passwordLabel2 = addLabel("Re-Enter Password:", 0,5);
-        Label nameLabel = addLabel("Name:", 0,6);
-        Label dobLabel = addLabel("Date of Birth:", 0,7);
-        Label heightLabel = addLabel("Height:", 0,8);
-        Label wrongHeight = addLabel("", 2,8);
-        Label warningLabel = addLabel("", 2,5);
-
-        //Input fields
-        TextField userInput = addTextField("Enter Username", 1,3);
-        TextField nameInput = addTextField("Enter your name",1,6);
-        TextField heightInput = addTextField("Enter your height",1,8);
-        PasswordField passwordInput = addPassField("Enter Password", 1,4);
-        PasswordField passwordInput2 = addPassField("Re-Enter Password", 1,5);
+        Label nameLabel = addLabel("Name:", 0,4);
+        Label dobLabel = addLabel("Date of Birth:", 0,5);
+        Label passwordLabel = addLabel("Password:", 0,7);
+        Label passwordLabel2 = addLabel("Re-Enter Password:", 0,8);
+        Label warningLabel = addLabel("", 2,8);
 
         //Date of birth choiceBox
         DatePicker datePicker = new DatePicker();
-        GridPane.setConstraints(datePicker, 1,7);
+        GridPane.setConstraints(datePicker, 1,5);
 
-        /* Check correct input of height */
-        heightInput.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1){
-                if(s.matches("\\d+")){
-                    wrongHeight.setText("");
-                }
-                else{
-                    wrongHeight.setText("Enter height in cm");
-                    wrongHeight.setTextFill(Color.rgb(180, 30, 30));
-                }
-            }
-        });
+        //Input fields
+        TextField userInput = addTextField("Enter Username", 1,3);
+        TextField nameInput = addTextField("Enter your name",1,4);
+        PasswordField passwordInput = addPassField("Enter Password", 1,7);
+        PasswordField passwordInput2 = addPassField("Re-Enter Password", 1,8);
+
         Button cancelButton = new Button("Cancel");
         GridPane.setConstraints(cancelButton, 2,10);
         Button registerButton = new Button("Register");
         GridPane.setConstraints(registerButton, 1,10);
-
-        /* Check that passwords matches */
-        passwordInput2.focusedProperty().addListener(new ChangeListener<Boolean>(){
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1){
-                if(!(passwordInput.getText().matches(passwordInput2.getText()))){
-                    warningLabel.setText("Passwords does not match");
-                    warningLabel.setTextFill(Color.rgb(180, 30, 30));
-                }
-                else{
-                    warningLabel.setText("");
-                }
-            }
-        });
 
         /* Disable registerButton if TextFields are empty or if TextField contains wrong information */
         BooleanBinding booleanBinding = new BooleanBinding(){
@@ -149,19 +119,32 @@ public class RegisterBox {
                 super.bind(userInput.textProperty(),
                         passwordInput.textProperty(),
                         passwordInput2.textProperty(),
-                        nameInput.textProperty(),
-                        heightInput.textProperty());
+                        nameInput.textProperty());
             }
             @Override
             protected boolean computeValue(){
-                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || !heightInput.getText().matches("\\d+")) || datePicker.getValue() == null || !(passwordInput.getText().matches(passwordInput2.getText())));
+                return ((userInput.getText().isEmpty() || passwordInput.getText().isEmpty() || nameInput.getText().isEmpty() || datePicker.getValue() == null || !(passwordInput.getText().matches(passwordInput2.getText()))));
             }
         };
         registerButton.disableProperty().bind(booleanBinding);
 
+        /* Check that passwords matches */
+        passwordInput2.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(passwordInput.getText().matches(passwordInput2.getText())){
+                    warningLabel.setText("");
+                }
+                else{
+                    warningLabel.setText("Passwords does not match");
+                    warningLabel.setTextFill(Color.rgb(180, 30, 30));
+                }
+            }
+        });
+
         /* Register the new user when pressing button */
         registerButton.setOnAction(e-> {
-            if(registerUser(userInput, passwordInput, nameInput, datePicker.getValue(), heightInput)) {
+            if(registerUser(userInput, passwordInput, nameInput, datePicker.getValue())) {
                 window.close();
             }
             else {
@@ -174,8 +157,7 @@ public class RegisterBox {
         grid.getChildren().addAll(
                 usernameLabel,userInput,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
-                dobLabel, datePicker, heightLabel,
-                heightInput,registerButton, warningLabel, wrongHeight, cancelButton
+                dobLabel, datePicker,registerButton, warningLabel, cancelButton
         );
 
         window.setOnCloseRequest(e -> window.close());
@@ -195,14 +177,12 @@ public class RegisterBox {
      * @param password Password from input.
      * @param name name from input.
      * @param Dob Date of Birth from input.
-     * @param height Height from input.
      * @return True if user was added to DB, false is Error.
      * @since 1.1
      */
-    private static boolean registerUser(TextField username, PasswordField password, TextField name, LocalDate Dob, TextField height){
+    private static boolean registerUser(TextField username, PasswordField password, TextField name, LocalDate Dob){
         String em = username.getText().toLowerCase();
-        int h = Integer.parseInt(height.getText());
-        User u1 = new User(em, password.getText(), name.getText(), Dob, h);
+        User u1 = new User(em, password.getText(), name.getText(), Dob);
         return u1.addToDB();
     }
 }

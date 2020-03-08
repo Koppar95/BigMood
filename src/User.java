@@ -28,10 +28,6 @@ public class User{
      * LocalDate representing date of birth for user.
      */
     private LocalDate Dob;
-    /**
-     *int representing height of user.
-     */
-    private int height;
 
     /**
      * Creates the new user with input from the RegistrationBox
@@ -39,15 +35,12 @@ public class User{
      * @param password new user's selected Password
      * @param name new user's selected name
      * @param Dob new user's selected Date of Birth
-     * @param height new user's selected Height
-     * @since 1.1
      */
-    public User(String username, String password, String name, LocalDate Dob, int height){
+    public User(String username, String password, String name, LocalDate Dob){
         this.username = username;
         this.password = password.hashCode();
         this.name = name;
         this.Dob = Dob;
-        this.height = height;
     }
 
     /**
@@ -68,7 +61,6 @@ public class User{
             newUser.append("Password", password);
             newUser.append("Name", name);
             newUser.append("Date Of Birth", Dob);
-            newUser.append("Height", height);
             conn.addDoc(newUser);
             return true;
         }
