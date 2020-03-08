@@ -19,6 +19,8 @@ import java.io.IOException;
 /**
  *  SettingsWindow is a VBox that is the window where the user can control its settings. The user can change Presentation name, password and
  *  window colour scheme.
+ * @Author Rebecka Axelborn
+ * @version 1.5
  */
 public class SettingsWindow extends VBox {
     /**
@@ -46,6 +48,7 @@ public class SettingsWindow extends VBox {
      * The layout is set and the methods for the settings fields are called and added to the VBox that is this object.
      * @param currentSession Takes in the MongoDB current user that the settings window is to update.
      * @param window Takes in the Stage that is used for the application.
+     * @since 1.5
      */
 
     public SettingsWindow(Session currentSession, Stage window) {
@@ -66,6 +69,7 @@ public class SettingsWindow extends VBox {
     /**
      * A method to change color scheme of the application.
      * @param color A String that has to be either "green" or "gold".
+     * @since 1.5
      */
     private void colorChange(String color){
         try {
@@ -92,6 +96,7 @@ public class SettingsWindow extends VBox {
     /**
      * Method that shows options to the user to let the user change colour scheme.
      * @return HBox containing green and gold button that can be clicked to change colour.
+     * @since 1.5
      */
     private HBox configureSettings(){
         HBox configureSettingsBox = new HBox();
@@ -178,6 +183,7 @@ public class SettingsWindow extends VBox {
      * The method that creates the change name HBox, containing a label to tell the user what to do here, a text field
      * for user input and an update button to update with what is in the text field.
      * @return HBox containing the functionality to change the name.
+     * @since 1.1
      */
     private HBox changeName(){
         HBox changeNameBox = new HBox();
@@ -217,6 +223,7 @@ public class SettingsWindow extends VBox {
      * for user input to enter current password, two text fields for the new password and a button that will only update
      * the password if the current password is correct and the two new passwords are matching.
      * @return VBox containing the functionality to change the name.
+     * @since 1.3
      */
         private VBox changePassword() {
             VBox changePassword = new VBox();

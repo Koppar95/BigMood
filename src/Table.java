@@ -15,7 +15,6 @@ import java.util.Map;
  *
  * @author Teo Becerra
  * @version 1.2
- * @since 2020-03-07
  */
 
 
@@ -26,6 +25,7 @@ public class Table extends VBox{
  * sole purpose. It presents the data from the mood word hash map.
  * @param mood The mood to be displayed in the chart
  * @param moodWords The hashmap of mood words to instantiate objects to turn into table data.
+ * @since 1.2
  *
  */
     public static VBox makeMoodWordTable(String mood, Map<String, Integer> moodWords){

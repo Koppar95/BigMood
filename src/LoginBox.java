@@ -17,17 +17,25 @@ import org.bson.Document;
  * Class for creating a Login Box and checking login authentication
  * updates user in currentSession on successful login to track who is currently logged in.
  * @author Samuel Leckborn
- * @version 1.0
- * @since 2020-02-19
+ * @version 1.1
  */
 public class LoginBox {
+    /**
+     * A Session containing current user.
+     */
     private Session currentSession;
+
+    /**
+     * Sets current session.
+     * @param currentSession Sets incoming Session parameter to this objects currentSession
+     */
     public LoginBox(Session currentSession){
     this.currentSession=currentSession;
     }
 
     /**
      * Initializing and showing the login window.
+     * @since 1.1
      */
     public void display(){
 
@@ -112,6 +120,7 @@ public class LoginBox {
      * @param passInput
      * @param userInput
      * @return true if userInput and passInput equals that users username and password in the database, ow false.
+     * @since 1.1
      */
     private boolean loginCheck(Document user, int passInput, String userInput){
         if(user !=null) {

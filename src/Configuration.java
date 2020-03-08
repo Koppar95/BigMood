@@ -17,13 +17,25 @@ import java.io.IOException;
 /**
  * This class can read and write to the configuration file of this application
  * @author Samuel Leckborn
- * @version 1.0
- * @since 2020-03-01
+ * @version 1.1
  */
 public class Configuration{
+    /**
+     * Int representing window height.
+     */
     public static int height;
+    /**
+     * Int representing window width.
+     */
     public static int width;
+    /**
+     * String representing application colour scheme.
+     */
     public static String color;
+
+    /**
+     * The document where configuration setting are stored.
+     */
     public static Document doc;
 
     /**
@@ -32,8 +44,11 @@ public class Configuration{
      * @throws SAXException
      * @throws IOException
      * @throws ParserConfigurationException
+     * @since 1.1
      */
     public static boolean parseConfig() throws SAXException, IOException, ParserConfigurationException {
+
+
         File xmlFile = new File("xml/config.xml");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -68,6 +83,7 @@ public class Configuration{
      * @param what        What element in the configuration file to edit.
      * @param updateValue The new value.
      * @throws TransformerException
+     * @since 1.1
      */
     public static void updateElementValue(String what, String updateValue) throws TransformerException {
         Element root = doc.getDocumentElement();

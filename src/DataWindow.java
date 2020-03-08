@@ -13,7 +13,6 @@ import java.util.Map;
  * with happy and sad submissions, a brief little step into data science!
  * @author Teo
  * @version 1.9
- * @since 2020-03-07
  */
 
 public class DataWindow extends VBox {
@@ -22,6 +21,7 @@ private Session currentSession;
     /**
      * Creates and displays the data window to the user.
      * @param currentSession A session that represents the current user
+     * @since 1.9
      */
 
     public DataWindow(Session currentSession) {

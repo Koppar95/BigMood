@@ -16,16 +16,22 @@ import static com.mongodb.client.model.Filters.and;
  * @author Karl Svensson
  * @coauthor Teo Becerra
  * @version 1.8
- * @since 2020-03-6
  */
 public class MongoDB{
+    /**
+     * The collection on from MongoDB containing data.
+     */
     MongoCollection<Document> mongoCollection;
+    /**
+     * The database at MongoDB.
+     */
     MongoDatabase mongoDatabase;
 
     /**
      * Creates a new connection to selected DB and Collection
      * @param DB which DB to connect to.
      * @param collection which collection within DB to connect to.
+     * @since 1.1
      */
     public MongoDB(String DB, String collection){
         String uri = "mongodb+srv://admin:abcd@bigmood-1h8lf.mongodb.net/test?retryWrites=true&w=majority";
@@ -40,6 +46,7 @@ public class MongoDB{
      * @param key DB key.
      * @param what value of the key you want to find.
      * @return true if "what" is found, else false.
+     * @since 1.8
      */
     public boolean find(String key, String what){
         Document found = mongoCollection.find(new Document(key, what)).first();
@@ -50,6 +57,7 @@ public class MongoDB{
      * This functions gets all comments from users mood submission. It adds the comments to the lists
      * happyComments and sadComments in MoodHashMap.
      * @param mood decides which submissions to get comments from.
+     * @since 1.8
      */
 
     public void getComments(String mood){
@@ -70,6 +78,7 @@ public class MongoDB{
     /**
      * Counts the number of submissions of a certain mood (for all users).
      *  @param mood decides which submissions to count.
+     * @since 1.8
      */
     public long countMood(String mood){
         Bson moodFilter = Filters.eq("Mood", mood);
@@ -78,7 +87,8 @@ public class MongoDB{
     }
 
     /**
-     * Counts total number of submissions in database..
+     * Counts total number of submissions in database.
+     * @since 1.8
      */
     public long countSubmissions(){
         long count = mongoCollection.countDocuments();
@@ -88,6 +98,7 @@ public class MongoDB{
     /**
      * Counts the number of submissions of a certain user.
      *  @param user decides which users submissions to count.
+     * @since 1.8
      */
     public long countUserSubmissions(String user){
         Bson userFilter = Filters.eq("User",user);
@@ -99,6 +110,7 @@ public class MongoDB{
      * Counts the number of submissions of a certain mood (for each individual user).
      * @param mood decides which mood to count submissions from.
      * @param user decides which users submissions to count.
+     * @since 1.8
      */
     public long countUserMood(String mood, String user){
         Bson moodFilter = Filters.eq("Mood", mood);
@@ -110,6 +122,7 @@ public class MongoDB{
 
     /**
      * Counts total amount of users in the database.
+     * @since 1.8
      */
     public long countUsers(){
         long userCount = 0;
@@ -125,6 +138,7 @@ public class MongoDB{
 
     /**
      * Finds the submitted mood of a certain date and user.
+     * @since 1.8
      */
     public String findUserMood(String user, String date){
         Bson userFilter = Filters.eq("User",user);
@@ -141,6 +155,7 @@ public class MongoDB{
      * Checks if the user has already submitted a mood today. We limit mood submissions to one a day for users.
      * @param date which date to filter for.
      * @param user which user to filter for.
+     * @since 1.8
      */
     public boolean submittedToday(String user, String date){
         Bson userFilter = Filters.eq("User",user);
@@ -160,6 +175,7 @@ public class MongoDB{
      * @param key DB key ex "Name"
      * @param who Who you want to find
      * @return Bson document included information for the selected name,
+     * @since 1.1
      */
     public Document getDocument(String key, String who){
         return mongoCollection.find(new Document(key, who)).first();
@@ -168,6 +184,7 @@ public class MongoDB{
     /**
      * Adds a Bson document to DB.
      * @param toAdd Bson document to add.
+     * @since 1.1
      */
     public void addDoc(Document toAdd){
         mongoCollection.insertOne(toAdd);
@@ -180,6 +197,7 @@ public class MongoDB{
      * @param valueToUpdate which value of given key and value to update
      * @param to new value after update
      * @return true if update was a success, else false.
+     * @since 1.1
      */
     public boolean updateValue(String key, String who, String valueToUpdate, String to){
         Document found = mongoCollection.find(new Document(key, who)).first();
@@ -200,6 +218,7 @@ public class MongoDB{
      * @param valueToUpdate which value of given key and value to update
      * @param to new value after update
      * @return true if update was a success, else false
+     * @since 1.2
      */
 
     public boolean updateIntValue(String key, String who, String valueToUpdate, Integer to){

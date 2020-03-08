@@ -17,16 +17,18 @@ import java.util.Date;
  *
  * @author Teo Becerra
  * @version 1.3
- * @since 2020-03-05
  */
 
 public class MoodWindow extends VBox {
-
+    /**
+     * Session containing current user.
+     */
     private Session currentSession;
 
     /**
      * Creates and displays the mood window to the user.
      * @param currentSession A session that represents the current user
+     * @since 1.1
      */
 
     public MoodWindow(Session currentSession){
@@ -78,10 +80,16 @@ public class MoodWindow extends VBox {
         this.setAlignment(Pos.CENTER);
     }
 
-    /**
+    /*
      * These functions should probably belong to their own Class (suggestion DateandTime). They handle date and time
      * for example to restrict the user to post once a day and to display the last seven days mood in the start window.
      * At this current point (day of deadline) there's has not yet been time to fix this.
+     */
+
+    /**
+     * Method to get current date and time.
+     * @return Current date as a String
+     * @since 1.2
      */
         public static String getCurrentDate() {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -89,7 +97,12 @@ public class MoodWindow extends VBox {
             return dateFormat.format(date);
         }
 
-        public static Date[] getLastSevenDays() {
+    /**
+     * Method to get last seven days.
+     * @return A list of Dates.
+     * @since 1.2
+     */
+    public static Date[] getLastSevenDays() {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_YEAR, -7);
         Date[] dates = new Date[7];
@@ -109,6 +122,7 @@ public class MoodWindow extends VBox {
      * @param sad The sad Emoji, used to log state in database.
      * @param happy The happy Emoji, used to log state in database.
      * @param userinput The comment to be stored in the database.
+     * @since 1.3
      */
 
     private void submitMood(Emoji sad, Emoji happy, TextField userinput) {

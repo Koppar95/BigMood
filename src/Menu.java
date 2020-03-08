@@ -16,8 +16,7 @@ import javafx.util.Duration;
 /**
  * Class to implement drop down side bar menu containing buttons to windows.
  * @author Rebecka Axelborn
- * @version 1.1
- * @since 2020-03-03
+ * @version 1.2
  */
 
 public class Menu {
@@ -43,6 +42,7 @@ public class Menu {
      * @param window Takes in the Stage where the menu is to be added.
      * @param mainLayout Takes in the layout (BorderPane) where the menu is to be added.
      * @param currentSession Takes in the MongoDB current user that menu is to use.
+     * @since 1.2
      */
     public Menu(Stage window, BorderPane mainLayout, Session currentSession){
         this.window=window;
@@ -52,6 +52,7 @@ public class Menu {
 
     /**The menu gets initialised. A button is created that when clicked will run a FadeTransition to show or remove the menu. The
      * fade in menu contains window buttons and a logout button.
+     * @1.2
      */
     public void init(){
         // MENU PART START
@@ -178,6 +179,7 @@ public class Menu {
 
     /** getMenuState is a method to get the state of the menu.
      * @return Returns menuState to know if menu is open or not.
+     * @since 1.1
      */
     private boolean getMenuState(){
         return menuState;
@@ -185,6 +187,7 @@ public class Menu {
 
     /** Method to set the state of the menu.
      * @param newState boolean value to set menuState to.
+     * @since 1.1
      */
     private void setMenuState(boolean newState){
         menuState=newState;
@@ -197,6 +200,7 @@ public class Menu {
      * @param width An int representing the width of the the button to be.
      * @param active EventHandler, the event that will activate when button is clicked.
      * @return Returns a button.
+     * @since 1.2
      */
     private Button addMenuItem(String label, int width, EventHandler<? super MouseEvent> active) {
         Button b = new Button(label);

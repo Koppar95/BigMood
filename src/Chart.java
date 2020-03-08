@@ -15,7 +15,6 @@ import java.util.Date;
  * Creates different types of charts for the DataWindow and StartWindow displays data stored in mongoDB about users and submissions
  * @author Teo Becerra
  * @version 1.3
- * @since 2020-03-08
  */
 
 
@@ -25,6 +24,7 @@ public class Chart {
      * Creates a PieCart of the total submissions and is split into Happy and Sad.
      * @param title The title of the chart
      * @param user The user to filter submissions for. If user == empty string,  method will collect data for all users
+     * @since 1.1
      */
     public static PieChart makeMoodPieChart(String title, String user) {
         long happySubmissions;
@@ -51,6 +51,7 @@ public class Chart {
      * Creates a Line chart of the users weekly moods (current day and six days back).
      * @param title The title of the chart
      * @param user Parameter is used to filter submissions per user.
+     * @since 1.2
      */
     public static LineChart makeLineChart(String title, String user){
         final CategoryAxis xAxis = new CategoryAxis();
@@ -88,6 +89,7 @@ public class Chart {
      * Creates a Bar chart of activity. It displays the users amount of submissions and average amount for all users.
      * @param title The title of the chart
      * @param user Parameter is used to filter submissions per user
+     * @since 1.3
      */
     public static BarChart makeActivityChart(String title, String user) {
 

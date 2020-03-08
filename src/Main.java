@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /** In Main all parts necessary to run the application are put together.
+ * @version 1.12
  */
 public class Main extends Application {
 
@@ -21,6 +22,7 @@ public class Main extends Application {
     /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
      * menu is added.
      * @param window A Stage that is the initial application window.
+     * @since 1.12
      */
     @Override
     public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
@@ -50,6 +52,7 @@ public class Main extends Application {
 
     /**
      * the javaFX is launched and start() will run.
+     * @since 1.1
      */
     public static void main(String[] args) {
         launch(args);

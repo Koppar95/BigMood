@@ -10,17 +10,28 @@ import java.beans.PropertyChangeListener;
 /**
  * Initializes the mainframe window of the application.
  * @author Samuel Leckborn
- * @version 1.0
- * @since 2020-03-04
+ * @version 1.1
  */
 public class MainStage {
+    /**
+     * Undecorator containing application design.
+     */
     private Undecorator undecorator;
+    /**
+     * Stage that is the initial window.
+     */
     private Stage window;
+    /**
+     * Scene where the application is run.
+     */
     private Scene scene;
+    /**
+     * Session containing current user.
+     */
     private Session currentSession;
 
     /**
-     *
+     *  Takes in the current Session and current Stage window and sets it to this object.
      * @param currentSession Holds information of the current session.
      * @param window The JavaFx Stage to build on.
      */
@@ -30,7 +41,7 @@ public class MainStage {
     }
 
     /**
-     * Initializes and show the window.
+     * Initializes and shows the window.
      */
     public void init(){
         window.setTitle("Big Mood");

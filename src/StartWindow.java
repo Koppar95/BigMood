@@ -14,21 +14,28 @@ import javafx.scene.chart.*;
  *
  * @author Teo Becerra
  * @version 1.3
- * @since 2020-02-28
  */
 
 public class StartWindow extends VBox {
+    /**
+     * A session that represents the current user
+     */
     private Session currentSession;
 
     /**
      * Creates the start window to the user.
-     * @param currentSession A session that represents the current user
+     * @param currentSession Session that is to be used in this object.
+     * @since 1.2
      */
 
     public StartWindow(Session currentSession){
         this.currentSession=currentSession;
     }
 
+    /**
+     * Initiates StartWindow and shows welcome text and LineChart.
+     * @since 1.3
+     */
     public void init(){
         String family = "Helvetica";
         double size = 40;

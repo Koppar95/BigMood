@@ -19,7 +19,6 @@ import java.time.LocalDate;
  * Checks that all input is in correct format before registration to MongoDB
  * @author Karl Svensson
  * @version 1.1
- * @since 2020-02-19
  */
 public class RegisterBox {
     /**
@@ -28,6 +27,7 @@ public class RegisterBox {
      * @param column Which column in the GridPane.
      * @param row Which row in the GridPane
      * @return The new TextField
+     * @since 1.1
      */
     private static TextField addTextField(String promptText, int column, int row){
         TextField textField = new TextField();
@@ -43,6 +43,7 @@ public class RegisterBox {
      * @param column Which column in the GridPane.
      * @param row which row in the GridPane.
      * @return The new label.
+     * @since 1.1
      */
     private static Label addLabel(String title, int column, int row){
         Label label = new Label(title);
@@ -56,6 +57,7 @@ public class RegisterBox {
      * @param column Which column in the GridPane.
      * @param row Which row in the GridPane.
      * @return The new PasswordField.
+     * @since 1.1
      */
     private static PasswordField addPassField(String promptText, int column, int row){
         PasswordField passwordField = new PasswordField();
@@ -68,6 +70,7 @@ public class RegisterBox {
      * Creates the RegisterBox screen with all TextFields and Labels.
      * Checks valid inputs.
      * @param title Title of the window.
+     * @since 1.1
      */
     public static void display(String title){
         Stage window = new Stage();
@@ -194,6 +197,7 @@ public class RegisterBox {
      * @param Dob Date of Birth from input.
      * @param height Height from input.
      * @return True if user was added to DB, false is Error.
+     * @since 1.1
      */
     private static boolean registerUser(TextField username, PasswordField password, TextField name, LocalDate Dob, TextField height){
         String em = username.getText().toLowerCase();
