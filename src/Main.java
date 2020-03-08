@@ -18,11 +18,11 @@ public class Main extends Application {
      */
     static MongoDB moodConn;
 
-    @Override
     /** Start is the program initialisation. The login box is first being displayed. The basic layout is set, then the
      * menu is added.
      * @param window A Stage that is the initial application window.
      */
+    @Override
     public void start(Stage window) throws ParserConfigurationException, SAXException, IOException {
 
         try{
