@@ -95,7 +95,6 @@ public class Configuration{
         StreamResult result = new StreamResult(new File("xml/config.xml"));
         transformer.setOutputProperty(OutputKeys.INDENT, "no");
         transformer.transform(source, result);
-        System.out.println("XML file updated successfully");
     }
 
 }
