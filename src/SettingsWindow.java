@@ -17,14 +17,36 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- *
+ *  SettingsWindow is a VBox that is the window where the user can control its settings. The user can change Presentation name, password and
+ *  window colour scheme.
  */
 public class SettingsWindow extends VBox {
+    /**
+     * The spacing inbetween the fields.
+     */
     static int spacing = 8;
+    /**
+     * The minimum width of the lable telling the user what the field is used to update.
+     */
     static int minWidth =115;
+    /**
+     * An Insets containing padding for in-between the boxes containing the different update functions.
+     */
     static Insets boxPadding = new Insets(10, 10, 10, 10);
+    /**
+     * A Session representing the current user.
+     */
     private Session currentSession;
+    /**
+     * The initial Stage window of the application.
+     */
     private Stage window;
+
+    /**
+     * The layout is set and the methods for the settings fields are called and added to the VBox that is this object.
+     * @param currentSession Takes in the MongoDB current user that the settings window is to update.
+     * @param window Takes in the Stage that is used for the application.
+     */
 
     public SettingsWindow(Session currentSession, Stage window) {
         super();
@@ -41,6 +63,10 @@ public class SettingsWindow extends VBox {
         this.getChildren().addAll(nameUpdate, passwordUpdate, configureSettings);   //heightUpdate,
     }
 
+    /**
+     * A method to change color scheme of the application.
+     * @param color A String that has to be either "green" or "gold".
+     */
     private void colorChange(String color){
         try {
             Configuration.updateElementValue("color",color);
@@ -63,6 +89,10 @@ public class SettingsWindow extends VBox {
         mainStage.updateGUI();
     }
 
+    /**
+     * Method that shows options to the user to let the user change colour scheme.
+     * @return HBox containing green and gold button that can be clicked to change colour.
+     */
     private HBox configureSettings(){
         HBox configureSettingsBox = new HBox();
         configureSettingsBox.setSpacing(spacing);
@@ -143,6 +173,12 @@ public class SettingsWindow extends VBox {
         return changeHeightBox;
     }
     */
+
+    /**
+     * The method that creates the change name HBox, containing a label to tell the user what to do here, a text field
+     * for user input and an update button to update with what is in the text field.
+     * @return HBox containing the functionality to change the name.
+     */
     private HBox changeName(){
         HBox changeNameBox = new HBox();
         changeNameBox.setSpacing(spacing);
@@ -176,6 +212,12 @@ public class SettingsWindow extends VBox {
         return changeNameBox;
     }
 
+    /**
+     * The method that creates the change password VBox, containing a label to tell the user what to do here, a text field
+     * for user input to enter current password, two text fields for the new password and a button that will only update
+     * the password if the current password is correct and the two new passwords are matching.
+     * @return VBox containing the functionality to change the name.
+     */
         private VBox changePassword() {
             VBox changePassword = new VBox();
             changePassword.setSpacing(spacing);
