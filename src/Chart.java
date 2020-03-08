@@ -14,8 +14,8 @@ import java.util.Date;
 /**
  * Used for creating charts for the DataWindow and StartWindow
  * @author Teo Becerra
- * @version 1.1
- * @since 2020-03-05
+ * @version 1.3
+ * @since 2020-03-07
  */
 
 
@@ -99,13 +99,13 @@ public class Chart {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> chart =
                 new BarChart<String,Number>(xAxis,yAxis);
-        chart.setTitle("Mood Activity");
+        chart.setTitle("Activity");
         xAxis.setLabel("");
         yAxis.setLabel("Submissions");
 
         XYChart.Series activity = new XYChart.Series();
         activity.setName("# of submissions");
-        activity.getData().add(new XYChart.Data("User Avg", totalAvgSub));
+        activity.getData().add(new XYChart.Data("User Avg Submissions", totalAvgSub));
         activity.getData().add(new XYChart.Data("Your submissions", userSubmissions));
 
         chart.getData().addAll(activity);

@@ -19,14 +19,14 @@ import java.io.IOException;
 /**
  *
  */
-public class ProfileWindow extends VBox {
+public class SettingsWindow extends VBox {
     static int spacing = 8;
     static int minWidth =115;
     static Insets boxPadding = new Insets(10, 10, 10, 10);
     private Session currentSession;
     private Stage window;
 
-    public ProfileWindow(Session currentSession, Stage window) {
+    public SettingsWindow(Session currentSession, Stage window) {
         super();
         this.currentSession=currentSession;
         this.window=window;
@@ -34,11 +34,11 @@ public class ProfileWindow extends VBox {
         this.setSpacing(spacing);
 
         HBox nameUpdate = changeName();
-        HBox heightUpdate = changeHeight();
+        //HBox heightUpdate = changeHeight();
         VBox passwordUpdate = changePassword();
         HBox configureSettings = configureSettings();
 
-        this.getChildren().addAll(nameUpdate,heightUpdate, passwordUpdate, configureSettings);
+        this.getChildren().addAll(nameUpdate, passwordUpdate, configureSettings);   //heightUpdate,
     }
     private HBox configureSettings(){
         HBox configureSettingsBox = new HBox();
@@ -97,6 +97,7 @@ public class ProfileWindow extends VBox {
         return configureSettingsBox;
     }
 
+    /*
     private HBox changeHeight() {
         HBox changeHeightBox = new HBox();
         changeHeightBox.setSpacing(spacing);
@@ -146,7 +147,7 @@ public class ProfileWindow extends VBox {
 
         return changeHeightBox;
     }
-
+    */
     private HBox changeName(){
         HBox changeNameBox = new HBox();
         changeNameBox.setSpacing(spacing);

@@ -110,9 +110,9 @@ public class Menu {
                         mainLayout.setCenter(new DataWindow(currentSession));
                     }
                 }) ,
-                addMenuItem("Edit Profile", 100, e-> {
+                addMenuItem("Settings", 100, e-> {
                     if(menuState) {
-                        mainLayout.setCenter(new ProfileWindow(currentSession,window));
+                        mainLayout.setCenter(new SettingsWindow(currentSession,window));
                     }
                 })
 

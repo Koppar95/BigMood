@@ -58,8 +58,8 @@ public class MainStage {
      */
     public void updateGUI(){
         BorderPane mainLayout = new BorderPane();
-        ProfileWindow profileWindow = new ProfileWindow(currentSession,window);
-        mainLayout.setCenter(profileWindow);
+        SettingsWindow settingsWindow = new SettingsWindow(currentSession,window);
+        mainLayout.setCenter(settingsWindow);
         undecorator = new Undecorator(window, mainLayout);
         undecorator.getStylesheets().add("bmSkin-"+Configuration.color+".css");
         scene = new Scene(undecorator, Configuration.width,Configuration.height);
