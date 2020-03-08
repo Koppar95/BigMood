@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /** In Main all parts necessary to run the application are put together.
+ * @author Samuel Leckborn
  * @version 1.12
  */
 public class Main extends Application {
