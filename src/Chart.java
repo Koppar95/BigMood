@@ -102,7 +102,7 @@ public class Chart {
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String,Number> chart =
                 new BarChart<String,Number>(xAxis,yAxis);
-        chart.setTitle("title");
+        chart.setTitle(title);
         xAxis.setLabel("");
         yAxis.setLabel("Submissions");
 
