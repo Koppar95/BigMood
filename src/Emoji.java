@@ -79,7 +79,7 @@ public class Emoji extends ImageView {
      * @since 1.1
      */
     public static Emoji makeHappyEmoji() {
-        Image happy = new Image("Assets/happy.png");
+        Image happy = new Image("Assets/happyF.png");
         return new Emoji(happy);
     }
 
@@ -89,7 +89,7 @@ public class Emoji extends ImageView {
      * @since 1.1
      */
     public static Emoji makeSadEmoji() {
-        Image sad = new Image("Assets/sad.png");
+        Image sad = new Image("Assets/sadF.png");
         return new Emoji(sad);
     }
 

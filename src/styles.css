@@ -122,6 +122,20 @@
     -fx-border-width: 0px;
 }
 
+.default-color0.chart-series-line { -fx-stroke: #e37676; }
+.default-color0.chart-line-symbol { -fx-background-color: #e37676 white; }
+
+.default-color0.chart-pie { -fx-pie-color: #4d54cb; }
+.default-color1.chart-pie { -fx-pie-color: #e37676; }
+
+
+
+.default-color0.chart-bar { -fx-bar-fill: #4d54cb }
+
+
+
+
+
 
 
 

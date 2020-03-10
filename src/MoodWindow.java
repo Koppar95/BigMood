@@ -1,12 +1,16 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import org.bson.Document;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +41,9 @@ public class MoodWindow extends VBox {
         String family = "Helvetica";
         double size = 40;
 
+        Image headline = new Image("Assets/moodHeadline.png");
+        ImageView headlineView = new ImageView(headline);
+
         TextFlow textFlow = new TextFlow();
         textFlow.setLayoutX(40);
         textFlow.setLayoutY(40);
@@ -60,9 +67,17 @@ public class MoodWindow extends VBox {
 
         //User comments
         TextField userComment = new TextField();
+        userComment.setPrefSize(500,100);
+        userComment.setMaxHeight(100);
         userComment.setPromptText("Add a comment!");
+        userComment.setPadding(new Insets(0,0,100,0));
         Button submitMood = new Button("Submit Mood");
         submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
+        submitMood.setAlignment(Pos.CENTER_LEFT);
+        VBox buttonBox = new VBox();
+        buttonBox.getChildren().add(submitMood);
+        buttonBox.setPrefSize(500,100);
+        buttonBox.setAlignment(Pos.CENTER);
 
         //Boxes for smileys and comments
         HBox comments = new HBox();
@@ -75,8 +90,9 @@ public class MoodWindow extends VBox {
         HBox emojis = new HBox();
         emojis.getChildren().addAll(happyEmoji,sadEmoji);
         emojis.setAlignment(Pos.CENTER);
+        emojis.setPadding(new Insets(30,0,30,0));
 
-        this.getChildren().addAll(textFlow, emojis, comments, submitMood);
+        this.getChildren().addAll(headlineView, emojis, comments, buttonBox);
         this.setAlignment(Pos.CENTER);
     }
 

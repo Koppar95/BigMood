@@ -1,5 +1,6 @@
 
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.collections.FXCollections;
 import javafx.scene.chart.BarChart;
@@ -7,6 +8,8 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.paint.Color;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,11 +36,9 @@ public class Chart {
         if(user.equals("")) {
             happySubmissions = Main.moodConn.countMood("Happy");
             sadSubmissions = Main.moodConn.countMood("Sad");
-            System.out.println("Avg happy: " + happySubmissions + " sad: " + sadSubmissions);
         } else {
             happySubmissions = Main.moodConn.countUserMood("Happy", user);
             sadSubmissions = Main.moodConn.countUserMood("Sad", user);
-            System.out.println("User avg happy: " + happySubmissions + " sad: " + sadSubmissions);
         }
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
@@ -70,6 +71,7 @@ public class Chart {
         XYChart.Series series = new XYChart.Series();
         series.setName("-1=Sad 0=no submission 1=Happy");
 
+
         for (int i = 0; i < dates.length; i++){
             String date = dateFormat.format(dates[i]);
             String mood = Main.moodConn.findUserMood(user,date);
@@ -83,6 +85,7 @@ public class Chart {
                 series.getData().add(new XYChart.Data(day, 0));
             }
         }
+
         lineChart.getData().add(series);
         return lineChart;
     }

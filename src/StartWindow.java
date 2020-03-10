@@ -1,4 +1,6 @@
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -8,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.scene.chart.*;
+
 
 /**
  * This class displays the start window which presents the user with a line chart of their weekly mood.
@@ -54,6 +57,16 @@ public class StartWindow extends VBox {
         textBox.getChildren().add(textFlow);
         textBox.setAlignment(Pos.TOP_CENTER);
 
+        Image logoImage = new Image("Assets/logo.png");
+        ImageView logo = new ImageView(logoImage);
+        logo.setFitHeight(100);
+        logo.setFitWidth(300);
+        HBox logobox = new HBox();
+        logobox.getChildren().add(logo);
+        logobox.setAlignment(Pos.CENTER);
+
+
+
         LineChart weeklyAverage = Chart.makeLineChart("Your Weekly Mood", currentSession.currentUser.get("Username").toString());
 
         HBox moodCharts = new HBox();
@@ -62,7 +75,9 @@ public class StartWindow extends VBox {
 
         BorderPane mainLayout = new BorderPane();
         mainLayout.setTop(textBox);
-        mainLayout.setBottom(moodCharts);
+        mainLayout.setCenter(moodCharts);
+        mainLayout.setBottom(logobox);
+
 
         this.getChildren().addAll(mainLayout);
     }
