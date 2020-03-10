@@ -32,6 +32,7 @@ public class Table extends VBox{
 
         Label label = new Label(mood +" Words");
         label.setFont(new Font("Arial", 20));
+        label.getStyleClass().add("custom-label-colour");
 
         TableView table = new TableView();
         table.setFixedCellSize(25);

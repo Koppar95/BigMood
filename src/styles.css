@@ -110,6 +110,10 @@
     -fx-border-insets: 1 1 1 1, 0;
 }
 
+.custom-label-colour{
+    -fx-text-fill: white;
+}
+
 .custom-profile-edit-button-green:hover {
     -fx-background-color: rgba(162, 209, 138, 0.6);
 }
