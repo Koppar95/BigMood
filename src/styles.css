@@ -92,7 +92,7 @@
 
 .custom-profile-edit-button-green {
     -fx-background-color: rgba(102, 139, 78, 0.8);
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-border-color: transparent, #668B4E;
     -fx-border-width: 1, 1;
     -fx-border-style: solid;
@@ -102,7 +102,7 @@
 
 .custom-profile-edit-button-gold {
     -fx-background-color: rgba(165, 145, 21, 0.8);
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-border-color: transparent, #a59115;
     -fx-border-width: 1, 1;
     -fx-border-style: solid;
