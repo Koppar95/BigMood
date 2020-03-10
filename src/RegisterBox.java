@@ -155,9 +155,9 @@ public class RegisterBox {
         cancelButton.setOnAction(e-> window.close());
 
         grid.getChildren().addAll(
-                usernameLabel,userInput,passwordLabel,
-                passwordInput, passwordLabel2,passwordInput2,nameLabel, nameInput,
-                dobLabel, datePicker,registerButton, warningLabel, cancelButton
+                usernameLabel,userInput, nameInput, datePicker,passwordLabel,
+                passwordInput, passwordLabel2,passwordInput2,nameLabel,
+                dobLabel,registerButton, warningLabel, cancelButton
         );
 
         window.setOnCloseRequest(e -> window.close());
