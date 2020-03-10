@@ -1,4 +1,5 @@
 import com.mongodb.MongoClientException;
+import com.mongodb.MongoSocketOpenException;
 import insidefx.undecorator.Undecorator;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -88,7 +89,7 @@ public class LoginBox {
                     errorLabel.setText("Wrong username or password");
                 }
             }
-            catch(NullPointerException en){
+            catch(NullPointerException | MongoSocketOpenException en){
                 AlertBox.display("Error","No Internet Connection");
             }
         });
