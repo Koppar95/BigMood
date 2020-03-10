@@ -33,14 +33,15 @@ private Session currentSession;
         PieChart userAvg = Chart.makeMoodPieChart("Your Average Mood", username);
         userAvg.setLabelsVisible(false);
 
-        PieChart totalAvg = Chart.makeMoodPieChart("Total user average","");
+        PieChart totalAvg = Chart.makeMoodPieChart("Total User Average","");
         userAvg.setLabelsVisible(false);
 
         HBox userVsAvgBox = new HBox();
         userVsAvgBox.getChildren().addAll(userAvg, totalAvg);
         userVsAvgBox.setAlignment(Pos.CENTER);
 
-
+        MoodHashMap.happyComments.clear();
+        MoodHashMap.sadComments.clear();
         Map<String, Integer> happyWords = MoodHashMap.getMoodWords("Happy");
         Map<String, Integer> sadWords = MoodHashMap.getMoodWords("Sad");
 

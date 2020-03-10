@@ -33,9 +33,11 @@ public class Chart {
         if(user.equals("")) {
             happySubmissions = Main.moodConn.countMood("Happy");
             sadSubmissions = Main.moodConn.countMood("Sad");
+            System.out.println("Avg happy: " + happySubmissions + " sad: " + sadSubmissions);
         } else {
             happySubmissions = Main.moodConn.countUserMood("Happy", user);
             sadSubmissions = Main.moodConn.countUserMood("Sad", user);
+            System.out.println("User avg happy: " + happySubmissions + " sad: " + sadSubmissions);
         }
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
