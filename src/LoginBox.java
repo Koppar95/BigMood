@@ -57,6 +57,7 @@ public class LoginBox {
         //User input
         Label userLabel = new Label();
         userLabel.setText("Username");
+        userLabel.getStyleClass().add("custom-label-colour");
         TextField userInput = new TextField();
         userInput.setMaxSize(200,5);
         //
@@ -64,6 +65,7 @@ public class LoginBox {
         //Password input
         Label passwordLabel = new Label();
         passwordLabel.setText("Password");
+        passwordLabel.getStyleClass().add("custom-label-colour");
         PasswordField passwordInput = new PasswordField();
         passwordInput.setMaxSize(200,5);
         //
@@ -75,6 +77,7 @@ public class LoginBox {
 
         //Buttons
         Button loginButton = new Button("Login");
+        loginButton.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
         loginButton.setOnAction(e->{
             try{
@@ -96,6 +99,7 @@ public class LoginBox {
 
         Button registerButton = new Button("Register");
         registerButton.setOnAction(e->RegisterBox.display("Register"));
+        registerButton.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
         //Layout initialization and component positioning
         VBox layout = new VBox(10);
@@ -114,6 +118,7 @@ public class LoginBox {
 
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
         window.setScene(scene);
         window.showAndWait();
