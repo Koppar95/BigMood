@@ -82,11 +82,7 @@ public class SettingsWindow extends VBox {
         }
         try {
             Configuration.parseConfig();
-        } catch (SAXException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ParserConfigurationException ex) {
+        } catch (SAXException | IOException | ParserConfigurationException ex) {
             ex.printStackTrace();
         }
         MainStage mainStage = new MainStage(currentSession,window);
