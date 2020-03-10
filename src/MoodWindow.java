@@ -74,6 +74,7 @@ public class MoodWindow extends VBox {
         Button submitMood = new Button("Submit Mood");
         submitMood.setOnAction(e -> submitMood(sadEmoji, happyEmoji, userComment));
         submitMood.setAlignment(Pos.CENTER_LEFT);
+        submitMood.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
         VBox buttonBox = new VBox();
         buttonBox.getChildren().add(submitMood);
         buttonBox.setPrefSize(500,100);
