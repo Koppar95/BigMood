@@ -64,6 +64,7 @@ public class StartWindow extends VBox {
         HBox logobox = new HBox();
         logobox.getChildren().add(logo);
         logobox.setAlignment(Pos.CENTER);
+        this.getStylesheets().add("Styles.css");
 
 
 

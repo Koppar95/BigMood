@@ -118,6 +118,9 @@
     -fx-background-color: rgba(235, 225, 163, 0.6);
 }
 
+.table-view {
+    fx-text-fill: #ffffff;
+}
 .table-row-cell:empty .table-cell{
     -fx-border-width: 0px;
 }
@@ -131,6 +134,45 @@
 
 
 .default-color0.chart-bar { -fx-bar-fill: #4d54cb }
+
+.chart {
+    -fx-padding: 10px;
+  /*  -fx-background-color: #ffffff33;*/
+    -fx-legend-visible: true;
+}
+
+.chart-content {
+    -fx-padding: 30px;
+}
+
+.chart-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 1.6em;
+}
+
+.axis{
+    -fx-tick-label-fill: #ffffff;
+}
+.axis-label {
+    -fx-text-fill: #ffffff;
+}
+
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke:#ffffff;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ffffff;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill:transparent;
+    -fx-stroke: transparent;
+}
 
 
 
