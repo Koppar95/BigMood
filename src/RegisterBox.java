@@ -158,6 +158,7 @@ public class RegisterBox {
                 usernameLabel,userInput, nameInput, datePicker,passwordLabel,
                 passwordInput, passwordLabel2,passwordInput2,nameLabel,
                 dobLabel,registerButton, warningLabel, cancelButton
+
         );
 
         window.setOnCloseRequest(e -> window.close());
