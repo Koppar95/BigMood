@@ -1,3 +1,4 @@
+import com.mongodb.MongoClientException;
 import insidefx.undecorator.Undecorator;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -75,10 +76,10 @@ public class LoginBox {
         Button loginButton = new Button("Login");
 
         loginButton.setOnAction(e->{
-            Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
-
-            int passwordInputHashed = passwordInput.getText().hashCode();
-            String userInputEmail = userInput.getText().toLowerCase();
+            try{
+                Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
+                int passwordInputHashed = passwordInput.getText().hashCode();
+                String userInputEmail = userInput.getText().toLowerCase();
 
                 if(loginCheck(user, passwordInputHashed, userInputEmail)){
                     window.close();
@@ -86,6 +87,10 @@ public class LoginBox {
                 }else{
                     errorLabel.setText("Wrong username or password");
                 }
+            }
+            catch(NullPointerException en){
+                AlertBox.display("Error","No Internet Connection");
+            }
         });
 
         Button registerButton = new Button("Register");
