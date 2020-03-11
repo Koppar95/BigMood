@@ -55,7 +55,7 @@ public class MoodHashMap {
     public static void mapWords(HashMap<String, Integer> hash, String[] array){
         for(int i=0; i < array.length; i++){
 
-            if(array[i] != null && !array[i].isEmpty()){
+            if(array[i] != null && !array[i].isEmpty()){        //checks for null and empty strings
                 if(hash.containsKey(array[i])){
                     hash.put(array[i].toLowerCase(), 1 + hash.get(array[i]));
                 } else{
