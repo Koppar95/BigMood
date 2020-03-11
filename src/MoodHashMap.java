@@ -54,10 +54,13 @@ public class MoodHashMap {
      */
     public static void mapWords(HashMap<String, Integer> hash, String[] array){
         for(int i=0; i < array.length; i++){
-            if(hash.containsKey(array[i])){
-                hash.put(array[i].toLowerCase(), 1 + hash.get(array[i]));
-            } else{
-                hash.put(array[i], 1);
+
+            if(array[i] != null && !array[i].isEmpty()){
+                if(hash.containsKey(array[i])){
+                    hash.put(array[i].toLowerCase(), 1 + hash.get(array[i]));
+                } else{
+                    hash.put(array[i], 1);
+                }
             }
         }
     }
@@ -96,7 +99,7 @@ public class MoodHashMap {
      */
     public static Map<String, Integer> filterMoodWords(Map<String, Integer> map){
 
-        String[] filterArr = {"testing", "with", "testar", "I","is", "a", "är", "i","det", "happy", "sad", "to", "because", "get"};
+        String[] filterArr = {"testing", "with", "testar", "I","is", "a", "är", "i","det", "happy", "sad", "to", "because", "get", " ", "  ", "   "};
         List <String> filterList = Arrays.asList(filterArr);
 
         map = map.entrySet().stream().filter(x-> !(filterList.contains(x.getKey()))).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
