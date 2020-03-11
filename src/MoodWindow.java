@@ -44,24 +44,6 @@ public class MoodWindow extends VBox {
         Image headline = new Image("Assets/moodHeadline.png");
         ImageView headlineView = new ImageView(headline);
 
-        TextFlow textFlow = new TextFlow();
-        textFlow.setLayoutX(40);
-        textFlow.setLayoutY(40);
-        Text text1 = new Text("How's ");
-        text1.setFont(Font.font(family, size));
-        text1.setFill(Color.RED);
-        text1.setStroke(Color.rgb(0,0,0,0.2));
-        Text text2 = new Text("Your");
-        text2.setFill(Color.ORANGE);
-        text2.setStroke(Color.rgb(0,0,0,0.2));
-        text2.setFont(Font.font(family, FontPosture.ITALIC, size));
-        Text text3 = new Text(" Mood?");
-        text3.setFill(Color.GREEN);
-        text3.setStroke(Color.rgb(0,0,0,0.2));
-        text3.setFont(Font.font(family, FontWeight.BOLD, size));
-        textFlow.getChildren().addAll(text1, text2, text3);
-        textFlow.setTextAlignment(TextAlignment.CENTER);
-
         Emoji happyEmoji = Emoji.makeHappyEmoji();
         Emoji sadEmoji = Emoji.makeSadEmoji();
 
@@ -148,7 +130,9 @@ public class MoodWindow extends VBox {
 
         if (submittedToday) {
             AlertBox.display("Nope!", "You've already submitted a mood today!");
-        } else {
+        } else if(!(happy.isGlowing || sad.isGlowing)) {
+            AlertBox.display("Nope!", "No mood selected, press happy or sad face!");
+        } else{
             Document moodSubmission = new Document();
             moodSubmission.put("User", currentSession.getCurrentUser().get("Username"));
 
@@ -159,7 +143,6 @@ public class MoodWindow extends VBox {
                 moodSubmission.put("Mood", "Sad");
                 sad.disableGlow();
             }
-
             moodSubmission.put("Comment", userinput.getText());
             moodSubmission.put("Date", getCurrentDate());
 
