@@ -92,7 +92,7 @@
 
 .custom-profile-edit-button-green {
     -fx-background-color: rgba(102, 139, 78, 0.8);
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-border-color: transparent, #668B4E;
     -fx-border-width: 1, 1;
     -fx-border-style: solid;
@@ -102,12 +102,16 @@
 
 .custom-profile-edit-button-gold {
     -fx-background-color: rgba(165, 145, 21, 0.8);
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-border-color: transparent, #a59115;
     -fx-border-width: 1, 1;
     -fx-border-style: solid;
     -fx-border-radius: 0, 0;
     -fx-border-insets: 1 1 1 1, 0;
+}
+
+.custom-label-colour{
+    -fx-text-fill: white;
 }
 
 .custom-profile-edit-button-green:hover {
@@ -118,7 +122,10 @@
     -fx-background-color: rgba(235, 225, 163, 0.6);
 }
 
-.table-row-cell: empty .table-cell{
+.table-view {
+    fx-text-fill: #ffffff;
+}
+.table-row-cell:empty .table-cell{
     -fx-border-width: 0px;
 }
 
@@ -131,6 +138,45 @@
 
 
 .default-color0.chart-bar { -fx-bar-fill: #4d54cb }
+
+.chart {
+    -fx-padding: 10px;
+  /*  -fx-background-color: #ffffff33;*/
+    -fx-legend-visible: true;
+}
+
+.chart-content {
+    -fx-padding: 30px;
+}
+
+.chart-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 1.6em;
+}
+
+.axis{
+    -fx-tick-label-fill: #ffffff;
+}
+.axis-label {
+    -fx-text-fill: #ffffff;
+}
+
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke:#ffffff;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #ffffff;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill:transparent;
+    -fx-stroke: transparent;
+}
 
 
 

@@ -1,3 +1,5 @@
+import com.mongodb.MongoClientException;
+import com.mongodb.MongoSocketOpenException;
 import insidefx.undecorator.Undecorator;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -55,6 +57,7 @@ public class LoginBox {
         //User input
         Label userLabel = new Label();
         userLabel.setText("Username");
+        userLabel.getStyleClass().add("custom-label-colour");
         TextField userInput = new TextField();
         userInput.setMaxSize(200,5);
         //
@@ -62,6 +65,7 @@ public class LoginBox {
         //Password input
         Label passwordLabel = new Label();
         passwordLabel.setText("Password");
+        passwordLabel.getStyleClass().add("custom-label-colour");
         PasswordField passwordInput = new PasswordField();
         passwordInput.setMaxSize(200,5);
         //
@@ -73,12 +77,13 @@ public class LoginBox {
 
         //Buttons
         Button loginButton = new Button("Login");
+        loginButton.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
         loginButton.setOnAction(e->{
-            Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
-
-            int passwordInputHashed = passwordInput.getText().hashCode();
-            String userInputEmail = userInput.getText().toLowerCase();
+            try{
+                Document user = Main.userConn.getDocument("Username",userInput.getText().toLowerCase());
+                int passwordInputHashed = passwordInput.getText().hashCode();
+                String userInputEmail = userInput.getText().toLowerCase();
 
                 if(loginCheck(user, passwordInputHashed, userInputEmail)){
                     window.close();
@@ -86,10 +91,15 @@ public class LoginBox {
                 }else{
                     errorLabel.setText("Wrong username or password");
                 }
+            }
+            catch(NullPointerException | MongoSocketOpenException en){
+                AlertBox.display("Error","No Internet Connection");
+            }
         });
 
         Button registerButton = new Button("Register");
         registerButton.setOnAction(e->RegisterBox.display("Register"));
+        registerButton.getStyleClass().add("custom-profile-edit-button-"+Configuration.color);
 
         //Layout initialization and component positioning
         VBox layout = new VBox(10);
@@ -108,6 +118,7 @@ public class LoginBox {
 
         Scene scene = new Scene(undecorator);
         scene.setFill(Color.TRANSPARENT);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
         window.setScene(scene);
         window.showAndWait();

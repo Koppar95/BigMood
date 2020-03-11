@@ -48,7 +48,7 @@ public class StartWindow extends VBox {
         textFlow.setLayoutY(40);
         Text text1 = new Text("Welcome " + currentSession.currentUser.get("Name").toString() + "!");
         text1.setFont(Font.font(family, size));
-        text1.setFill(Color.DARKGREEN);
+        text1.setFill(Color.WHITE);
         text1.setStroke(Color.rgb(0,0,0,0.2));
         textFlow.getChildren().addAll(text1);
         textFlow.setTextAlignment(TextAlignment.CENTER);
@@ -64,6 +64,7 @@ public class StartWindow extends VBox {
         HBox logobox = new HBox();
         logobox.getChildren().add(logo);
         logobox.setAlignment(Pos.CENTER);
+        this.getStylesheets().add("Styles.css");
 
 
 

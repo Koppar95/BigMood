@@ -82,11 +82,7 @@ public class SettingsWindow extends VBox {
         }
         try {
             Configuration.parseConfig();
-        } catch (SAXException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ParserConfigurationException ex) {
+        } catch (SAXException | IOException | ParserConfigurationException ex) {
             ex.printStackTrace();
         }
         MainStage mainStage = new MainStage(currentSession,window);
@@ -107,6 +103,7 @@ public class SettingsWindow extends VBox {
 
         Label colorLbl = new Label("Color Scheme:");
         colorLbl.setMinWidth(minWidth);
+        colorLbl.getStyleClass().add("custom-label-colour");
 
         Button changeColorGold = new Button();
         changeColorGold.getStyleClass().add("custom-profile-edit-button-gold");
@@ -196,6 +193,7 @@ public class SettingsWindow extends VBox {
 
         Label nameLbl = new Label("Name:");
         nameLbl.setMinWidth(minWidth);
+        nameLbl.getStyleClass().add("custom-label-colour");
 
         TextField name = new TextField();
         name.setPromptText(usersName);
@@ -247,10 +245,13 @@ public class SettingsWindow extends VBox {
 
             Label currentPassword = new Label("Current password");
             currentPassword.setMinWidth(minWidth);
+            currentPassword.getStyleClass().add("custom-label-colour");
             Label newPassword = new Label("New password");
             newPassword.setMinWidth(minWidth);
+            newPassword.getStyleClass().add("custom-label-colour");
             Label matchPassword = new Label("Enter password again");
             matchPassword.setMinWidth(minWidth);
+            matchPassword.getStyleClass().add("custom-label-colour");
             Label placeholderLabel = new Label();
             placeholderLabel.setMinWidth(minWidth);
             Label placeholderLabel2 = new Label();
