@@ -46,7 +46,7 @@ public class StartWindow extends VBox {
         TextFlow textFlow = new TextFlow();
         textFlow.setLayoutX(40);
         textFlow.setLayoutY(40);
-        Text text1 = new Text("Welcome " + currentSession.currentUser.get("Name").toString() + "!");
+        Text text1 = new Text("Welcome " + currentSession.getCurrentUser().get("Name").toString() + "!");
         text1.setFont(Font.font(family, size));
         text1.setFill(Color.WHITE);
         text1.setStroke(Color.rgb(0,0,0,0.2));
@@ -68,7 +68,7 @@ public class StartWindow extends VBox {
 
 
 
-        LineChart weeklyAverage = Chart.makeLineChart("Your Weekly Mood", currentSession.currentUser.get("Username").toString());
+        LineChart weeklyAverage = Chart.makeLineChart("Your Weekly Mood", currentSession.getCurrentUser().get("Username").toString());
 
         HBox moodCharts = new HBox();
         moodCharts.getChildren().add(weeklyAverage);
