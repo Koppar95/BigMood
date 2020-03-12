@@ -9,7 +9,7 @@ public class Session {
     /**
      * Document representing current user.
      */
-    public Document currentUser;
+    private Document currentUser;
 
     /**
      * Creates a Session.
